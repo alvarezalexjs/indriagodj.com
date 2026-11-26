@@ -171,6 +171,24 @@
   .socials svg{width:22px;height:22px}
   .nav ul .menu-soc{display:none}
   footer{align-items:center}
+  /* mini reproductor "Radio Show" (fijo, abajo a la izquierda) */
+  .radio{position:fixed;left:var(--gut);bottom:18px;z-index:60;display:flex;align-items:center;gap:12px;padding:7px 14px 7px 7px;border:1px solid var(--line);border-radius:999px;background:rgba(11,11,11,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);transition:color .3s,border-color .3s}
+  .radio.on{color:var(--paper);border-color:rgba(237,237,235,.3)}
+  .radio button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(237,237,235,.4);background:none;color:var(--paper);display:grid;place-items:center;cursor:pointer;flex:none;transition:background .2s,color .2s}
+  .radio button:hover{background:var(--paper);color:var(--ink)}
+  .radio button:focus-visible,.radio input:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+  .radio svg{width:12px;height:12px;fill:currentColor}
+  .radio .pa{display:none}.radio.on .pl{display:none}.radio.on .pa{display:block}
+  .radio .eq{display:inline-flex;gap:2px;align-items:flex-end;height:10px;margin-right:-4px;width:0;opacity:0;overflow:hidden;transition:opacity .3s,width .3s}
+  .radio .eq i{width:2px;background:currentColor;height:3px;flex:none}
+  .radio.on .eq{opacity:1;width:10px}.radio.on .eq i{animation:eq .9s ease-in-out infinite}
+  .radio.on .eq i:nth-child(2){animation-delay:.2s}.radio.on .eq i:nth-child(3){animation-delay:.4s}
+  @keyframes eq{0%,100%{height:3px}50%{height:10px}}
+  .radio input{-webkit-appearance:none;appearance:none;width:64px;height:2px;background:linear-gradient(90deg,var(--paper) var(--v,50%),rgba(237,237,235,.25) var(--v,50%));border-radius:2px;cursor:pointer}
+  .radio input::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:var(--paper);border:0}
+  .radio input::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:var(--paper);border:0}
+  .radio iframe{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;border:0;left:0;top:0}
+  @media (max-width:520px){.radio{bottom:12px;gap:10px}.radio input{width:48px}}
   footer{border-top:1px solid var(--line);padding:28px var(--gut);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
   footer .logo{font-family:var(--fd);font-weight:700;font-size:15px;letter-spacing:.02em;color:var(--paper)}
 
@@ -344,6 +362,14 @@
   <a href="#top" data-i18n="backTop"></a>
 </footer>
 
+<!-- mini reproductor: el set de SoundCloud suena aquí (sin portada ni datos) -->
+<div class="radio" id="radio">
+  <button id="rPlay" type="button"><svg class="pl" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2v9.6L10.5 6z"/></svg><svg class="pa" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z"/></svg></button>
+  <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span>INDRIAGO - Radio Show</span>
+  <input type="range" id="rVol" min="0" max="100" step="1" value="50">
+</div>
+
 <div class="lightbox" id="lb" role="dialog" aria-modal="true"><img alt=""><button>×</button></div>
 
 <script>
@@ -374,7 +400,10 @@ var SITE = {
 
   // Reproductor: pega la URL "embed" de SoundCloud, Mixcloud, Spotify o YouTube.
   // Ej. SoundCloud: https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/USUARIO&color=%23111111&visual=true
-  playerEmbed: "https://www.youtube-nocookie.com/embed/NteZxunLYSQ?rel=0&modestbranding=1&playsinline=1",
+  playerEmbed: "https://www.youtube-nocookie.com/embed/NteZxunLYSQ?rel=0&modestbranding=1&playsinline=1&enablejsapi=1",
+  // Mini reproductor "Radio Show" (abajo a la izquierda): tema de SoundCloud y volumen inicial (0-100)
+  radioTrack: "https://soundcloud.com/argenis_indriago/indriago-after-locker-bcn-2026",
+  radioVolume: 50,
   platforms: [
     ["SoundCloud", "https://soundcloud.com/argenis_indriago"],
     ["YouTube", "https://www.youtube.com/@indriagodj"]
@@ -420,7 +449,7 @@ var UI = {
     lastSet: "Latest set", playerSoon: "The SoundCloud / Mixcloud / YouTube player goes here.",
     tbd: "Placeholder", pending: "Pending", backTop: "Back to top ↑",
     menuOpen: "Open menu", close: "Close", prev: "Previous photo", next: "Next photo", gallery: "Photo gallery", photo: "Enlarged photo", player: "Player",
-    langLabel: "Cambiar a español", other: "es",
+    langLabel: "Cambiar a español", other: "es", play: "Play radio show", pause: "Pause radio show", volume: "Volume",
     altHero: "Black and white portrait of Indriago wearing glasses", altSeated: "Indriago seated, black and white portrait", altStairs: "Indriago on a staircase",
     months: ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"],
     title: "Indriago — DJ / Producer", desc: "Official website of Indriago, DJ and producer. Music, tour dates, gallery and booking."
@@ -432,7 +461,7 @@ var UI = {
     lastSet: "Último set", playerSoon: "Aquí irá el reproductor de SoundCloud / Mixcloud / YouTube.",
     tbd: "Provisional", pending: "Pendiente", backTop: "Volver arriba ↑",
     menuOpen: "Abrir menú", close: "Cerrar", prev: "Foto anterior", next: "Foto siguiente", gallery: "Galería de fotos", photo: "Foto ampliada", player: "Reproductor",
-    langLabel: "Switch to English", other: "en",
+    langLabel: "Switch to English", other: "en", play: "Reproducir radio show", pause: "Pausar radio show", volume: "Volumen",
     altHero: "Retrato de Indriago con gafas en blanco y negro", altSeated: "Indriago sentado, retrato en blanco y negro", altStairs: "Indriago en una escalera",
     months: ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"],
     title: "Indriago — DJ / Productor", desc: "Web oficial de Indriago, DJ y productor. Música, fechas, galería y booking."
@@ -472,8 +501,9 @@ var UI = {
     $("#bioText").innerHTML = T(SITE.bio).map(function(p,i){return "<p>"+esc(p)+(i===0&&SITE.bioPendiente?TBD:"")+"</p>"}).join("");
 
     $("#player").classList.toggle("video", /youtube/.test(SITE.playerEmbed));
-    $("#player").innerHTML = SITE.playerEmbed
-      ? '<iframe src="'+esc(SITE.playerEmbed)+'" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="'+ui.player+'"></iframe>'
+    var pl = $("#player"), plf = pl.querySelector("iframe");
+    if (plf) plf.title = ui.player; else pl.innerHTML = SITE.playerEmbed
+      ? '<iframe id="ytFrame" src="'+esc(SITE.playerEmbed + (/youtube/.test(SITE.playerEmbed) ? "&origin=" + encodeURIComponent(location.origin) : ""))+'" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="'+ui.player+'"></iframe>'
       : '<div class="empty"><span class="display">'+ui.lastSet+'</span><span>'+ui.playerSoon+'</span><span class="tbd" style="justify-self:center">'+ui.pending+'</span></div>';
     $("#platforms").innerHTML = SITE.platforms.map(function(p){return '<li><a href="'+esc(p[1])+'"'+ext(p[1])+'>'+esc(p[0])+'</a></li>'}).join("")
       + (SITE.platformsPendiente ? '<li style="padding-top:12px">'+TBD+'</li>' : '');
@@ -503,6 +533,8 @@ var UI = {
     lb.setAttribute("aria-label", ui.langLabel); lb.title = ui.langLabel;
     lb.querySelectorAll("[data-l]").forEach(function(s){ s.className = s.dataset.l===lang ? "on" : "off" });
     $("#burger").setAttribute("aria-label", ui.menuOpen);
+    $("#rVol").setAttribute("aria-label", ui.volume);
+    $("#rPlay").setAttribute("aria-label", $("#radio").classList.contains("on") ? ui.pause : ui.play);
     $("#prev").setAttribute("aria-label", ui.prev); $("#next").setAttribute("aria-label", ui.next); $("#carousel").setAttribute("aria-label", ui.gallery);
     $("#lb").setAttribute("aria-label", ui.photo); $("#lb button").setAttribute("aria-label", ui.close);
   }
@@ -567,6 +599,46 @@ var UI = {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches || (c && c.saveData)) { v.parentNode.removeChild(v); return }
     v.addEventListener("loadeddata", function(){ v.parentNode.classList.add("playing") }, { once: true });
     v.preload = "auto"; v.load();
+  })();
+
+  // ---- mini reproductor Radio Show + YouTube: nunca suenan los dos a la vez ----
+  (function(){
+    var box = $("#radio"), btn = $("#rPlay"), vol = $("#rVol");
+    var widget = null, ready = false, wantPlay = false, yt = null;
+    vol.value = SITE.radioVolume; vol.style.setProperty("--v", vol.value + "%");
+    function ui(on){ box.classList.toggle("on", on); btn.setAttribute("aria-label", on ? UI[lang].pause : UI[lang].play) }
+    function load(src, cb){ var s = document.createElement("script"); s.src = src; s.async = true; if (cb) s.onload = cb; document.head.appendChild(s) }
+    var started = false;
+    function startSC(){
+      if (started) return; started = true;
+      var f = document.createElement("iframe");
+      f.allow = "autoplay"; f.title = "SoundCloud"; f.tabIndex = -1; f.setAttribute("aria-hidden", "true");
+      f.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(SITE.radioTrack) + "&auto_play=false&show_artwork=false&visual=false&buying=false&sharing=false&download=false&show_comments=false&show_user=false";
+      box.appendChild(f);
+      load("https://w.soundcloud.com/player/api.js", function(){
+        widget = SC.Widget(f); var E = SC.Widget.Events;
+        widget.bind(E.READY, function(){ ready = true; widget.setVolume(+vol.value); if (wantPlay) widget.play() });
+        widget.bind(E.PLAY, function(){ ui(true); if (yt && yt.pauseVideo) yt.pauseVideo() });
+        widget.bind(E.PAUSE, function(){ ui(false) });
+        widget.bind(E.FINISH, function(){ ui(false) });
+      });
+    }
+    btn.addEventListener("click", function(){
+      if (!ready) { wantPlay = !wantPlay; ui(wantPlay); startSC(); return }
+      widget.isPaused(function(p){ p ? widget.play() : widget.pause() });
+    });
+    vol.addEventListener("input", function(){ vol.style.setProperty("--v", vol.value + "%"); if (ready) widget.setVolume(+vol.value) });
+    // el reproductor de SoundCloud se prepara cuando la página ya cargó (no frena la portada)
+    if (document.readyState === "complete") setTimeout(startSC, 1500);
+    else addEventListener("load", function(){ setTimeout(startSC, 1500) });
+    // YouTube: si alguien reproduce el video, la radio se pausa (y se vuelve a escuchar con Play)
+    var ytf = document.getElementById("ytFrame");
+    if (ytf) {
+      window.onYouTubeIframeAPIReady = function(){
+        yt = new YT.Player(ytf, { events: { onStateChange: function(e){ if (e.data === 1) { wantPlay = false; if (ready) widget.pause(); ui(false) } } } });
+      };
+      load("https://www.youtube.com/iframe_api");
+    }
   })();
 
   $$(".gallery button").forEach(function(b){ b.addEventListener("click", function(){ lbx.querySelector("img").src=b.dataset.full; lbx.classList.add("open") }) });
