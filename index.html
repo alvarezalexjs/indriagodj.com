@@ -230,7 +230,6 @@
       <a class="btn solid" href="#booking" data-i18n="navBooking"></a>
     </div>
   </main>
-  <div class="ticker" aria-hidden="true"><div class="track" data-ticker="ticker"></div></div>
 </section>
 
 <!-- 01 BIO -->
@@ -319,10 +318,6 @@
    ===================================================================== */
 var SITE = {
   role:       { en: "DJ / Producer",    es: "DJ / Productor" },
-  ticker: {
-    en: ["Indriago", "DJ / Producer", "Bookings open", "indriagodj.com"],
-    es: ["Indriago", "DJ / Productor", "Booking abierto", "indriagodj.com"]
-  },
   bigTicker: { en: ["Indriago", "On tour", "Indriago", "Live sets"], es: ["Indriago", "On tour", "Indriago", "Live sets"] },
 
   bio: {                                                               // PROVISIONAL: biografía
@@ -534,8 +529,7 @@ var UI = {
   gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: .6, pin: true } })
     .fromTo(".hero .photo", { scale: 1, filter: "brightness(1)" }, { scale: 1.3, filter: "brightness(.35)", ease: "none" }, 0)
     .to(".hero h1", { scale: 1.7, transformOrigin: "0% 60%", ease: "none" }, 0)
-    .to(".hero .role, .hero .cta", { opacity: 0, y: -30, ease: "none" }, 0)
-    .to(".hero .ticker", { yPercent: 100, opacity: 0, ease: "none" }, 0);
+    .to(".hero .role, .hero .cta", { opacity: 0, y: -30, ease: "none" }, 0);
 
   // títulos que crecen al entrar
   U(".block h2").forEach(function(h){
