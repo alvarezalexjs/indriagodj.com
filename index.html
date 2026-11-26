@@ -1,16 +1,18 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Indriago — DJ / Productor</title>
-<meta name="description" content="Web oficial de Indriago, DJ y productor. Música, fechas, galería y booking.">
+<title>Indriago — DJ / Producer</title>
+<meta name="description" content="Official website of Indriago, DJ and producer. Music, tour dates, gallery and booking.">
 <link rel="canonical" href="https://indriagodj.com/">
-<meta property="og:title" content="Indriago — DJ / Productor">
-<meta property="og:description" content="Web oficial de Indriago. Música, fechas y booking.">
+<meta property="og:title" content="Indriago — DJ / Producer">
+<meta property="og:description" content="Official website of Indriago. Music, tour dates and booking.">
 <meta property="og:image" content="https://indriagodj.com/assets/og.jpg">
 <meta property="og:url" content="https://indriagodj.com/">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#111111">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +52,7 @@
   .nav ul a{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;opacity:.8;transition:opacity .2s}
   .nav ul a:hover,.nav ul a.on{opacity:1}
   .nav ul a span{font-family:var(--fm);color:var(--mid);margin-right:6px;font-weight:400}
+  .nav ul a b{font-weight:inherit}
   .burger{display:none;background:none;border:0;color:inherit;width:40px;height:40px;cursor:pointer;position:relative}
   .burger i{position:absolute;left:9px;right:9px;height:2px;background:currentColor;transition:transform .25s,opacity .25s}
   .burger i:nth-child(1){top:13px}.burger i:nth-child(2){top:19px}.burger i:nth-child(3){top:25px}
@@ -187,34 +190,50 @@
     .stats div+div{padding-left:12px}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+  /* botón de idioma (esfera del mundo) */
+  .nav .right{display:flex;align-items:center;gap:18px}
+  .lang{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid rgba(237,237,235,.35);color:inherit;border-radius:999px;padding:6px 12px 6px 7px;cursor:pointer;font-family:var(--fm);font-size:12px;letter-spacing:.08em;transition:background .2s,color .2s,border-color .2s;z-index:2}
+  .lang:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .lang:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+  .lang svg{width:22px;height:22px;flex:none;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .lang:hover svg{transform:rotate(180deg)}
+  .lang .on{color:inherit;font-weight:700}
+  .lang .off{opacity:.45}
+  .lang:hover .off{opacity:.6}
 </style>
 </head>
 <body>
 
 <header class="nav" id="nav">
   <a class="logo" href="#top">Indriago</a>
-  <nav>
-    <ul id="menu">
-      <li><a href="#bio"><span>01</span>Bio</a></li>
-      <li><a href="#musica"><span>02</span>Música</a></li>
-      <li><a href="#fechas"><span>03</span>Fechas</a></li>
-      <li><a href="#galeria"><span>04</span>Galería</a></li>
-      <li><a href="#booking"><span>05</span>Booking</a></li>
-    </ul>
-  </nav>
-  <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><i></i><i></i><i></i></button>
+  <div class="right">
+    <nav>
+      <ul id="menu">
+        <li><a href="#bio"><span>01</span><b data-i18n="navBio"></b></a></li>
+        <li><a href="#music"><span>02</span><b data-i18n="navMusic"></b></a></li>
+        <li><a href="#dates"><span>03</span><b data-i18n="navDates"></b></a></li>
+        <li><a href="#gallery"><span>04</span><b data-i18n="navGallery"></b></a></li>
+        <li><a href="#booking"><span>05</span><b data-i18n="navBooking"></b></a></li>
+      </ul>
+    </nav>
+    <button class="lang" id="lang" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4.2" ry="10"/><path d="M2 12h20M4 6.5h16M4 17.5h16"/></svg>
+      <span><span data-l="en">EN</span> / <span data-l="es">ES</span></span>
+    </button>
+    <button class="burger" id="burger" aria-expanded="false"><i></i><i></i><i></i></button>
+  </div>
 </header>
 
 <section class="hero" id="top">
-  <div class="photo"><img src="assets/hero.jpg" alt="Retrato de Indriago en blanco y negro" fetchpriority="high"></div>
+  <div class="photo"><img src="assets/hero.jpg" data-i18n-alt="altHero" alt="" fetchpriority="high"></div>
   <main>
     <div class="eyebrow" data-k="heroKicker"></div>
     <h1 class="display">Indriago</h1>
-    <div class="role" data-k="heroRole"></div>
+    <div class="role" data-k="role"></div>
     <div class="cta">
-      <a class="btn solid" href="#musica">Escuchar</a>
-      <a class="btn" href="#fechas">Fechas</a>
-      <a class="btn" href="#booking">Booking</a>
+      <a class="btn solid" href="#music" data-i18n="ctaListen"></a>
+      <a class="btn" href="#dates" data-i18n="navDates"></a>
+      <a class="btn" href="#booking" data-i18n="navBooking"></a>
     </div>
   </main>
   <div class="scroll" aria-hidden="true">Scroll</div>
@@ -224,10 +243,10 @@
 <!-- 01 BIO -->
 <section class="block" id="bio">
   <div class="wrap">
-    <div class="eyebrow reveal"><b>01</b> Bio</div>
-    <h2 class="display reveal">Sobre <em>Indriago</em></h2>
+    <div class="eyebrow reveal"><b>01</b> <span data-i18n="navBio"></span></div>
+    <h2 class="display reveal" data-i18n-html="bioTitle"></h2>
     <div class="bio">
-      <figure class="reveal"><img src="assets/sentado.jpg" alt="Indriago sentado, retrato en blanco y negro" loading="lazy"><figcaption>Indriago · DJ / Productor</figcaption></figure>
+      <figure class="reveal"><img src="assets/sentado.jpg" data-i18n-alt="altSeated" alt="" loading="lazy"><figcaption>Indriago · <span data-k="role"></span></figcaption></figure>
       <div class="text reveal">
         <div class="tags" id="tags"></div>
         <div id="bioText"></div>
@@ -237,11 +256,11 @@
   </div>
 </section>
 
-<!-- 02 MÚSICA -->
-<section class="block music" id="musica">
+<!-- 02 MUSIC -->
+<section class="block music" id="music">
   <div class="wrap">
-    <div class="eyebrow reveal"><b>02</b> Música</div>
-    <h2 class="display reveal">Sets <em>&amp;</em> música</h2>
+    <div class="eyebrow reveal"><b>02</b> <span data-i18n="navMusic"></span></div>
+    <h2 class="display reveal" data-i18n-html="musicTitle"></h2>
     <div class="music-grid">
       <div class="player reveal" id="player"></div>
       <ul class="platforms reveal" id="platforms"></ul>
@@ -249,31 +268,31 @@
   </div>
 </section>
 
-<!-- 03 FECHAS -->
-<section class="block dates" id="fechas">
+<!-- 03 DATES -->
+<section class="block dates" id="dates">
   <div class="wrap">
-    <div class="eyebrow reveal"><b>03</b> Fechas</div>
+    <div class="eyebrow reveal"><b>03</b> <span data-i18n="navDates"></span></div>
     <h2 class="display reveal">Tour <em>dates</em></h2>
-    <h3 class="reveal">Próximas</h3>
+    <h3 class="reveal" data-i18n="upcoming"></h3>
     <div id="upcoming"></div>
-    <h3 class="reveal">Recientes</h3>
+    <h3 class="reveal" data-i18n="past"></h3>
     <div id="past"></div>
   </div>
 </section>
 
 <div class="ticker big" aria-hidden="true"><div class="track" data-ticker="bigTicker"></div></div>
 
-<!-- 04 GALERÍA -->
-<section class="block" id="galeria">
+<!-- 04 GALLERY -->
+<section class="block" id="gallery">
   <div class="wrap">
-    <div class="eyebrow reveal"><b>04</b> Galería</div>
-    <h2 class="display reveal">Galería</h2>
+    <div class="eyebrow reveal"><b>04</b> <span data-i18n="navGallery"></span></div>
+    <h2 class="display reveal" data-i18n="navGallery"></h2>
     <div class="gallery reveal">
-      <button class="g1" data-full="assets/escalera.jpg"><img src="assets/escalera.jpg" alt="Indriago en una escalera" loading="lazy"></button>
-      <button class="g2" data-full="assets/hero.jpg"><img src="assets/hero.jpg" alt="Retrato de Indriago con gafas" loading="lazy"></button>
+      <button class="g1" data-full="assets/escalera.jpg"><img src="assets/escalera.jpg" data-i18n-alt="altStairs" alt="" loading="lazy"></button>
+      <button class="g2" data-full="assets/hero.jpg"><img src="assets/hero.jpg" data-i18n-alt="altHero" alt="" loading="lazy"></button>
       <div class="g3">
-        <button data-full="assets/sentado.jpg"><img src="assets/sentado-detalle.jpg" alt="Detalle de Indriago sentado" loading="lazy"></button>
-        <button data-full="assets/escalera.jpg"><img src="assets/escalera-detalle.jpg" alt="Detalle de Indriago en la escalera" loading="lazy"></button>
+        <button data-full="assets/sentado.jpg"><img src="assets/sentado-detalle.jpg" data-i18n-alt="altSeated" alt="" loading="lazy"></button>
+        <button data-full="assets/escalera.jpg"><img src="assets/escalera-detalle.jpg" data-i18n-alt="altStairs" alt="" loading="lazy"></button>
       </div>
     </div>
   </div>
@@ -293,32 +312,45 @@
 
 <footer>
   <span class="logo">Indriago</span>
-  <span>© <span id="y">2026</span> Indriago · DJ / Productor</span>
-  <a href="#top">Volver arriba ↑</a>
+  <span>© <span id="y">2026</span> Indriago · <span data-k="role"></span></span>
+  <a href="#top" data-i18n="backTop"></a>
 </footer>
 
-<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada"><img alt=""><button aria-label="Cerrar">×</button></div>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true"><img alt=""><button>×</button></div>
 
 <script>
 /* =====================================================================
    ====== EDITA AQUÍ ====== Todo el contenido de la web está aquí.
-   Lo marcado con  pendiente:true  se muestra con una etiqueta
-   "Provisional" hasta que pongas el dato real.
+   Cada texto tiene versión en inglés (en) y español (es).
+   La web abre en inglés; el botón del mundo cambia a español.
+   Lo marcado con  pendiente:true  muestra una etiqueta "Provisional"
+   hasta que pongas el dato real.
    ===================================================================== */
 var SITE = {
-  heroKicker: "Web oficial",
-  heroRole: "DJ / Productor",
-  ticker: ["Indriago", "DJ / Productor", "Booking abierto", "indriagodj.com"],
-  bigTicker: ["Indriago", "On tour", "Indriago", "Live sets"],
+  heroKicker: { en: "Official website", es: "Web oficial" },
+  role:       { en: "DJ / Producer",    es: "DJ / Productor" },
+  ticker: {
+    en: ["Indriago", "DJ / Producer", "Bookings open", "indriagodj.com"],
+    es: ["Indriago", "DJ / Productor", "Booking abierto", "indriagodj.com"]
+  },
+  bigTicker: { en: ["Indriago", "On tour", "Indriago", "Live sets"], es: ["Indriago", "On tour", "Indriago", "Live sets"] },
 
-  tags: ["House", "Tech House", "Open format", "Venezuela"],          // PROVISIONAL: géneros / origen
-  bio: [                                                               // PROVISIONAL: biografía
-    "Texto provisional: aquí va una frase potente que presente a Indriago y su sonido.",
-    "Segundo párrafo provisional: trayectoria, clubes y ciudades donde ha tocado, y los momentos clave de su carrera.",
-    "Tercer párrafo provisional: estilo musical, influencias y lo que el público puede esperar de sus sets."
-  ],
+  tags: { en: ["House", "Tech House", "Open format", "Venezuela"],      // PROVISIONAL: géneros / origen
+          es: ["House", "Tech House", "Open format", "Venezuela"] },
+  bio: {                                                               // PROVISIONAL: biografía
+    en: [
+      "Placeholder: a strong opening line introducing Indriago and his sound.",
+      "Second placeholder paragraph: career path, clubs and cities he has played, and key moments.",
+      "Third placeholder paragraph: musical style, influences and what the crowd can expect from his sets."
+    ],
+    es: [
+      "Texto provisional: aquí va una frase potente que presente a Indriago y su sonido.",
+      "Segundo párrafo provisional: trayectoria, clubes y ciudades donde ha tocado, y los momentos clave de su carrera.",
+      "Tercer párrafo provisional: estilo musical, influencias y lo que el público puede esperar de sus sets."
+    ]
+  },
   bioPendiente: true,
-  stats: [ ["10+", "Años"], ["100+", "Shows"], ["5", "Países"] ],      // PROVISIONAL: cifras
+  stats: [ ["10+", { en: "Years", es: "Años" }], ["100+", { en: "Shows", es: "Shows" }], ["5", { en: "Countries", es: "Países" }] ], // PROVISIONAL
   statsPendiente: true,
 
   // Reproductor: pega la URL "embed" de SoundCloud, Mixcloud, Spotify o YouTube.
@@ -333,22 +365,26 @@ var SITE = {
   platformsPendiente: true,
 
   // Fechas: [fecha "AAAA-MM-DD", ciudad, país, club/evento, enlace entradas]
+  // (ciudad, país y club se escriben una sola vez; si quieres traducirlos usa { en: "...", es: "..." })
   upcoming: [                                                          // PROVISIONAL
-    ["2026-12-20", "Ciudad", "País", "Club / evento por anunciar", "#"],
-    ["2027-01-10", "Ciudad", "País", "Club / evento por anunciar", "#"]
+    ["2026-12-20", { en: "City", es: "Ciudad" }, { en: "Country", es: "País" }, { en: "Club / event TBA", es: "Club / evento por anunciar" }, "#"],
+    ["2027-01-10", { en: "City", es: "Ciudad" }, { en: "Country", es: "País" }, { en: "Club / event TBA", es: "Club / evento por anunciar" }, "#"]
   ],
   past: [                                                              // PROVISIONAL
-    ["2026-10-31", "Ciudad", "País", "Club / evento", ""],
-    ["2026-09-14", "Ciudad", "País", "Club / evento", ""]
+    ["2026-10-31", { en: "City", es: "Ciudad" }, { en: "Country", es: "País" }, { en: "Club / event", es: "Club / evento" }, ""],
+    ["2026-09-14", { en: "City", es: "Ciudad" }, { en: "Country", es: "País" }, { en: "Club / event", es: "Club / evento" }, ""]
   ],
   datesPendiente: true,
 
-  bookingLead: "Para contrataciones, festivales, clubes y eventos privados, escríbenos y te respondemos lo antes posible.",
+  bookingLead: {
+    en: "For club nights, festivals and private events, get in touch and we will get back to you as soon as possible.",
+    es: "Para contrataciones, festivales, clubes y eventos privados, escríbenos y te respondemos lo antes posible."
+  },
   email: "booking@indriagodj.com",                                    // PROVISIONAL
   contacts: [                                                          // PROVISIONAL
     ["Booking", "booking@indriagodj.com", "mailto:booking@indriagodj.com"],
-    ["Management", "Por confirmar", ""],
-    ["Prensa", "Por confirmar", ""]
+    ["Management", { en: "TBC", es: "Por confirmar" }, ""],
+    [{ en: "Press", es: "Prensa" }, { en: "TBC", es: "Por confirmar" }, ""]
   ],
   socials: [                                                           // PROVISIONAL
     ["Instagram", "https://instagram.com/indriago"],
@@ -358,45 +394,97 @@ var SITE = {
   ],
   contactPendiente: true
 };
+
+/* Textos fijos de la interfaz (menú, botones, títulos) */
+var UI = {
+  en: {
+    navBio: "Bio", navMusic: "Music", navDates: "Dates", navGallery: "Gallery", navBooking: "Booking",
+    ctaListen: "Listen", bioTitle: "About <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> music",
+    upcoming: "Upcoming", past: "Recent", tickets: "Tickets", noDates: "New dates coming soon.",
+    lastSet: "Latest set", playerSoon: "The SoundCloud / Mixcloud / YouTube player goes here.",
+    tbd: "Placeholder", pending: "Pending", backTop: "Back to top ↑",
+    menuOpen: "Open menu", close: "Close", photo: "Enlarged photo", player: "Player",
+    langLabel: "Cambiar a español", other: "es",
+    altHero: "Black and white portrait of Indriago wearing glasses", altSeated: "Indriago seated, black and white portrait", altStairs: "Indriago on a staircase",
+    months: ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"],
+    title: "Indriago — DJ / Producer", desc: "Official website of Indriago, DJ and producer. Music, tour dates, gallery and booking."
+  },
+  es: {
+    navBio: "Bio", navMusic: "Música", navDates: "Fechas", navGallery: "Galería", navBooking: "Booking",
+    ctaListen: "Escuchar", bioTitle: "Sobre <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> música",
+    upcoming: "Próximas", past: "Recientes", tickets: "Entradas", noDates: "Nuevas fechas muy pronto.",
+    lastSet: "Último set", playerSoon: "Aquí irá el reproductor de SoundCloud / Mixcloud / YouTube.",
+    tbd: "Provisional", pending: "Pendiente", backTop: "Volver arriba ↑",
+    menuOpen: "Abrir menú", close: "Cerrar", photo: "Foto ampliada", player: "Reproductor",
+    langLabel: "Switch to English", other: "en",
+    altHero: "Retrato de Indriago con gafas en blanco y negro", altSeated: "Indriago sentado, retrato en blanco y negro", altStairs: "Indriago en una escalera",
+    months: ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"],
+    title: "Indriago — DJ / Productor", desc: "Web oficial de Indriago, DJ y productor. Música, fechas, galería y booking."
+  }
+};
 /* ===================================================================== */
 
 (function(){
   var $ = function(s){return document.querySelector(s)};
+  var $$ = function(s){return document.querySelectorAll(s)};
   var esc = function(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
-  var TBD = ' <span class="tbd">Provisional</span>';
   var ext = function(u){return /^https?:/.test(u) ? ' target="_blank" rel="noopener"' : ''};
+  var lang = "en";
+  var T = function(v){ return (v && typeof v === "object" && !Array.isArray(v)) ? (v[lang] != null ? v[lang] : v.en) : v };
 
-  document.querySelectorAll("[data-k]").forEach(function(el){ el.textContent = SITE[el.dataset.k] || "" });
-  document.querySelectorAll("[data-ticker]").forEach(function(el){
-    var h="", list=SITE[el.dataset.ticker]; for(var i=0;i<6;i++) list.forEach(function(p){h+="<span>"+esc(p)+"</span>"}); el.innerHTML=h;
-  });
+  function render(){
+    var ui = UI[lang], TBD = ' <span class="tbd">'+ui.tbd+'</span>';
+    document.documentElement.lang = lang;
+    document.title = ui.title;
+    var md = document.querySelector('meta[name="description"]'); if (md) md.content = ui.desc;
+    $$("[data-i18n]").forEach(function(el){ el.textContent = ui[el.dataset.i18n] });
+    $$("[data-i18n-html]").forEach(function(el){ el.innerHTML = ui[el.dataset.i18nHtml] });
+    $$("[data-i18n-alt]").forEach(function(el){ el.alt = ui[el.dataset.i18nAlt] });
+    $$("[data-k]").forEach(function(el){ el.textContent = T(SITE[el.dataset.k]) || "" });
+    $$("[data-ticker]").forEach(function(el){
+      var h="", list=T(SITE[el.dataset.ticker]); for(var i=0;i<6;i++) list.forEach(function(p){h+="<span>"+esc(p)+"</span>"}); el.innerHTML=h;
+    });
 
-  $("#tags").innerHTML = SITE.tags.map(function(t){return "<span>"+esc(t)+"</span>"}).join("");
-  $("#bioText").innerHTML = SITE.bio.map(function(p,i){return "<p>"+esc(p)+(i===0&&SITE.bioPendiente?TBD:"")+"</p>"}).join("");
-  $("#stats").innerHTML = SITE.stats.map(function(s){return "<div><b>"+esc(s[0])+"</b><small>"+esc(s[1])+"</small></div>"}).join("");
+    $("#tags").innerHTML = T(SITE.tags).map(function(t){return "<span>"+esc(t)+"</span>"}).join("");
+    $("#bioText").innerHTML = T(SITE.bio).map(function(p,i){return "<p>"+esc(p)+(i===0&&SITE.bioPendiente?TBD:"")+"</p>"}).join("");
+    $("#stats").innerHTML = SITE.stats.map(function(s){return "<div><b>"+esc(s[0])+"</b><small>"+esc(T(s[1]))+"</small></div>"}).join("");
 
-  $("#player").innerHTML = SITE.playerEmbed
-    ? '<iframe src="'+esc(SITE.playerEmbed)+'" loading="lazy" allow="autoplay; encrypted-media" title="Reproductor"></iframe>'
-    : '<div class="empty"><span class="display">Último set</span><span>Aquí irá el reproductor de SoundCloud / Mixcloud / YouTube.</span><span class="tbd" style="justify-self:center">Pendiente</span></div>';
-  $("#platforms").innerHTML = SITE.platforms.map(function(p){return '<li><a href="'+esc(p[1])+'"'+ext(p[1])+'>'+esc(p[0])+'</a></li>'}).join("")
-    + (SITE.platformsPendiente ? '<li style="padding-top:12px">'+TBD+'</li>' : '');
+    $("#player").innerHTML = SITE.playerEmbed
+      ? '<iframe src="'+esc(SITE.playerEmbed)+'" loading="lazy" allow="autoplay; encrypted-media" title="'+ui.player+'"></iframe>'
+      : '<div class="empty"><span class="display">'+ui.lastSet+'</span><span>'+ui.playerSoon+'</span><span class="tbd" style="justify-self:center">'+ui.pending+'</span></div>';
+    $("#platforms").innerHTML = SITE.platforms.map(function(p){return '<li><a href="'+esc(p[1])+'"'+ext(p[1])+'>'+esc(p[0])+'</a></li>'}).join("")
+      + (SITE.platformsPendiente ? '<li style="padding-top:12px">'+TBD+'</li>' : '');
 
-  var M=["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"];
-  function gig(g, past){
-    var d=g[0].split("-");
-    return '<div class="gig reveal'+(past?' past':'')+'"><div class="d">'+d[2]+' '+M[+d[1]-1]+'<small>'+d[0]+'</small></div>'
-      +'<div class="where">'+esc(g[1])+', '+esc(g[2])+'</div><div class="venue">'+esc(g[3])+'</div>'
-      +(g[4] ? '<a class="btn" href="'+esc(g[4])+'"'+ext(g[4])+'>Entradas</a>' : '<span></span>')+'</div>';
+    function gig(g, past){
+      var d=g[0].split("-");
+      return '<div class="gig reveal in'+(past?' past':'')+'"><div class="d">'+d[2]+' '+ui.months[+d[1]-1]+'<small>'+d[0]+'</small></div>'
+        +'<div class="where">'+esc(T(g[1]))+', '+esc(T(g[2]))+'</div><div class="venue">'+esc(T(g[3]))+'</div>'
+        +(g[4] ? '<a class="btn" href="'+esc(g[4])+'"'+ext(g[4])+'>'+ui.tickets+'</a>' : '<span></span>')+'</div>';
+    }
+    $("#upcoming").innerHTML = SITE.upcoming.length ? SITE.upcoming.map(function(g){return gig(g)}).join("") : '<p style="color:var(--mid)">'+ui.noDates+'</p>';
+    $("#past").innerHTML = SITE.past.map(function(g){return gig(g,true)}).join("") + (SITE.datesPendiente ? '<p style="margin-top:16px">'+TBD+'</p>' : '');
+
+    var mail=$("#mail"); mail.textContent=SITE.email; mail.href="mailto:"+SITE.email;
+    $("#contacts").innerHTML = SITE.contacts.map(function(c){
+      return "<div><small>"+esc(T(c[0]))+"</small>"+(c[2]?'<a href="'+esc(c[2])+'">'+esc(T(c[1]))+"</a>":"<span>"+esc(T(c[1]))+"</span>")+"</div>";
+    }).join("");
+    $("#socials").innerHTML = SITE.socials.map(function(s){return '<a class="btn" href="'+esc(s[1])+'"'+ext(s[1])+'>'+esc(s[0])+'</a>'}).join("")
+      + (SITE.contactPendiente ? '<div style="width:100%;margin-top:6px">'+TBD+'</div>' : '');
+
+    // botón de idioma
+    var lb = $("#lang");
+    lb.setAttribute("aria-label", ui.langLabel); lb.title = ui.langLabel;
+    lb.querySelectorAll("[data-l]").forEach(function(s){ s.className = s.dataset.l===lang ? "on" : "off" });
+    $("#burger").setAttribute("aria-label", ui.menuOpen);
+    $("#lb").setAttribute("aria-label", ui.photo); $("#lb button").setAttribute("aria-label", ui.close);
   }
-  $("#upcoming").innerHTML = SITE.upcoming.length ? SITE.upcoming.map(function(g){return gig(g)}).join("") : '<p style="color:var(--mid)">Nuevas fechas muy pronto.</p>';
-  $("#past").innerHTML = SITE.past.map(function(g){return gig(g,true)}).join("") + (SITE.datesPendiente ? '<p style="margin-top:16px">'+TBD+'</p>' : '');
 
-  var mail=$("#mail"); mail.textContent=SITE.email; mail.href="mailto:"+SITE.email;
-  $("#contacts").innerHTML = SITE.contacts.map(function(c){
-    return "<div><small>"+esc(c[0])+"</small>"+(c[2]?'<a href="'+esc(c[2])+'">'+esc(c[1])+"</a>":"<span>"+esc(c[1])+"</span>")+"</div>";
-  }).join("");
-  $("#socials").innerHTML = SITE.socials.map(function(s){return '<a class="btn" href="'+esc(s[1])+'"'+ext(s[1])+'>'+esc(s[0])+'</a>'}).join("")
-    + (SITE.contactPendiente ? '<div style="width:100%;margin-top:6px">'+TBD+'</div>' : '');
+  function setLang(l){ lang = (l==="es") ? "es" : "en"; try{ localStorage.setItem("lang", lang) }catch(e){} render() }
+  var saved = null; try{ saved = localStorage.getItem("lang") }catch(e){}
+  if (/^#?es$/.test(location.hash)) saved = "es";
+  lang = saved==="es" ? "es" : "en";
+  render();
+  $("#lang").addEventListener("click", function(){ setLang(lang==="en" ? "es" : "en") });
   $("#y").textContent = new Date().getFullYear();
 
   // nav: fondo al hacer scroll + menú móvil + sección activa
@@ -405,21 +493,21 @@ var SITE = {
   addEventListener("scroll", onScroll, {passive:true}); onScroll();
   function setMenu(open){ document.body.classList.toggle("menu-open",open); burger.setAttribute("aria-expanded",open); document.body.style.overflow=open?"hidden":"" }
   burger.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")) });
-  document.querySelectorAll("#menu a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false) }) });
+  $$("#menu a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false) }) });
 
   if ("IntersectionObserver" in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});
-    document.querySelectorAll(".reveal").forEach(function(el){io.observe(el)});
-    var links={}; document.querySelectorAll("#menu a").forEach(function(a){links[a.getAttribute("href").slice(1)]=a});
+    $$(".reveal:not(.in)").forEach(function(el){io.observe(el)});
+    var links={}; $$("#menu a").forEach(function(a){links[a.getAttribute("href").slice(1)]=a});
     var so=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ for(var k in links) links[k].classList.toggle("on", k===e.target.id) } })},{rootMargin:"-45% 0px -50% 0px"});
-    document.querySelectorAll("section[id]").forEach(function(s){so.observe(s)});
-  } else document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in")});
+    $$("section[id]").forEach(function(s){so.observe(s)});
+  } else $$(".reveal").forEach(function(el){el.classList.add("in")});
 
   // galería: ampliar foto
-  var lb=$("#lb");
-  document.querySelectorAll(".gallery button").forEach(function(b){ b.addEventListener("click", function(){ lb.querySelector("img").src=b.dataset.full; lb.classList.add("open") }) });
-  lb.addEventListener("click", function(e){ if(e.target!==lb.querySelector("img")) lb.classList.remove("open") });
-  addEventListener("keydown", function(e){ if(e.key==="Escape"){ lb.classList.remove("open"); setMenu(false) } });
+  var lbx=$("#lb");
+  $$(".gallery button").forEach(function(b){ b.addEventListener("click", function(){ lbx.querySelector("img").src=b.dataset.full; lbx.classList.add("open") }) });
+  lbx.addEventListener("click", function(e){ if(e.target!==lbx.querySelector("img")) lbx.classList.remove("open") });
+  addEventListener("keydown", function(e){ if(e.key==="Escape"){ lbx.classList.remove("open"); setMenu(false) } });
 })();
 </script>
 </body>
