@@ -15,11 +15,15 @@
 <meta name="theme-color" content="#111111">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="assets/fonts/alexandra.woff2" as="font" type="font/woff2" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* ====== EDITA AQUÍ ====== fuente de títulos (ALEXANDRA Mnletter) */
+  @font-face{font-family:"Alexandra";src:url("assets/fonts/alexandra.woff2") format("woff2");font-display:swap}
   /* ====== EDITA AQUÍ ====== colores */
   :root{
     --ink:#0b0b0b; --deep:#141414; --panel:#1b1b1b; --grey:#5f5f5f; --grey-deep:#262626;
+    --fd:"Alexandra",Anton,Impact,sans-serif;
     --mid:#a3a3a3; --line:rgba(255,255,255,.1); --paper:#ededeb; --gut:clamp(16px,4vw,56px);
     color-scheme:dark;
   }
@@ -28,7 +32,7 @@
   body{background:var(--ink);color:var(--paper);font-family:Inter,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.55}
   a{color:inherit;text-decoration:none}
   img{display:block;max-width:100%}
-  .display{font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.01em;line-height:.9}
+  .display{font-family:var(--fd);font-weight:400;text-transform:uppercase;letter-spacing:.01em;line-height:.9}
   .eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--mid);font-weight:600;display:flex;gap:14px;align-items:center}
   .eyebrow b{color:var(--paper);font-weight:600}
   .eyebrow::after{content:"";height:1px;width:48px;background:var(--line)}
@@ -43,7 +47,7 @@
   /* ---------- nav ---------- */
   .nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px var(--gut);transition:background .3s,padding .3s,border-color .3s;border-bottom:1px solid transparent}
   .nav.scrolled{background:rgba(11,11,11,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding-top:12px;padding-bottom:12px;border-color:var(--line)}
-  .nav .logo{font-family:Anton,Impact,sans-serif;font-size:24px;letter-spacing:.06em;text-transform:uppercase}
+  .nav .logo{font-family:var(--fd);font-size:24px;letter-spacing:.06em;text-transform:uppercase}
   .nav ul{list-style:none;display:flex;gap:28px}
   .nav ul a{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;opacity:.8;transition:opacity .2s}
   .nav ul a:hover,.nav ul a.on{opacity:1}
@@ -62,10 +66,10 @@
   .hero .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--grey-deep) 0%,rgba(38,38,38,.55) 40%,rgba(38,38,38,0) 62%),linear-gradient(0deg,rgba(11,11,11,.9) 0%,rgba(0,0,0,0) 30%)}
   @keyframes zoom{from{transform:scale(1.06)}to{transform:scale(1)}}
   .hero main{align-self:center;padding:110px var(--gut) 40px;max-width:900px}
-  .hero h1{font-size:clamp(76px,15vw,210px);position:relative;z-index:0;text-shadow:0 0 14px rgba(255,255,255,.16),0 0 48px rgba(255,255,255,.08);animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+  .hero h1{font-size:clamp(96px,19vw,270px);position:relative;z-index:0;text-shadow:0 0 14px rgba(255,255,255,.16),0 0 48px rgba(255,255,255,.08);animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
   .hero h1::before{content:"";position:absolute;z-index:-1;left:-12%;right:-18%;top:-45%;bottom:-45%;background:radial-gradient(closest-side,rgba(255,255,255,.22),rgba(225,225,225,.08) 55%,rgba(200,200,200,0) 100%);filter:blur(36px);pointer-events:none;animation:breathe 6s ease-in-out infinite}
   @keyframes breathe{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.03)}}
-  .hero .role{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:clamp(24px,3.6vw,44px);color:var(--mid);margin-top:12px;animation:rise 1s .15s cubic-bezier(.2,.7,.2,1) both}
+  .hero .role{font-family:var(--fd);text-transform:uppercase;font-size:clamp(24px,3.6vw,44px);color:var(--mid);margin-top:12px;animation:rise 1s .15s cubic-bezier(.2,.7,.2,1) both}
   .hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;animation:rise 1s .3s cubic-bezier(.2,.7,.2,1) both}
   .hero .scroll{position:absolute;right:var(--gut);bottom:84px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;writing-mode:vertical-rl;opacity:.7}
   .hero .scroll::after{content:"";display:block;width:1px;height:60px;background:var(--paper);margin:14px auto 0;animation:drip 2.2s ease-in-out infinite;transform-origin:top}
@@ -74,7 +78,7 @@
 
   .ticker{background:var(--ink);overflow:hidden;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .ticker .track{display:inline-flex;animation:marquee 34s linear infinite}
-  .ticker span{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:clamp(16px,2vw,22px);letter-spacing:.06em;padding:13px 0}
+  .ticker span{font-family:var(--fd);text-transform:uppercase;font-size:clamp(16px,2vw,22px);letter-spacing:.06em;padding:13px 0}
   .ticker span::after{content:"✦";margin:0 22px;color:var(--mid);font-size:.8em;vertical-align:middle}
   .ticker.big span{font-size:clamp(48px,8vw,110px);padding:18px 0;color:transparent;-webkit-text-stroke:1px rgba(237,237,235,.45)}
   .ticker.big span:nth-child(odd){color:var(--paper);-webkit-text-stroke:0}
@@ -83,7 +87,7 @@
 
   /* ---------- secciones ---------- */
   .block{padding:clamp(80px,12vw,150px) 0}
-  .block h2{font-size:clamp(52px,9vw,120px);margin:18px 0 0}
+  .block h2{font-size:clamp(64px,11vw,150px);margin:18px 0 0}
   .block h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(237,237,235,.6)}
 
   /* bio */
@@ -98,7 +102,7 @@
   .stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:36px}
   .stats div{padding:22px 0 0}
   .stats div+div{padding-left:20px;border-left:1px solid var(--line)}
-  .stats b{display:block;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(40px,5vw,64px);line-height:1}
+  .stats b{display:block;font-family:var(--fd);font-weight:400;font-size:clamp(40px,5vw,64px);line-height:1}
   .stats small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid)}
 
   /* música */
@@ -109,7 +113,7 @@
   .player .empty{display:grid;place-content:center;text-align:center;gap:14px;padding:40px;color:var(--mid)}
   .player .empty .display{font-size:40px;color:var(--paper)}
   .platforms{list-style:none;border-top:1px solid var(--line)}
-  .platforms a{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:clamp(24px,2.6vw,34px);transition:padding .25s,color .25s}
+  .platforms a{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);font-family:var(--fd);text-transform:uppercase;font-size:clamp(24px,2.6vw,34px);transition:padding .25s,color .25s}
   .platforms a::after{content:"↗";font-family:Inter,sans-serif;font-size:20px;color:var(--mid)}
   .platforms a:hover{padding-left:14px;color:#fff}
 
@@ -118,9 +122,9 @@
   .gig{display:grid;grid-template-columns:150px 1.2fr 1fr 130px;gap:20px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);transition:background .2s,padding .25s}
   .gig:first-of-type{border-top:1px solid var(--line)}
   .gig:hover{background:rgba(255,255,255,.03);padding-left:12px;padding-right:12px}
-  .gig .d{font-family:Anton,Impact,sans-serif;font-size:30px;line-height:1}
+  .gig .d{font-family:var(--fd);font-size:30px;line-height:1}
   .gig .d small{display:block;font-family:Inter,sans-serif;font-size:11px;letter-spacing:.2em;color:var(--mid);margin-top:6px}
-  .gig .where{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:clamp(22px,2.4vw,30px);line-height:1.05}
+  .gig .where{font-family:var(--fd);text-transform:uppercase;font-size:clamp(22px,2.4vw,30px);line-height:1.05}
   .gig .venue{color:var(--mid);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
   .gig.past{opacity:.55}
   .gig .btn{padding:10px 14px;font-size:11px;justify-self:end}
@@ -141,9 +145,9 @@
 
   /* booking */
   .booking{text-align:center}
-  .booking h2{font-size:clamp(64px,13vw,180px)}
+  .booking h2{font-size:clamp(84px,17vw,230px)}
   .booking .lead{max-width:560px;margin:22px auto 0;color:#cfcfcd}
-  .mail{display:inline-block;margin-top:34px;font-family:Anton,Impact,sans-serif;font-size:clamp(26px,4.4vw,56px);text-transform:uppercase;border-bottom:2px solid var(--paper);padding-bottom:6px;transition:color .2s,border-color .2s;word-break:break-all}
+  .mail{display:inline-block;margin-top:34px;font-family:var(--fd);font-size:clamp(32px,5.6vw,72px);text-transform:uppercase;border-bottom:2px solid var(--paper);padding-bottom:6px;transition:color .2s,border-color .2s;word-break:break-all}
   .mail:hover{color:var(--mid);border-color:var(--mid)}
   .contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:70px auto 0;max-width:980px;border-top:1px solid var(--line);text-align:left}
   .contacts div{padding:24px 20px 0}
@@ -153,7 +157,7 @@
   .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:56px}
 
   footer{border-top:1px solid var(--line);padding:28px var(--gut);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mid)}
-  footer .logo{font-family:Anton,Impact,sans-serif;font-size:18px;letter-spacing:.08em;color:var(--paper)}
+  footer .logo{font-family:var(--fd);font-size:18px;letter-spacing:.08em;color:var(--paper)}
 
   /* aparición al hacer scroll */
   .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
@@ -162,7 +166,7 @@
   /* ---------- móvil ---------- */
   @media (max-width:900px){
     .nav ul{position:fixed;inset:0;background:rgba(11,11,11,.97);flex-direction:column;justify-content:center;align-items:center;gap:26px;opacity:0;pointer-events:none;transition:opacity .3s}
-    .nav ul a{font-family:Anton,Impact,sans-serif;font-size:42px;letter-spacing:.04em;font-weight:400;opacity:1}
+    .nav ul a{font-family:var(--fd);font-size:42px;letter-spacing:.04em;font-weight:400;opacity:1}
     .nav ul a span{font-family:Inter,sans-serif;font-size:13px;vertical-align:top}
     .menu-open .nav ul{opacity:1;pointer-events:auto}
     .burger{display:block;z-index:2}
