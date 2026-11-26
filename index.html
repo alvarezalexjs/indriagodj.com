@@ -35,7 +35,6 @@
   .display{font-family:var(--fd);font-weight:700;text-transform:uppercase;letter-spacing:-.01em;line-height:.9}
   .eyebrow{font-family:var(--fm);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);font-weight:600;display:flex;gap:14px;align-items:center}
   .eyebrow b{color:var(--paper);font-weight:600}
-  .eyebrow::after{content:"";height:1px;width:48px;background:var(--line)}
   .wrap{max-width:1280px;margin:0 auto;padding:0 var(--gut)}
   section{position:relative}
   .btn{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(237,237,235,.55);padding:12px 18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;transition:background .2s,color .2s,border-color .2s}
@@ -72,9 +71,6 @@
   @keyframes breathe{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.03)}}
   .hero .role{font-family:var(--fd);text-transform:uppercase;font-size:clamp(18px,2.6vw,32px);color:var(--mid);margin-top:14px;animation:rise 1s .15s cubic-bezier(.2,.7,.2,1) both}
   .hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;animation:rise 1s .3s cubic-bezier(.2,.7,.2,1) both}
-  .hero .scroll{position:absolute;right:var(--gut);bottom:84px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;writing-mode:vertical-rl;opacity:.7}
-  .hero .scroll::after{content:"";display:block;width:1px;height:60px;background:var(--paper);margin:14px auto 0;animation:drip 2.2s ease-in-out infinite;transform-origin:top}
-  @keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
   @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
   .ticker{background:var(--ink);overflow:hidden;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -96,15 +92,8 @@
   .bio figure{position:relative;aspect-ratio:2/3;overflow:hidden;background:var(--panel)}
   .bio figure img{width:100%;height:100%;object-fit:cover;filter:contrast(1.05)}
   .bio figure figcaption{position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.75}
-  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
-  .tags span{font-family:var(--fm);border:1px solid var(--line);padding:7px 12px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
   .bio .text p{font-size:clamp(16px,1.35vw,18px);color:#cfcfcd;margin-bottom:18px;max-width:58ch}
   .bio .text p:first-of-type{font-size:clamp(20px,2vw,26px);color:var(--paper);line-height:1.4}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:36px}
-  .stats div{padding:22px 0 0}
-  .stats div+div{padding-left:20px;border-left:1px solid var(--line)}
-  .stats b{display:block;font-family:var(--fd);font-weight:700;font-size:clamp(30px,3.8vw,48px);line-height:1}
-  .stats small{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
 
   /* música */
   .music{background:var(--deep);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -186,9 +175,7 @@
     .hero .photo img{right:50%;transform:translateX(50%);animation:none;-webkit-mask-image:none;mask-image:none}
     .hero .photo::after{background:linear-gradient(0deg,var(--ink) 0%,rgba(30,30,30,.8) 38%,rgba(38,38,38,0) 62%,rgba(0,0,0,.3) 100%)}
     .hero main{align-self:end;padding-top:46vh}
-    .hero .scroll{display:none}
-    .stats div+div{padding-left:12px}
-  }
+      }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
   /* logo */
   .nav .logo img{height:38px;width:auto;transition:height .3s}
@@ -213,11 +200,11 @@
   <div class="right">
     <nav>
       <ul id="menu">
-        <li><a href="#bio"><span>01</span><b data-i18n="navBio"></b></a></li>
-        <li><a href="#music"><span>02</span><b data-i18n="navMusic"></b></a></li>
-        <li><a href="#dates"><span>03</span><b data-i18n="navDates"></b></a></li>
-        <li><a href="#gallery"><span>04</span><b data-i18n="navGallery"></b></a></li>
-        <li><a href="#booking"><span>05</span><b data-i18n="navBooking"></b></a></li>
+        <li><a href="#bio"><b data-i18n="navBio"></b></a></li>
+        <li><a href="#music"><b data-i18n="navMusic"></b></a></li>
+        <li><a href="#dates"><b data-i18n="navDates"></b></a></li>
+        <li><a href="#gallery"><b data-i18n="navGallery"></b></a></li>
+        <li><a href="#booking"><b data-i18n="navBooking"></b></a></li>
       </ul>
     </nav>
     <button class="lang" id="lang" type="button">
@@ -231,30 +218,24 @@
 <section class="hero" id="top">
   <div class="photo"><img src="assets/hero.jpg" data-i18n-alt="altHero" alt="" fetchpriority="high"></div>
   <main>
-    <div class="eyebrow" data-k="heroKicker"></div>
-    <h1 class="display">Indriago</h1>
+        <h1 class="display">Indriago</h1>
     <div class="role" data-k="role"></div>
     <div class="cta">
-      <a class="btn solid" href="#music" data-i18n="ctaListen"></a>
-      <a class="btn" href="#dates" data-i18n="navDates"></a>
-      <a class="btn" href="#booking" data-i18n="navBooking"></a>
+      <a class="btn solid" href="#booking" data-i18n="navBooking"></a>
     </div>
   </main>
-  <div class="scroll" aria-hidden="true">Scroll</div>
   <div class="ticker" aria-hidden="true"><div class="track" data-ticker="ticker"></div></div>
 </section>
 
 <!-- 01 BIO -->
 <section class="block" id="bio">
   <div class="wrap">
-    <div class="eyebrow reveal"><b>01</b> <span data-i18n="navBio"></span></div>
+    <div class="eyebrow reveal"><span data-i18n="navBio"></span></div>
     <h2 class="display reveal" data-i18n-html="bioTitle"></h2>
     <div class="bio">
       <figure class="reveal"><img src="assets/sentado.jpg" data-i18n-alt="altSeated" alt="" loading="lazy"><figcaption>Indriago · <span data-k="role"></span></figcaption></figure>
       <div class="text reveal">
-        <div class="tags" id="tags"></div>
         <div id="bioText"></div>
-        <div class="stats" id="stats"></div>
       </div>
     </div>
   </div>
@@ -263,7 +244,7 @@
 <!-- 02 MUSIC -->
 <section class="block music" id="music">
   <div class="wrap">
-    <div class="eyebrow reveal"><b>02</b> <span data-i18n="navMusic"></span></div>
+    <div class="eyebrow reveal"><span data-i18n="navMusic"></span></div>
     <h2 class="display reveal" data-i18n-html="musicTitle"></h2>
     <div class="music-grid">
       <div class="player reveal" id="player"></div>
@@ -275,7 +256,7 @@
 <!-- 03 DATES -->
 <section class="block dates" id="dates">
   <div class="wrap">
-    <div class="eyebrow reveal"><b>03</b> <span data-i18n="navDates"></span></div>
+    <div class="eyebrow reveal"><span data-i18n="navDates"></span></div>
     <h2 class="display reveal">Tour <em>dates</em></h2>
     <h3 class="reveal" data-i18n="upcoming"></h3>
     <div id="upcoming"></div>
@@ -289,7 +270,7 @@
 <!-- 04 GALLERY -->
 <section class="block" id="gallery">
   <div class="wrap">
-    <div class="eyebrow reveal"><b>04</b> <span data-i18n="navGallery"></span></div>
+    <div class="eyebrow reveal"><span data-i18n="navGallery"></span></div>
     <h2 class="display reveal" data-i18n="navGallery"></h2>
     <div class="gallery reveal">
       <button class="g1" data-full="assets/escalera.jpg"><img src="assets/escalera.jpg" data-i18n-alt="altStairs" alt="" loading="lazy"></button>
@@ -305,7 +286,7 @@
 <!-- 05 BOOKING -->
 <section class="block booking music" id="booking">
   <div class="wrap">
-    <div class="eyebrow reveal" style="justify-content:center"><b>05</b> Booking</div>
+    <div class="eyebrow reveal" style="justify-content:center">Booking</div>
     <h2 class="display reveal">Booking</h2>
     <p class="lead reveal" data-k="bookingLead"></p>
     <a class="mail reveal" id="mail"></a>
@@ -331,7 +312,6 @@
    hasta que pongas el dato real.
    ===================================================================== */
 var SITE = {
-  heroKicker: { en: "Official website", es: "Web oficial" },
   role:       { en: "DJ / Producer",    es: "DJ / Productor" },
   ticker: {
     en: ["Indriago", "DJ / Producer", "Bookings open", "indriagodj.com"],
@@ -339,8 +319,6 @@ var SITE = {
   },
   bigTicker: { en: ["Indriago", "On tour", "Indriago", "Live sets"], es: ["Indriago", "On tour", "Indriago", "Live sets"] },
 
-  tags: { en: ["House", "Tech House", "Open format", "Venezuela"],      // PROVISIONAL: géneros / origen
-          es: ["House", "Tech House", "Open format", "Venezuela"] },
   bio: {                                                               // PROVISIONAL: biografía
     en: [
       "Placeholder: a strong opening line introducing Indriago and his sound.",
@@ -354,8 +332,6 @@ var SITE = {
     ]
   },
   bioPendiente: true,
-  stats: [ ["10+", { en: "Years", es: "Años" }], ["100+", { en: "Shows", es: "Shows" }], ["5", { en: "Countries", es: "Países" }] ], // PROVISIONAL
-  statsPendiente: true,
 
   // Reproductor: pega la URL "embed" de SoundCloud, Mixcloud, Spotify o YouTube.
   // Ej. SoundCloud: https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/USUARIO&color=%23111111&visual=true
@@ -403,7 +379,7 @@ var SITE = {
 var UI = {
   en: {
     navBio: "Bio", navMusic: "Music", navDates: "Dates", navGallery: "Gallery", navBooking: "Booking",
-    ctaListen: "Listen", bioTitle: "About <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> music",
+    bioTitle: "About <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> music",
     upcoming: "Upcoming", past: "Recent", tickets: "Tickets", noDates: "New dates coming soon.",
     lastSet: "Latest set", playerSoon: "The SoundCloud / Mixcloud / YouTube player goes here.",
     tbd: "Placeholder", pending: "Pending", backTop: "Back to top ↑",
@@ -415,7 +391,7 @@ var UI = {
   },
   es: {
     navBio: "Bio", navMusic: "Música", navDates: "Fechas", navGallery: "Galería", navBooking: "Booking",
-    ctaListen: "Escuchar", bioTitle: "Sobre <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> música",
+    bioTitle: "Sobre <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> música",
     upcoming: "Próximas", past: "Recientes", tickets: "Entradas", noDates: "Nuevas fechas muy pronto.",
     lastSet: "Último set", playerSoon: "Aquí irá el reproductor de SoundCloud / Mixcloud / YouTube.",
     tbd: "Provisional", pending: "Pendiente", backTop: "Volver arriba ↑",
@@ -449,9 +425,7 @@ var UI = {
       var h="", list=T(SITE[el.dataset.ticker]); for(var i=0;i<6;i++) list.forEach(function(p){h+="<span>"+esc(p)+"</span>"}); el.innerHTML=h;
     });
 
-    $("#tags").innerHTML = T(SITE.tags).map(function(t){return "<span>"+esc(t)+"</span>"}).join("");
     $("#bioText").innerHTML = T(SITE.bio).map(function(p,i){return "<p>"+esc(p)+(i===0&&SITE.bioPendiente?TBD:"")+"</p>"}).join("");
-    $("#stats").innerHTML = SITE.stats.map(function(s){return "<div><b>"+esc(s[0])+"</b><small>"+esc(T(s[1]))+"</small></div>"}).join("");
 
     $("#player").innerHTML = SITE.playerEmbed
       ? '<iframe src="'+esc(SITE.playerEmbed)+'" loading="lazy" allow="autoplay; encrypted-media" title="'+ui.player+'"></iframe>'
