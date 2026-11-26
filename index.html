@@ -191,6 +191,12 @@
   .lang .on{color:inherit;font-weight:700}
   .lang .off{opacity:.45}
   .lang:hover .off{opacity:.6}
+  /* ===== animación de scroll "cinemática" (GSAP + Lenis) ===== */
+  html.fx,html.fx body{overflow-x:clip}
+  html.lenis,html.lenis body{height:auto}
+  .lenis.lenis-smooth{scroll-behavior:auto!important}
+  .fx .hero h1,.fx .hero .role,.fx .hero .cta{animation:none}
+  .fx .reveal{opacity:1;transform:none;transition:none}
 </style>
 </head>
 <body>
@@ -486,6 +492,72 @@ var UI = {
   $$(".gallery button").forEach(function(b){ b.addEventListener("click", function(){ lbx.querySelector("img").src=b.dataset.full; lbx.classList.add("open") }) });
   lbx.addEventListener("click", function(e){ if(e.target!==lbx.querySelector("img")) lbx.classList.remove("open") });
   addEventListener("keydown", function(e){ if(e.key==="Escape"){ lbx.classList.remove("open"); setMenu(false) } });
+})();
+</script>
+
+<!-- ====== Animación de scroll cinemática (GSAP + ScrollTrigger + Lenis, alojados en assets/js) ====== -->
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/js/lenis.min.js"></script>
+<script>
+(function(){
+  if (!window.gsap || !window.ScrollTrigger) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;   // respeta a quien pide menos movimiento
+  document.documentElement.classList.add("fx");
+  gsap.registerPlugin(ScrollTrigger);
+  var U = gsap.utils.toArray;
+
+  // scroll suave
+  var lenis = window.Lenis ? new Lenis({ lerp: .09 }) : null;
+  if (lenis) {
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t * 1000) });
+    gsap.ticker.lagSmoothing(0);
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener("click", function(e){
+        var id = a.getAttribute("href");
+        if (id.length > 1 && document.querySelector(id)) { e.preventDefault(); lenis.scrollTo(id, { offset: -60 }) }
+        else if (id === "#top") { e.preventDefault(); lenis.scrollTo(0) }
+      });
+    });
+    // parar el scroll suave mientras el menú móvil o la foto ampliada están abiertos
+    new MutationObserver(function(){
+      var lock = document.body.classList.contains("menu-open") || document.getElementById("lb").classList.contains("open");
+      lock ? lenis.stop() : lenis.start();
+    }).observe(document.body, { attributes: true, subtree: true, attributeFilter: ["class"] });
+  }
+
+  // entrada de la portada
+  gsap.from(".hero h1, .hero .role, .hero .cta", { y: 28, opacity: 0, duration: 1.1, stagger: .12, ease: "power3.out", delay: .15 });
+
+  // portada fija: la foto se acerca y oscurece y el nombre crece
+  gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: .6, pin: true } })
+    .fromTo(".hero .photo", { scale: 1, filter: "brightness(1)" }, { scale: 1.3, filter: "brightness(.35)", ease: "none" }, 0)
+    .to(".hero h1", { scale: 1.7, transformOrigin: "0% 60%", ease: "none" }, 0)
+    .to(".hero .role, .hero .cta", { opacity: 0, y: -30, ease: "none" }, 0)
+    .to(".hero .ticker", { yPercent: 100, opacity: 0, ease: "none" }, 0);
+
+  // títulos que crecen al entrar
+  U(".block h2").forEach(function(h){
+    gsap.fromTo(h, { scale: .55, opacity: 0, transformOrigin: "0% 100%" },
+      { scale: 1, opacity: 1, ease: "none", scrollTrigger: { trigger: h, start: "top 95%", end: "top 55%", scrub: true } });
+  });
+  // la cinta grande se inclina
+  gsap.fromTo(".ticker.big", { rotation: -4 }, { rotation: 4, ease: "none",
+    scrollTrigger: { trigger: ".ticker.big", start: "top bottom", end: "bottom top", scrub: true } });
+  // las fotos se abren
+  U(".gallery button, .bio figure").forEach(function(box){
+    gsap.fromTo(box, { scale: .78, opacity: .2 }, { scale: 1, opacity: 1, ease: "none",
+      scrollTrigger: { trigger: box, start: "top 100%", end: "top 45%", scrub: true } });
+  });
+  // las fechas entran desde los lados
+  U(".gig").forEach(function(g, i){
+    gsap.from(g, { x: i % 2 ? 80 : -80, opacity: 0, ease: "none",
+      scrollTrigger: { trigger: g, start: "top 95%", end: "top 70%", scrub: true } });
+  });
+
+  addEventListener("load", function(){ ScrollTrigger.refresh() });
+  document.fonts && document.fonts.ready.then(function(){ ScrollTrigger.refresh() });
 })();
 </script>
 </body>
