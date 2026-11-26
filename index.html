@@ -155,13 +155,14 @@
   .contacts a{font-weight:600}
   .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:56px}
 
-  .soc{display:flex;gap:6px;align-items:center}
-  .soc a{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;color:var(--mid);transition:color .2s,background .2s}
-  .soc a:hover{color:var(--ink);background:var(--paper)}
-  .soc a:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+  /* redes: solo iconos, sutiles */
+  .soc{display:flex;gap:22px;align-items:center}
+  .soc a{width:28px;height:28px;display:grid;place-items:center;color:var(--paper);opacity:.55;transition:opacity .25s,transform .25s}
+  .soc a:hover{opacity:1;transform:translateY(-2px)}
+  .soc a:focus-visible{outline:1px solid var(--paper);outline-offset:4px}
   .soc svg{width:17px;height:17px;fill:currentColor}
-  .socials .btn{display:inline-flex;align-items:center;gap:9px}
-  .socials svg{width:15px;height:15px;fill:currentColor;flex:none}
+  .socials{gap:34px}
+  .socials svg{width:22px;height:22px}
   .nav ul .menu-soc{display:none}
   footer{align-items:center}
   footer{border-top:1px solid var(--line);padding:28px var(--gut);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
@@ -178,7 +179,9 @@
     .nav ul a span{font-family:var(--fm);font-size:13px;vertical-align:top}
     .menu-open .nav ul{opacity:1;pointer-events:auto}
     .nav ul .menu-soc{display:block;margin-top:14px}
-    .nav ul .menu-soc .soc a{width:46px;height:46px;font-size:0;opacity:1;color:var(--paper);border:1px solid var(--line)}
+    .nav ul .menu-soc .soc{gap:30px}
+    .nav ul .menu-soc .soc a{font-size:0;opacity:.6}
+    .nav ul .menu-soc .soc svg{width:21px;height:21px}
     .burger{display:block;z-index:2}
     .bio,.music-grid{grid-template-columns:1fr}
     .bio figure{max-height:70vh}
@@ -324,7 +327,7 @@
     <p class="lead reveal" data-k="bookingLead"></p>
     <a class="mail reveal" id="mail"></a>
     <div class="contacts reveal" id="contacts"></div>
-    <div class="socials reveal" id="socials"></div>
+    <div class="socials soc reveal" id="socials"></div>
   </div>
 </section>
 
@@ -485,7 +488,7 @@ var UI = {
     $$("[data-soc]").forEach(function(el){
       el.innerHTML = SITE.socials.map(function(s){return '<a href="'+esc(s[1])+'"'+ext(s[1])+' aria-label="'+esc(s[0])+'" title="'+esc(s[0])+'">'+(ICON[s[0]]||esc(s[0]))+'</a>'}).join("");
     });
-    $("#socials").innerHTML = SITE.socials.map(function(s){return '<a class="btn" href="'+esc(s[1])+'"'+ext(s[1])+'>'+(ICON[s[0]]||"")+esc(s[0])+'</a>'}).join("")
+    $("#socials").innerHTML = SITE.socials.map(function(s){return '<a href="'+esc(s[1])+'"'+ext(s[1])+' aria-label="'+esc(s[0])+'" title="'+esc(s[0])+'">'+(ICON[s[0]]||esc(s[0]))+'</a>'}).join("")
       ;
 
     // botón de idioma
