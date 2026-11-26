@@ -102,6 +102,9 @@
   .music{background:var(--deep);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .music-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(28px,5vw,70px);margin-top:56px;align-items:start}
   .player{border:1px solid var(--line);background:var(--ink);min-height:360px;display:grid}
+  .player.video{min-height:0;aspect-ratio:16/9}
+  .player.video iframe{min-height:0;filter:grayscale(1);transition:filter .5s}
+  .player.video:hover iframe,.player.video:focus-within iframe{filter:none}
   .player iframe{width:100%;height:100%;min-height:360px;border:0;filter:grayscale(1)}
   .player .empty{display:grid;place-content:center;text-align:center;gap:14px;padding:40px;color:var(--mid)}
   .player .empty .display{font-size:30px;color:var(--paper)}
@@ -288,10 +291,10 @@
 <section class="block dates" id="dates">
   <div class="wrap">
     <div class="eyebrow reveal"><span data-i18n="navDates"></span></div>
-    <h2 class="display reveal">Tour <em>dates</em></h2>
+    <h2 class="display reveal">Dates</h2>
     <h3 class="reveal" data-i18n="upcoming"></h3>
     <div id="upcoming"></div>
-    <h3 class="reveal" data-i18n="past"></h3>
+    <h3 class="reveal" data-i18n="past" id="pastTitle"></h3>
     <div id="past"></div>
   </div>
 </section>
@@ -338,7 +341,6 @@
 <footer>
   <span class="logo"><img src="assets/logo-sm.png" alt="Indriago" width="180" height="89"></span>
   <span>© <span id="y">2026</span> Indriago · <span data-k="role"></span></span>
-  <div class="soc" data-soc></div>
   <a href="#top" data-i18n="backTop"></a>
 </footer>
 
@@ -372,7 +374,7 @@ var SITE = {
 
   // Reproductor: pega la URL "embed" de SoundCloud, Mixcloud, Spotify o YouTube.
   // Ej. SoundCloud: https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/USUARIO&color=%23111111&visual=true
-  playerEmbed: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/argenis_indriago&color=%23ededeb&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=true",
+  playerEmbed: "https://www.youtube-nocookie.com/embed/NteZxunLYSQ?rel=0&modestbranding=1&playsinline=1",
   platforms: [
     ["SoundCloud", "https://soundcloud.com/argenis_indriago"],
     ["YouTube", "https://www.youtube.com/@indriagodj"]
@@ -384,11 +386,10 @@ var SITE = {
   upcoming: [
     ["2026-12-04", "Barcelona", { en: "Spain", es: "España" }, "Fratello 2º Aniversario · NIX Barcelona", "https://ra.co/events/2587558"]
   ],
-  past: [                                                              // PROVISIONAL
-    ["2026-10-31", { en: "City", es: "Ciudad" }, { en: "Country", es: "País" }, { en: "Club / event", es: "Club / evento" }, ""],
-    ["2026-09-14", { en: "City", es: "Ciudad" }, { en: "Country", es: "País" }, { en: "Club / event", es: "Club / evento" }, ""]
-  ],
-  datesPendiente: true,
+  // Fechas pasadas: mientras esté vacío, el bloque "Recent" no se muestra.
+  // Ej.: ["2026-12-04", "Barcelona", { en: "Spain", es: "España" }, "Fratello 2º Aniversario · NIX Barcelona", ""]
+  past: [],
+  datesPendiente: false,
 
   bookingLead: {
     en: "For club nights, festivals and private events, get in touch and we will get back to you as soon as possible.",
@@ -470,8 +471,9 @@ var UI = {
 
     $("#bioText").innerHTML = T(SITE.bio).map(function(p,i){return "<p>"+esc(p)+(i===0&&SITE.bioPendiente?TBD:"")+"</p>"}).join("");
 
+    $("#player").classList.toggle("video", /youtube/.test(SITE.playerEmbed));
     $("#player").innerHTML = SITE.playerEmbed
-      ? '<iframe src="'+esc(SITE.playerEmbed)+'" loading="lazy" allow="autoplay; encrypted-media" title="'+ui.player+'"></iframe>'
+      ? '<iframe src="'+esc(SITE.playerEmbed)+'" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="'+ui.player+'"></iframe>'
       : '<div class="empty"><span class="display">'+ui.lastSet+'</span><span>'+ui.playerSoon+'</span><span class="tbd" style="justify-self:center">'+ui.pending+'</span></div>';
     $("#platforms").innerHTML = SITE.platforms.map(function(p){return '<li><a href="'+esc(p[1])+'"'+ext(p[1])+'>'+esc(p[0])+'</a></li>'}).join("")
       + (SITE.platformsPendiente ? '<li style="padding-top:12px">'+TBD+'</li>' : '');
@@ -483,6 +485,7 @@ var UI = {
         +(g[4] ? '<a class="btn" href="'+esc(g[4])+'"'+ext(g[4])+'>'+ui.tickets+'</a>' : '<span></span>')+'</div>';
     }
     $("#upcoming").innerHTML = SITE.upcoming.length ? SITE.upcoming.map(function(g){return gig(g)}).join("") : '<p style="color:var(--mid)">'+ui.noDates+'</p>';
+    $("#pastTitle").hidden = $("#past").hidden = !SITE.past.length;
     $("#past").innerHTML = SITE.past.map(function(g){return gig(g,true)}).join("") + (SITE.datesPendiente ? '<p style="margin-top:16px">'+TBD+'</p>' : '');
 
     var mail=$("#mail"); mail.textContent=SITE.email; mail.href="mailto:"+SITE.email;
