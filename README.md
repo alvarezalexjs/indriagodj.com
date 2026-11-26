@@ -1,7 +1,8 @@
-# Indriago — página temporal
+# Indriago — web oficial
 
-Página "Coming soon" estática (HTML + CSS, sin build) publicada con GitHub Pages.
+Web estática de una sola página (HTML + CSS + JS, sin build) publicada con GitHub Pages en indriagodj.com.
 
-- `index.html`: la página. Los puntos a editar están marcados con `EDITA AQUÍ` (colores, enlaces, frases del ticker).
-- `assets/hero.jpg`: foto principal. `assets/og.jpg`: imagen al compartir el enlace.
+- `index.html`: la web. **Todo el contenido** (bio, enlaces, fechas, booking, redes) está en el objeto `SITE` al final del archivo, marcado con `EDITA AQUÍ`. Lo que tiene `pendiente: true` muestra una etiqueta "Provisional" hasta que se ponga el dato real (cámbialo a `false`).
+- Reproductor: pega la URL de embed de SoundCloud/Mixcloud/YouTube en `playerEmbed`.
+- `assets/`: fotos en blanco y negro (`hero.jpg`, `sentado*.jpg`, `escalera*.jpg`) y `og.jpg` (imagen al compartir el enlace).
 - `CNAME`: dominio propio.
