@@ -155,6 +155,15 @@
   .contacts a{font-weight:600}
   .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:56px}
 
+  .soc{display:flex;gap:6px;align-items:center}
+  .soc a{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;color:var(--mid);transition:color .2s,background .2s}
+  .soc a:hover{color:var(--ink);background:var(--paper)}
+  .soc a:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+  .soc svg{width:17px;height:17px;fill:currentColor}
+  .socials .btn{display:inline-flex;align-items:center;gap:9px}
+  .socials svg{width:15px;height:15px;fill:currentColor;flex:none}
+  .nav ul .menu-soc{display:none}
+  footer{align-items:center}
   footer{border-top:1px solid var(--line);padding:28px var(--gut);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
   footer .logo{font-family:var(--fd);font-weight:700;font-size:15px;letter-spacing:.02em;color:var(--paper)}
 
@@ -168,6 +177,8 @@
     .nav ul a{font-family:var(--fd);font-size:30px;letter-spacing:0;font-weight:700;opacity:1}
     .nav ul a span{font-family:var(--fm);font-size:13px;vertical-align:top}
     .menu-open .nav ul{opacity:1;pointer-events:auto}
+    .nav ul .menu-soc{display:block;margin-top:14px}
+    .nav ul .menu-soc .soc a{width:46px;height:46px;font-size:0;opacity:1;color:var(--paper);border:1px solid var(--line)}
     .burger{display:block;z-index:2}
     .bio,.music-grid{grid-template-columns:1fr}
     .bio figure{max-height:70vh}
@@ -218,6 +229,7 @@
         <li><a href="#dates"><b data-i18n="navDates"></b></a></li>
         <li><a href="#gallery"><b data-i18n="navGallery"></b></a></li>
         <li><a href="#booking"><b data-i18n="navBooking"></b></a></li>
+        <li class="menu-soc"><div class="soc" data-soc></div></li>
       </ul>
     </nav>
     <button class="lang" id="lang" type="button">
@@ -319,6 +331,7 @@
 <footer>
   <span class="logo"><img src="assets/logo-sm.png" alt="Indriago" width="180" height="89"></span>
   <span>© <span id="y">2026</span> Indriago · <span data-k="role"></span></span>
+  <div class="soc" data-soc></div>
   <a href="#top" data-i18n="backTop"></a>
 </footer>
 
@@ -352,14 +365,12 @@ var SITE = {
 
   // Reproductor: pega la URL "embed" de SoundCloud, Mixcloud, Spotify o YouTube.
   // Ej. SoundCloud: https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/USUARIO&color=%23111111&visual=true
-  playerEmbed: "",
-  platforms: [                                                         // PROVISIONAL: enlaces
-    ["SoundCloud", "https://soundcloud.com/indriago"],
-    ["Spotify", "#"],
-    ["Mixcloud", "#"],
-    ["YouTube", "#"]
+  playerEmbed: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/argenis_indriago&color=%23ededeb&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=true",
+  platforms: [
+    ["SoundCloud", "https://soundcloud.com/argenis_indriago"],
+    ["YouTube", "https://www.youtube.com/@indriagodj"]
   ],
-  platformsPendiente: true,
+  platformsPendiente: false,
 
   // Fechas: [fecha "AAAA-MM-DD", ciudad, país, club/evento, enlace entradas]
   // (ciudad, país y club se escriben una sola vez; si quieres traducirlos usa { en: "...", es: "..." })
@@ -382,11 +393,12 @@ var SITE = {
     ["Management", { en: "TBC", es: "Por confirmar" }, ""],
     [{ en: "Press", es: "Prensa" }, { en: "TBC", es: "Por confirmar" }, ""]
   ],
-  socials: [                                                           // PROVISIONAL
-    ["Instagram", "https://instagram.com/indriago"],
-    ["SoundCloud", "https://soundcloud.com/indriago"],
-    ["TikTok", "#"],
-    ["YouTube", "#"]
+  // Redes: aparecen en Booking, en el pie de página y en el menú del móvil
+  socials: [
+    ["Instagram", "https://www.instagram.com/indriagodj"],
+    ["SoundCloud", "https://soundcloud.com/argenis_indriago"],
+    ["YouTube", "https://www.youtube.com/@indriagodj"],
+    ["Facebook", "https://www.facebook.com/indriagodj"]
   ],
   contactPendiente: true
 };
@@ -428,6 +440,14 @@ var UI = {
   var lang = "en";
   var T = function(v){ return (v && typeof v === "object" && !Array.isArray(v)) ? (v[lang] != null ? v[lang] : v.en) : v };
 
+  // iconos de redes (SVG en línea)
+  var ICON = {
+    Instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg>',
+    SoundCloud: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 14.6c0-.2.1-.3.3-.3s.3.1.3.3l.3 2.3-.3 2.3c0 .2-.1.3-.3.3s-.3-.1-.3-.3L.8 16.9zm1.8-1.4c0-.2.1-.3.3-.3s.3.1.3.3l.4 3.7-.4 3.6c0 .2-.1.3-.3.3s-.3-.1-.3-.3l-.3-3.6zm1.9-.7c0-.2.2-.4.4-.4s.4.2.4.4l.3 4.4-.3 3.7c0 .2-.2.4-.4.4s-.4-.2-.4-.4l-.3-3.7zm1.9-.3c0-.3.2-.5.5-.5s.4.2.5.5l.3 4.7-.3 3.8c0 .3-.2.5-.5.5s-.4-.2-.5-.5l-.3-3.8zm2-1c0-.3.2-.5.5-.5s.5.2.5.5l.3 5.7-.3 3.8c0 .3-.2.5-.5.5s-.5-.2-.5-.5l-.2-3.8zm2-1.4c0-.3.3-.6.6-.6s.6.3.6.6l.2 7.1-.2 3.8c0 .3-.3.6-.6.6s-.6-.3-.6-.6l-.2-3.8zm2.2-1.2c.1-.4.4-.6.7-.6 3.3 0 6 2.5 6.3 5.7.4-.2.9-.3 1.4-.3 2.1 0 3.8 1.7 3.8 3.8s-1.7 3.8-3.8 3.8h-7.7c-.4 0-.7-.3-.7-.7z"/></svg>',
+    YouTube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg>',
+    Facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0024 12z"/></svg>'
+  };
+
   function render(){
     var ui = UI[lang], TBD = ' <span class="tbd">'+ui.tbd+'</span>';
     document.documentElement.lang = lang;
@@ -461,9 +481,12 @@ var UI = {
     var mail=$("#mail"); mail.textContent=SITE.email; mail.href="mailto:"+SITE.email;
     $("#contacts").innerHTML = SITE.contacts.map(function(c){
       return "<div><small>"+esc(T(c[0]))+"</small>"+(c[2]?'<a href="'+esc(c[2])+'">'+esc(T(c[1]))+"</a>":"<span>"+esc(T(c[1]))+"</span>")+"</div>";
-    }).join("");
-    $("#socials").innerHTML = SITE.socials.map(function(s){return '<a class="btn" href="'+esc(s[1])+'"'+ext(s[1])+'>'+esc(s[0])+'</a>'}).join("")
-      + (SITE.contactPendiente ? '<div style="width:100%;margin-top:6px">'+TBD+'</div>' : '');
+    }).join("") + (SITE.contactPendiente ? '<div style="grid-column:1/-1;text-align:center;padding-top:18px;border:0">'+TBD+'</div>' : '');
+    $$("[data-soc]").forEach(function(el){
+      el.innerHTML = SITE.socials.map(function(s){return '<a href="'+esc(s[1])+'"'+ext(s[1])+' aria-label="'+esc(s[0])+'" title="'+esc(s[0])+'">'+(ICON[s[0]]||esc(s[0]))+'</a>'}).join("");
+    });
+    $("#socials").innerHTML = SITE.socials.map(function(s){return '<a class="btn" href="'+esc(s[1])+'"'+ext(s[1])+'>'+(ICON[s[0]]||"")+esc(s[0])+'</a>'}).join("")
+      ;
 
     // botón de idioma
     var lb = $("#lang");
