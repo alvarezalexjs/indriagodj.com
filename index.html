@@ -96,7 +96,17 @@
   .bio figure img{width:100%;height:100%;object-fit:cover;filter:contrast(1.05)}
   .bio figure figcaption{position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.75}
   .bio .text p{font-size:clamp(16px,1.35vw,18px);color:#cfcfcd;margin-bottom:18px;max-width:58ch}
-  .bio .text p:first-of-type{font-size:clamp(20px,2vw,26px);color:var(--paper);line-height:1.4}
+  .bio .text p:first-of-type{font-size:clamp(18px,1.6vw,21px);color:var(--paper);line-height:1.5}
+  /* bio larga: se recorta a la altura de la foto y se abre con "Bio full" */
+  .bio-clip{position:relative;overflow:hidden;transition:max-height .7s cubic-bezier(.2,.7,.2,1)}
+  .bio-clip::after{content:"";position:absolute;left:0;right:0;bottom:0;height:110px;background:linear-gradient(180deg,rgba(11,11,11,0),var(--ink));pointer-events:none;transition:opacity .4s}
+  .bio-clip.open::after,.bio-clip.fits::after{opacity:0}
+  .bio-more{margin-top:20px;display:inline-flex;align-items:center;gap:10px;background:none;border:0;border-bottom:1px solid rgba(237,237,235,.35);padding:0 0 6px;color:var(--mid);font-family:var(--fm);font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:color .2s,border-color .2s}
+  .bio-more:hover{color:var(--paper);border-color:var(--paper)}
+  .bio-more:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+  .bio-more i{font-style:normal;display:inline-block;transition:transform .3s}
+  .bio-more[aria-expanded="true"] i{transform:rotate(45deg)}
+  .bio-more[hidden]{display:none}
 
   /* música */
   .music{background:var(--deep);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -329,7 +339,8 @@
     <div class="bio">
       <figure class="reveal"><img src="assets/bio.jpg" data-i18n-alt="altSeated" alt="" loading="lazy"><figcaption>Indriago · <span data-k="role"></span></figcaption></figure>
       <div class="text reveal">
-        <div id="bioText"></div>
+        <div class="bio-clip" id="bioClip"><div id="bioText"></div></div>
+        <button class="bio-more" id="bioMore" type="button" aria-controls="bioClip" aria-expanded="false" hidden><span></span><i aria-hidden="true">+</i></button>
       </div>
     </div>
   </div>
@@ -430,15 +441,22 @@ var SITE = {
   bigTicker: { en: ["Indriago", "On tour", "Indriago", "Live sets"], es: ["Indriago", "On tour", "Indriago", "Live sets"] },
 
   bio: {
+    // Géneros (3er párrafo): provisional hasta que AJ confirme
     en: [
-      "Born on Margarita Island (Venezuela) in 2002 and based in Barcelona, INDRIAGO is an electronic music DJ and producer. His story with electronic music began at 13, when a DJ friend taught him the basics of the craft and sparked a passion for beats and mixing that has never left him.",
-      "He started out playing private parties, where he quickly got noticed. With his charisma, his ease behind the decks and the support of his community, he made a name for himself on the Margarita scene and reached the island's best clubs.",
-      "Today he splits his time between the booth and the studio, and has taken his sound to Venezuela, Colombia, Spain, the Netherlands and Italy. From Barcelona, he keeps carving out his path as one of the new voices of the international electronic scene."
+      "Born on Margarita Island (Venezuela) in 2002 and based in Barcelona, INDRIAGO is an electronic music DJ and producer. He grew up surrounded by the Caribbean, among the salsa, merengue and drums that played on every corner, and perhaps that is why rhythm has always been at the heart of his music. At 13, a DJ friend taught him the basics of the craft. What began as curiosity soon became an obsession: hours practising transitions, digging for new music and studying sets by the biggest names in the genre.",
+      "His first steps were at private parties, where he learned the most important lesson of the booth: how to read the dancefloor. With his charisma, his energy and the support of his community, he went from parties among friends to the island's best clubs, making a name for himself on the Margarita scene while still very young.",
+      "Over the years his sound has taken shape: tech house, minimal and afro house with groove, punchy percussion and a constant nod to his Latin roots. His sets move from hypnotic to explosive, and are always built to keep the dancefloor moving.",
+      "Moving to Barcelona, one of the world capitals of electronic music, was a turning point. The city has given him new references, new connections and the drive to step into the studio. Today he combines the booth with production, working on his own tracks and edits.",
+      "He has taken his sound to Venezuela, Colombia, Spain, the Netherlands and Italy, playing to very different crowds, always with the same idea: connecting with people through rhythm.",
+      "From Barcelona, INDRIAGO keeps growing as one of the new voices of the international electronic scene, with his sights set on the big stages and on leaving his mark with a sound of his own."
     ],
     es: [
-      "Nacido en la Isla de Margarita (Venezuela) en 2002 y afincado en Barcelona, INDRIAGO es DJ y productor de música electrónica. Su historia con la electrónica empezó a los 13 años, cuando un amigo DJ le enseñó las bases del oficio y le despertó una pasión por los beats y las mezclas que ya no le ha abandonado.",
-      "Empezó pinchando en fiestas privadas, donde no tardó en hacerse notar. Con su carisma y su soltura en cabina, y el apoyo de su comunidad, se ganó un nombre en la escena de Margarita y llegó a los mejores clubes de la isla.",
-      "Hoy reparte su tiempo entre la cabina y el estudio, y ha llevado su sonido a Venezuela, Colombia, España, Países Bajos e Italia. Desde Barcelona sigue abriéndose camino como una de las nuevas voces de la escena electrónica internacional."
+      "Nacido en la Isla de Margarita (Venezuela) en 2002 y afincado en Barcelona, INDRIAGO es DJ y productor de música electrónica. Creció rodeado del Caribe, entre la salsa, el merengue y los tambores que sonaban en cada esquina, y quizá por eso el ritmo siempre ha sido el centro de su música. A los 13 años, un amigo DJ le enseñó las bases del oficio. Lo que empezó como curiosidad se convirtió pronto en obsesión: horas practicando transiciones, buscando música nueva y estudiando sets de los grandes nombres del género.",
+      "Sus primeros pasos fueron en fiestas privadas, donde aprendió lo más importante de la cabina: leer a la pista. Con su carisma, su energía y el apoyo de su comunidad, pasó de las fiestas entre amigos a los mejores clubes de la isla, y se hizo un nombre propio en la escena de Margarita cuando todavía era muy joven.",
+      "Con los años, su sonido ha ido tomando forma: tech house, minimal y afro house con groove, percusiones marcadas y un guiño constante a sus raíces latinas. Sus sets van de lo hipnótico a lo explosivo, y siempre están pensados para que la pista no pare de moverse.",
+      "Su llegada a Barcelona, una de las capitales mundiales de la música electrónica, marcó un antes y un después. La ciudad le ha dado nuevas referencias, nuevos contactos y la motivación para dar el salto al estudio. Hoy combina la cabina con la producción, y trabaja en sus propios temas y edits.",
+      "Ha llevado su sonido a Venezuela, Colombia, España, Países Bajos e Italia. Ha actuado ante públicos muy distintos, siempre con la misma idea: conectar con la gente a través del ritmo.",
+      "Desde Barcelona, INDRIAGO sigue creciendo como una de las nuevas voces de la escena electrónica internacional, con la mirada puesta en los grandes escenarios y en dejar huella con un sonido propio."
     ]
   },
   bioPendiente: false,
@@ -488,7 +506,7 @@ var SITE = {
 /* Textos fijos de la interfaz (menú, botones, títulos) */
 var UI = {
   en: {
-    navBio: "Bio", navMusic: "Music", navDates: "Dates", navGallery: "Gallery", navBooking: "Booking", navPress: "Press Kit",
+    navBio: "Bio", bioFull: "Bio full", bioLess: "Show less", navMusic: "Music", navDates: "Dates", navGallery: "Gallery", navBooking: "Booking", navPress: "Press Kit",
     bioTitle: "About <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> music",
     upcoming: "Upcoming", past: "Recent", tickets: "Tickets", noDates: "New dates coming soon.",
     lastSet: "Latest set", playerSoon: "The SoundCloud / Mixcloud / YouTube player goes here.",
@@ -500,7 +518,7 @@ var UI = {
     title: "Indriago — DJ / Producer", desc: "Official website of Indriago, DJ and producer. Music, tour dates, gallery and booking."
   },
   es: {
-    navBio: "Bio", navMusic: "Música", navDates: "Fechas", navGallery: "Galería", navBooking: "Booking", navPress: "Press Kit",
+    navBio: "Bio", bioFull: "Bio completa", bioLess: "Ver menos", navMusic: "Música", navDates: "Fechas", navGallery: "Galería", navBooking: "Booking", navPress: "Press Kit",
     bioTitle: "Sobre <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> música",
     upcoming: "Próximas", past: "Recientes", tickets: "Entradas", noDates: "Nuevas fechas muy pronto.",
     lastSet: "Último set", playerSoon: "Aquí irá el reproductor de SoundCloud / Mixcloud / YouTube.",
@@ -544,6 +562,7 @@ var UI = {
     });
 
     $("#bioText").innerHTML = T(SITE.bio).map(function(p,i){return "<p>"+esc(p)+(i===0&&SITE.bioPendiente?TBD:"")+"</p>"}).join("");
+    if (window.fitBio) fitBio();
 
     $("#player").classList.toggle("video", /youtube/.test(SITE.playerEmbed));
     var pl = $("#player"), plf = pl.querySelector("iframe");
@@ -583,6 +602,29 @@ var UI = {
     $("#prev").setAttribute("aria-label", ui.prev); $("#next").setAttribute("aria-label", ui.next); $("#carousel").setAttribute("aria-label", ui.gallery);
     $("#lb").setAttribute("aria-label", ui.photo); $("#lb .lb-close").setAttribute("aria-label", ui.close); $("#lb .lb-prev").setAttribute("aria-label", ui.prev); $("#lb .lb-next").setAttribute("aria-label", ui.next);
   }
+
+  // bio: si el texto es más alto que la foto, se recorta y aparece "Bio full"
+  var bioOpen = false;
+  window.fitBio = function(){
+    var clip = $("#bioClip"), btn = $("#bioMore"), fig = $(".bio figure"), txt = $("#bioText");
+    var wide = matchMedia("(min-width:901px)").matches;
+    var limit = wide ? fig.offsetHeight - 46 : Math.max(320, innerHeight * .55);
+    var full = txt.scrollHeight, fits = full <= limit + 40;
+    clip.classList.toggle("fits", fits);
+    clip.classList.toggle("open", bioOpen && !fits);
+    clip.style.maxHeight = fits ? "none" : (bioOpen ? full + "px" : limit + "px");
+    btn.hidden = fits;
+    btn.setAttribute("aria-expanded", bioOpen);
+    btn.querySelector("span").textContent = bioOpen ? UI[lang].bioLess : UI[lang].bioFull;
+  };
+  $("#bioMore").addEventListener("click", function(){
+    bioOpen = !bioOpen; fitBio();
+    if (!bioOpen) { var t = $("#bio").getBoundingClientRect().top + scrollY; if (scrollY > t + 200) scrollTo({ top: t, behavior: "smooth" }) }
+    setTimeout(function(){ if (window.ScrollTrigger) ScrollTrigger.refresh() }, 750);
+  });
+  addEventListener("resize", function(){ fitBio() });
+  addEventListener("load", function(){ fitBio() });
+  var bioImg = $(".bio figure img"); if (bioImg && !bioImg.complete) bioImg.addEventListener("load", function(){ fitBio() });
 
   function setLang(l){ lang = (l==="es") ? "es" : "en"; try{ localStorage.setItem("lang", lang) }catch(e){} render() }
   var saved = null; try{ saved = localStorage.getItem("lang") }catch(e){}
