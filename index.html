@@ -289,11 +289,78 @@
     .lightbox .lb-prev,.lightbox .lb-next{top:auto;bottom:12px;margin:0}
     .lightbox .lb-count{bottom:28px}
   }
+  /* ===== Dirección A: cartel de club ===== */
+  .hero{display:block;min-height:100vh;min-height:100svh}
+  .poster-grid{position:absolute;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.09) 0 1px,transparent 1px 25%)}
+  .hero .hero-name{position:absolute;z-index:2;left:1.2vw;right:1vw;bottom:calc(var(--strip-h) + 1.2vw);font-weight:800;font-size:22.4vw;line-height:.74;letter-spacing:-.055em;white-space:nowrap;margin:0}
+  .hero .hero-name::before{top:-20%;bottom:-20%}
+  .hero{--strip-h:92px}
+  .hero-name .brk{display:none}
+  @media (max-width:760px){.hero-name .brk{display:block}}
+  .strip{position:absolute;z-index:3;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(237,237,235,.38);background:linear-gradient(0deg,rgba(11,11,11,.55),rgba(11,11,11,0))}
+  .strip .cell{display:flex;flex-direction:column;justify-content:center;gap:6px;min-height:var(--strip-h);padding:14px var(--gut) 14px clamp(14px,2vw,28px);border:0;border-right:1px solid rgba(237,237,235,.2);background:none;color:var(--paper);text-align:left;font:inherit;min-width:0}
+  .strip .cell:first-child{padding-left:var(--gut)}
+  .strip .cell:last-child{border-right:0}
+  .strip small{font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#bdbdbb}
+  .strip b{font-family:var(--fd);font-weight:700;font-size:clamp(15px,1.55vw,22px);letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  a.cell,button.cell{cursor:pointer;transition:background .25s}
+  a.cell:hover,button.cell:hover{background:rgba(237,237,235,.08)}
+  a.cell:focus-visible,button.cell:focus-visible{outline:2px solid var(--paper);outline-offset:-4px}
+  .listen .ic{display:inline-block;width:1.1em;font-size:.8em;vertical-align:.08em}
+  .listen .pa,.listen.on .pl{display:none}.listen.on .pa{display:inline-block}
+  /* la radio flotante solo aparece fuera de la portada */
+  .radio{transition:opacity .35s,transform .35s,color .3s,border-color .3s}
+  body:not(.past-hero) .radio{opacity:0;transform:translateY(12px);pointer-events:none}
+  /* títulos de sección: titular de cartel + dato en mono + regla gruesa */
+  .sec-head{--rule:1;position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:12px 24px;flex-wrap:wrap;padding-bottom:16px}
+  .sec-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--paper);transform:scaleX(var(--rule));transform-origin:left}
+  .block .sec-head h2{font-size:clamp(64px,12.5vw,184px);line-height:.78;letter-spacing:-.05em;font-weight:800;margin:0}
+  .sec-head .meta{font-family:var(--fm);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#bdbdbb;padding-bottom:6px;text-align:right}
+  .bio,.music-grid,.carousel{margin-top:48px}
+  /* fechas: agenda impresa */
+  .dates #upcoming{margin-top:8px}
+  .gig{grid-template-columns:minmax(150px,.85fr) 1.2fr 1.2fr auto;gap:24px;padding:28px 0;border-bottom:1px solid rgba(237,237,235,.22)}
+  .gig:first-of-type{border-top:0}
+  .gig:hover{background:none;padding-left:0;padding-right:0}
+  .gig .d{font-family:var(--fd);font-weight:800;font-size:clamp(44px,6.2vw,92px);letter-spacing:-.045em;line-height:.8}
+  .gig .d small{font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-top:10px;color:#bdbdbb}
+  .gig .where{font-weight:700;font-size:clamp(20px,2.5vw,36px);letter-spacing:-.02em;line-height:1}
+  .gig .venue{font-size:12px;letter-spacing:.12em;color:#bdbdbb}
+  .gig .btn{padding:14px 20px;font-size:12px}
+  .gig.ghost{opacity:.42;transition:opacity .25s}
+  .gig.ghost:hover{opacity:.8}
+  /* booking alineado a la izquierda, como el resto */
+  .booking{text-align:left}
+  .booking .lead{margin:28px 0 0;max-width:560px}
+  .contacts{margin:56px 0 0;max-width:none}
+  .contacts div:first-child{padding-left:0}
+  .booking .presskit{margin-top:40px}
+  .socials{justify-content:flex-start}
+  /* retícula de cartel también en el resto de la página, muy suave */
+  body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 25%)}
+  @media (max-width:900px){
+    .gig{grid-template-columns:auto 1fr;gap:6px 18px;padding:24px 0}
+    .gig .d{grid-row:span 3;font-size:clamp(40px,13vw,64px)}
+    .gig .btn{grid-column:2;justify-self:start;margin-top:10px}
+    .sec-head .meta{text-align:left;width:100%;padding-bottom:0}
+  }
+  @media (max-width:760px){
+    .hero{--strip-h:74px}
+    .poster-grid{background:repeating-linear-gradient(90deg,rgba(255,255,255,.09) 0 1px,transparent 1px 50%)}
+    body::before{background:repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 50%)}
+    .hero .hero-name{font-size:33vw;line-height:.78;white-space:normal;bottom:calc(var(--strip-h) * 2 + 3vw);left:2.4vw}
+    .strip{grid-template-columns:1fr 1fr}
+    .strip .cell{padding:12px 16px;border-bottom:1px solid rgba(237,237,235,.2)}
+    .strip .cell:nth-child(2n){border-right:0}
+    .strip .cell:nth-child(odd){padding-left:16px}
+    .strip b{font-size:15px;white-space:normal;line-height:1.15}
+    .block .sec-head h2{font-size:clamp(56px,20vw,96px)}
+  }
   /* ===== animación de scroll "cinemática" (GSAP + Lenis) ===== */
   html.fx,html.fx body{overflow-x:clip}
   html.lenis,html.lenis body{height:auto}
   .lenis.lenis-smooth{scroll-behavior:auto!important}
-  .fx .hero h1,.fx .hero .role,.fx .hero .cta{animation:none}
+  .fx .hero .hero-name{animation:none}
   .fx .reveal{opacity:1;transform:none;transition:none}
 </style>
 </head>
@@ -323,19 +390,20 @@
 
 <section class="hero" id="top">
   <div class="photo"><img src="assets/hero.jpg" data-i18n-alt="altHero" alt="" fetchpriority="high"><video id="heroVid" muted playsinline preload="none" poster="assets/hero-poster.jpg" aria-hidden="true"><source src="assets/hero-scrub.mp4" type="video/mp4"></video></div>
-  <main>
-        <h1 class="display">Indriago</h1>
-    <div class="role" data-k="role"></div>
-    <div class="cta">
-      <a class="btn solid" href="#booking"><span data-i18n="navBooking"></span><span class="arr" aria-hidden="true">→</span></a>
-    </div>
-  </main>
+  <div class="poster-grid" aria-hidden="true"></div>
+  <h1 class="display hero-name">Indri<span class="brk"></span>ago</h1>
+  <div class="strip">
+    <div class="cell"><small data-k="role"></small><b>Barcelona</b></div>
+    <a class="cell" href="#dates" id="heroNext"><small data-i18n="nextDate"></small><b></b></a>
+    <div class="cell"><small data-i18n="sound"></small><b data-k="sound"></b></div>
+    <button class="cell listen" id="heroListen" type="button"><small data-i18n="listen"></small><b><span class="ic pl" aria-hidden="true">▶</span><span class="ic pa" aria-hidden="true">❚❚</span> Radio Show</b></button>
+  </div>
 </section>
 
 <!-- 01 BIO -->
 <section class="block" id="bio">
   <div class="wrap">
-    <h2 class="display reveal" data-i18n-html="bioTitle"></h2>
+    <div class="sec-head reveal"><h2 class="display" data-i18n="navBio"></h2><span class="meta" data-i18n="metaBio"></span></div>
     <div class="bio">
       <figure class="reveal"><img src="assets/bio.jpg" data-i18n-alt="altSeated" alt="" loading="lazy"><figcaption>Indriago · <span data-k="role"></span></figcaption></figure>
       <div class="text reveal">
@@ -349,7 +417,7 @@
 <!-- 02 MUSIC -->
 <section class="block music" id="music">
   <div class="wrap">
-    <h2 class="display reveal" data-i18n-html="musicTitle"></h2>
+    <div class="sec-head reveal"><h2 class="display" data-i18n="navMusic"></h2><span class="meta" data-i18n="metaMusic"></span></div>
     <div class="music-grid">
       <div class="player reveal" id="player"></div>
       <ul class="platforms reveal" id="platforms"></ul>
@@ -360,8 +428,7 @@
 <!-- 03 DATES -->
 <section class="block dates" id="dates">
   <div class="wrap">
-    <h2 class="display reveal">Dates</h2>
-    <h3 class="reveal" data-i18n="upcoming"></h3>
+    <div class="sec-head reveal"><h2 class="display" data-i18n="navDates"></h2><span class="meta" id="datesMeta"></span></div>
     <div id="upcoming"></div>
     <h3 class="reveal" data-i18n="past" id="pastTitle"></h3>
     <div id="past"></div>
@@ -373,7 +440,7 @@
 <!-- 04 GALLERY -->
 <section class="block" id="gallery">
   <div class="wrap">
-    <h2 class="display reveal" data-i18n="navGallery"></h2>
+    <div class="sec-head reveal"><h2 class="display" data-i18n="navGallery"></h2><span class="meta" data-i18n="metaGallery"></span></div>
     <div class="carousel reveal" id="carousel" role="region" aria-roledescription="carousel">
       <div class="gallery" id="track">
         <button class="slide" data-full="assets/g1-capucha.jpg"><img src="assets/g1-capucha.jpg" data-i18n-alt="altHood" alt="" loading="lazy"></button>
@@ -397,7 +464,7 @@
 <!-- 05 BOOKING -->
 <section class="block booking music" id="booking">
   <div class="wrap">
-    <h2 class="display reveal">Booking</h2>
+    <div class="sec-head reveal"><h2 class="display">Booking</h2><span class="meta" data-i18n="metaBooking"></span></div>
     <p class="lead reveal" data-k="bookingLead"></p>
     <a class="mail reveal" id="mail"></a>
     <div class="contacts reveal" id="contacts"></div>
@@ -438,6 +505,8 @@
    ===================================================================== */
 var SITE = {
   role:       { en: "DJ / Producer",    es: "DJ / Productor" },
+  // Sonido (franja de la portada). PROVISIONAL hasta que Indriago confirme sus géneros
+  sound:      { en: "Tech house · Minimal", es: "Tech house · Minimal" },
   bigTicker: { en: ["Indriago", "On tour", "Indriago", "Live sets"], es: ["Indriago", "On tour", "Indriago", "Live sets"] },
 
   bio: {
@@ -507,7 +576,7 @@ var SITE = {
 var UI = {
   en: {
     navBio: "Bio", bioFull: "Bio full", bioLess: "Show less", navMusic: "Music", navDates: "Dates", navGallery: "Gallery", navBooking: "Booking", navPress: "Press Kit",
-    bioTitle: "About <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> music",
+    nextDate: "Next date", sound: "Sound", listen: "Listen", bookingOpen: "Booking open", tba: "Next date TBA", book: "Book", metaBio: "Margarita Island → Barcelona", metaMusic: "Sets · Radio show", metaGallery: "Studio session · 2026", metaBooking: "Clubs · Festivals · Private events", days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
     upcoming: "Upcoming", past: "Recent", tickets: "Tickets", noDates: "New dates coming soon.",
     lastSet: "Latest set", playerSoon: "The SoundCloud / Mixcloud / YouTube player goes here.",
     tbd: "Placeholder", pending: "Pending", backTop: "Back to top ↑", rights: "All rights reserved.",
@@ -519,7 +588,7 @@ var UI = {
   },
   es: {
     navBio: "Bio", bioFull: "Bio completa", bioLess: "Ver menos", navMusic: "Música", navDates: "Fechas", navGallery: "Galería", navBooking: "Booking", navPress: "Press Kit",
-    bioTitle: "Sobre <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> música",
+    nextDate: "Próxima fecha", sound: "Sonido", listen: "Escuchar", bookingOpen: "Booking abierto", tba: "Próxima fecha por anunciar", book: "Contratar", metaBio: "Isla de Margarita → Barcelona", metaMusic: "Sets · Radio show", metaGallery: "Sesión de estudio · 2026", metaBooking: "Clubes · Festivales · Eventos privados", days: ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"],
     upcoming: "Próximas", past: "Recientes", tickets: "Entradas", noDates: "Nuevas fechas muy pronto.",
     lastSet: "Último set", playerSoon: "Aquí irá el reproductor de SoundCloud / Mixcloud / YouTube.",
     tbd: "Provisional", pending: "Pendiente", backTop: "Volver arriba ↑", rights: "Todos los derechos reservados.",
@@ -573,12 +642,19 @@ var UI = {
       + (SITE.platformsPendiente ? '<li style="padding-top:12px">'+TBD+'</li>' : '');
 
     function gig(g, past){
-      var d=g[0].split("-");
-      return '<div class="gig reveal in'+(past?' past':'')+'"><div class="d">'+d[2]+' '+ui.months[+d[1]-1]+'<small>'+d[0]+'</small></div>'
+      var d=g[0].split("-"), wd=ui.days[new Date(+d[0], +d[1]-1, +d[2]).getDay()];
+      return '<div class="gig reveal in'+(past?' past':'')+'"><div class="d">'+d[2]+'.'+d[1]+'<small>'+wd+' · '+d[0]+'</small></div>'
         +'<div class="where">'+esc(T(g[1]))+', '+esc(T(g[2]))+'</div><div class="venue">'+esc(T(g[3]))+'</div>'
-        +(g[4] ? '<a class="btn" href="'+esc(g[4])+'"'+ext(g[4])+'>'+ui.tickets+'</a>' : '<span></span>')+'</div>';
+        +(g[4] ? '<a class="btn solid" href="'+esc(g[4])+'"'+ext(g[4])+'>'+ui.tickets+'</a>' : '<span></span>')+'</div>';
     }
-    $("#upcoming").innerHTML = SITE.upcoming.length ? SITE.upcoming.map(function(g){return gig(g)}).join("") : '<p style="color:var(--mid)">'+ui.noDates+'</p>';
+    // fila "próxima fecha por anunciar": invita a contratar mientras la agenda es corta
+    var tba = '<div class="gig ghost reveal in"><div class="d">—<small>'+ui.bookingOpen+'</small></div><div class="where">'+ui.tba+'</div><div class="venue">'+esc(SITE.email)+'</div><a class="btn" href="#booking">'+ui.book+'</a></div>';
+    $("#upcoming").innerHTML = SITE.upcoming.map(function(g){return gig(g)}).join("") + tba;
+    $("#datesMeta").textContent = ui.upcoming + " · " + new Date().getFullYear();
+    // franja de la portada: próxima fecha
+    var nx = SITE.upcoming[0], hn = $("#heroNext b");
+    if (nx) { var nd = nx[0].split("-"), venue = T(nx[3]).split("·").pop().trim(); hn.textContent = nd[2]+"."+nd[1]+" · "+venue }
+    else hn.textContent = ui.bookingOpen;
     $("#pastTitle").hidden = $("#past").hidden = !SITE.past.length;
     $("#past").innerHTML = SITE.past.map(function(g){return gig(g,true)}).join("") + (SITE.datesPendiente ? '<p style="margin-top:16px">'+TBD+'</p>' : '');
 
@@ -636,7 +712,7 @@ var UI = {
 
   // nav: fondo al hacer scroll + menú móvil + sección activa
   var nav=$("#nav"), burger=$("#burger");
-  function onScroll(){ nav.classList.toggle("scrolled", scrollY>40) }
+  function onScroll(){ nav.classList.toggle("scrolled", scrollY>40); document.body.classList.toggle("past-hero", scrollY > innerHeight * (document.documentElement.classList.contains("fx") ? 1.15 : .7)) }
   addEventListener("scroll", onScroll, {passive:true}); onScroll();
   function setMenu(open){ document.body.classList.toggle("menu-open",open); burger.setAttribute("aria-expanded",open); document.body.style.overflow=open?"hidden":"" }
   burger.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")) });
@@ -693,7 +769,7 @@ var UI = {
     var box = $("#radio"), btn = $("#rPlay"), vol = $("#rVol");
     var widget = null, ready = false, wantPlay = false, yt = null;
     vol.value = SITE.radioVolume; vol.style.setProperty("--v", vol.value + "%");
-    function ui(on){ box.classList.toggle("on", on); btn.setAttribute("aria-label", on ? UI[lang].pause : UI[lang].play) }
+    function ui(on){ box.classList.toggle("on", on); btn.setAttribute("aria-label", on ? UI[lang].pause : UI[lang].play); $("#heroListen").classList.toggle("on", on) }
     function load(src, cb){ var s = document.createElement("script"); s.src = src; s.async = true; if (cb) s.onload = cb; document.head.appendChild(s) }
     var started = false;
     function startSC(){
@@ -710,6 +786,7 @@ var UI = {
         widget.bind(E.FINISH, function(){ ui(false) });
       });
     }
+    $("#heroListen").addEventListener("click", function(){ btn.click() });
     btn.addEventListener("click", function(){
       if (!ready) { wantPlay = !wantPlay; ui(wantPlay); startSC(); return }
       widget.isPaused(function(p){ p ? widget.play() : widget.pause() });
@@ -787,7 +864,8 @@ var UI = {
   }
 
   // entrada de la portada
-  gsap.from(".hero h1, .hero .role, .hero .cta", { y: 28, opacity: 0, duration: 1.1, stagger: .12, ease: "power3.out", delay: .15 });
+  gsap.from(".hero-name", { yPercent: 12, opacity: 0, duration: 1.2, ease: "power3.out", delay: .1 });
+  gsap.from(".hero .strip .cell", { y: 16, opacity: 0, duration: .8, stagger: .08, ease: "power3.out", delay: .45 });
 
   // portada fija: la foto se acerca y oscurece y el nombre crece
   // y el video avanza fotograma a fotograma: la cara gira hacia la cámara al bajar
@@ -802,26 +880,20 @@ var UI = {
   gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: .6, pin: true,
       onUpdate: function(st){ want = Math.min(1, st.progress / .8) } } })
     .fromTo(".hero .photo", { scale: 1, filter: "brightness(1)" }, { scale: 1.15, filter: "brightness(.6)", ease: "none" }, 0)
-    .to(".hero h1", { scale: innerWidth < 760 ? 1.2 : 1.7, transformOrigin: "0% 60%", ease: "none" }, 0)
-    .to(".hero .role, .hero .cta", { opacity: 0, y: -30, ease: "none" }, 0);
+    .to(".hero-name", { yPercent: -22, ease: "none" }, 0)
+    .to(".hero .strip", { opacity: 0, ease: "none" }, .5);
 
-  // títulos que crecen al entrar
-  U(".block h2").forEach(function(h){
-    gsap.fromTo(h, { scale: .55, opacity: 0, transformOrigin: "0% 100%" },
-      { scale: 1, opacity: 1, ease: "none", scrollTrigger: { trigger: h, start: "top 95%", end: "top 55%", scrub: true } });
+  // títulos: la línea de debajo se dibuja al entrar (sin dejar el título a medias)
+  U(".sec-head").forEach(function(h){
+    gsap.fromTo(h, { "--rule": 0 }, { "--rule": 1, ease: "power2.out", duration: 1.1, scrollTrigger: { trigger: h, start: "top 88%" } });
   });
   // la cinta grande se inclina
   gsap.fromTo(".ticker.big", { rotation: -4 }, { rotation: 4, ease: "none",
     scrollTrigger: { trigger: ".ticker.big", start: "top bottom", end: "bottom top", scrub: true } });
-  // las fotos se abren
+  // las fotos se acercan un poco al entrar (siempre visibles)
   U(".carousel, .bio figure").forEach(function(box){
-    gsap.fromTo(box, { scale: .78, opacity: .2 }, { scale: 1, opacity: 1, ease: "none",
-      scrollTrigger: { trigger: box, start: "top 100%", end: "top 45%", scrub: true } });
-  });
-  // las fechas entran desde los lados
-  U(".gig").forEach(function(g, i){
-    gsap.from(g, { x: (i % 2 ? 1 : -1) * (innerWidth < 760 ? 24 : 80), opacity: 0, ease: "none",
-      scrollTrigger: { trigger: g, start: "top 95%", end: "top 70%", scrub: true } });
+    gsap.fromTo(box, { scale: .94 }, { scale: 1, ease: "none",
+      scrollTrigger: { trigger: box, start: "top 100%", end: "top 50%", scrub: true } });
   });
 
   addEventListener("load", function(){ ScrollTrigger.refresh() });
