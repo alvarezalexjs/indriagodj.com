@@ -152,6 +152,7 @@
   .booking h2{font-size:clamp(50px,9.4vw,128px)}
   .booking .lead{max-width:560px;margin:22px auto 0;color:#cfcfcd}
   .mail{display:inline-block;margin-top:34px;font-family:var(--fd);font-weight:700;font-size:clamp(20px,3.2vw,42px);text-transform:uppercase;border-bottom:2px solid var(--paper);padding-bottom:6px;transition:color .2s,border-color .2s;word-break:break-all}
+  .booking .presskit{margin-top:34px}
   .mail:hover{color:var(--mid);border-color:var(--mid)}
   .contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:70px auto 0;max-width:980px;border-top:1px solid var(--line);text-align:left}
   .contacts div{padding:24px 20px 0}
@@ -298,6 +299,7 @@
         <li><a href="#dates"><b data-i18n="navDates"></b></a></li>
         <li><a href="#gallery"><b data-i18n="navGallery"></b></a></li>
         <li><a href="#booking"><b data-i18n="navBooking"></b></a></li>
+        <li><a href="presskit/"><b data-i18n="navPress"></b></a></li>
         <li class="menu-soc"><div class="soc" data-soc></div></li>
       </ul>
     </nav>
@@ -388,6 +390,7 @@
     <p class="lead reveal" data-k="bookingLead"></p>
     <a class="mail reveal" id="mail"></a>
     <div class="contacts reveal" id="contacts"></div>
+    <a class="btn presskit reveal" href="presskit/"><span data-i18n="navPress"></span><span class="arr" aria-hidden="true">→</span></a>
     <div class="socials soc reveal" id="socials"></div>
   </div>
 </section>
@@ -485,7 +488,7 @@ var SITE = {
 /* Textos fijos de la interfaz (menú, botones, títulos) */
 var UI = {
   en: {
-    navBio: "Bio", navMusic: "Music", navDates: "Dates", navGallery: "Gallery", navBooking: "Booking",
+    navBio: "Bio", navMusic: "Music", navDates: "Dates", navGallery: "Gallery", navBooking: "Booking", navPress: "Press Kit",
     bioTitle: "About <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> music",
     upcoming: "Upcoming", past: "Recent", tickets: "Tickets", noDates: "New dates coming soon.",
     lastSet: "Latest set", playerSoon: "The SoundCloud / Mixcloud / YouTube player goes here.",
@@ -497,7 +500,7 @@ var UI = {
     title: "Indriago — DJ / Producer", desc: "Official website of Indriago, DJ and producer. Music, tour dates, gallery and booking."
   },
   es: {
-    navBio: "Bio", navMusic: "Música", navDates: "Fechas", navGallery: "Galería", navBooking: "Booking",
+    navBio: "Bio", navMusic: "Música", navDates: "Fechas", navGallery: "Galería", navBooking: "Booking", navPress: "Press Kit",
     bioTitle: "Sobre <em>Indriago</em>", musicTitle: "Sets <em>&amp;</em> música",
     upcoming: "Próximas", past: "Recientes", tickets: "Entradas", noDates: "Nuevas fechas muy pronto.",
     lastSet: "Último set", playerSoon: "Aquí irá el reproductor de SoundCloud / Mixcloud / YouTube.",
