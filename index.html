@@ -312,7 +312,7 @@
   .hero .photo{background:#3a3a3a}
   .hero .photo img{inset:0;right:auto;width:100%;height:100%;max-width:100%;object-fit:cover;object-position:50% 14%;transform:none;-webkit-mask-image:none;mask-image:none}
   /* dron cenital: baja con el scroll y termina en la foto */
-  .hero .photo video{inset:0;right:auto;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 50%;-webkit-mask-image:none;mask-image:none}
+  .hero .photo video{inset:0;right:auto;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 0;-webkit-mask-image:none;mask-image:none}
   .hero .photo.playing img{opacity:1}
   .hero .photo::after{background:linear-gradient(0deg,rgba(8,8,8,.92) 0%,rgba(8,8,8,.35) 32%,rgba(0,0,0,0) 55%),linear-gradient(180deg,rgba(8,8,8,.55) 0%,rgba(0,0,0,0) 22%)}
   .hero .hero-name{font-size:17.4vw;line-height:.78;letter-spacing:-.05em;left:1.4vw;right:auto}
@@ -359,7 +359,7 @@
     body::before{background:repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 50%)}
     .hero .hero-name{font-size:30vw;line-height:.8;white-space:normal;bottom:calc(var(--strip-h) * 2 + 3vw);left:2.4vw}
     .hero .photo img{object-position:56% 8%}
-    .hero .photo video{object-position:50% 50%}
+    .hero .photo video{object-position:50% 0}
     .strip .cell:first-child{display:none}
     .strip .book{display:flex}
     #heroNext{order:1}.strip .listen{order:2}.strip .cell:nth-child(3){order:3}.strip .book{order:4}
@@ -770,13 +770,12 @@ var UI = {
   updateCar();
 
   // portada: el dron baja hacia Indriago con el scroll (lo mueve la animación de scroll más abajo)
-  // y al final se funde con la foto real.
   // No se carga con "reducir movimiento" ni con ahorro de datos: entonces queda la foto fija.
   (function(){
     var v = $("#heroVid"); if (!v) return;
     var c = navigator.connection;
     if (matchMedia("(prefers-reduced-motion: reduce)").matches || (c && c.saveData)) { v.parentNode.removeChild(v); return }
-    v.addEventListener("loadeddata", function(){ v.parentNode.classList.add("playing"); setTimeout(function(){ v.style.transition = "none" }, 1300) }, { once: true });
+    v.addEventListener("loadeddata", function(){ v.parentNode.classList.add("playing"); }, { once: true });
     v.preload = "auto"; v.load();
   })();
 
@@ -884,14 +883,13 @@ var UI = {
   gsap.from(".hero .strip .cell", { y: 16, opacity: 0, duration: .8, stagger: .08, ease: "power3.out", delay: .45 });
 
   // portada fija: la foto se acerca y oscurece y el nombre crece
-  // y el video avanza fotograma a fotograma: el dron baja desde lo alto hasta él y se funde con la foto
+  // y el video avanza fotograma a fotograma: el dron baja desde lo alto hasta su cara
   var hv = document.getElementById("heroVid"), want = 0, shown = 0, busy = false;
   function seek(){
     if (!hv || !hv.duration) return;
     shown += (want - shown) * .25;                       // suavizado
     if (Math.abs(want - shown) < .002) shown = want;
     if (!busy) { busy = true; hv.currentTime = shown * (hv.duration - .05) }
-    if (hv.parentNode.classList.contains("playing")) hv.style.opacity = shown < .86 ? 1 : Math.max(0, 1 - (shown - .86) / .14);
   }
   if (hv) { hv.addEventListener("seeked", function(){ busy = false }); gsap.ticker.add(seek) }
   gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: .6, pin: true,
