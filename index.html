@@ -302,12 +302,18 @@
   .strip .cell:first-child{padding-left:var(--gut)}
   .strip .cell:last-child{border-right:0}
   .strip small{font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#bdbdbb}
-  .strip b{font-family:var(--fd);font-weight:700;font-size:clamp(15px,1.55vw,22px);letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .strip b{font-family:var(--fd);font-weight:700;font-size:clamp(14px,1.4vw,21px);letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   a.cell,button.cell{cursor:pointer;transition:background .25s}
   a.cell:hover,button.cell:hover{background:rgba(237,237,235,.08)}
   a.cell:focus-visible,button.cell:focus-visible{outline:2px solid var(--paper);outline-offset:-4px}
   .listen .ic{display:inline-block;width:1.1em;font-size:.8em;vertical-align:.08em}
   .listen .pa,.listen.on .pl{display:none}.listen.on .pa{display:inline-block}
+  /* portada a pantalla completa (formato del mockup) */
+  .hero .photo{background:#3a3a3a}
+  .hero .photo img{inset:0;right:auto;width:100%;height:100%;max-width:100%;object-fit:cover;object-position:50% 14%;transform:none;-webkit-mask-image:none;mask-image:none}
+  .hero .photo::after{background:linear-gradient(0deg,rgba(8,8,8,.92) 0%,rgba(8,8,8,.35) 32%,rgba(0,0,0,0) 55%),linear-gradient(180deg,rgba(8,8,8,.55) 0%,rgba(0,0,0,0) 22%)}
+  .hero .hero-name{font-size:17.4vw;line-height:.78;letter-spacing:-.05em;left:1.4vw;right:auto}
+  .strip .book{display:none}
   /* la radio flotante solo aparece fuera de la portada */
   .radio{transition:opacity .35s,transform .35s,color .3s,border-color .3s}
   body:not(.past-hero) .radio{opacity:0;transform:translateY(12px);pointer-events:none}
@@ -348,7 +354,11 @@
     .hero{--strip-h:74px}
     .poster-grid{background:repeating-linear-gradient(90deg,rgba(255,255,255,.09) 0 1px,transparent 1px 50%)}
     body::before{background:repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 50%)}
-    .hero .hero-name{font-size:33vw;line-height:.78;white-space:normal;bottom:calc(var(--strip-h) * 2 + 3vw);left:2.4vw}
+    .hero .hero-name{font-size:30vw;line-height:.8;white-space:normal;bottom:calc(var(--strip-h) * 2 + 3vw);left:2.4vw}
+    .hero .photo img{object-position:56% 8%}
+    .strip .cell:first-child{display:none}
+    .strip .book{display:flex}
+    #heroNext{order:1}.strip .listen{order:2}.strip .cell:nth-child(3){order:3}.strip .book{order:4}
     .strip{grid-template-columns:1fr 1fr}
     .strip .cell{padding:12px 16px;border-bottom:1px solid rgba(237,237,235,.2)}
     .strip .cell:nth-child(2n){border-right:0}
@@ -389,13 +399,14 @@
 </header>
 
 <section class="hero" id="top">
-  <div class="photo"><img src="assets/hero.jpg" data-i18n-alt="altHero" alt="" fetchpriority="high"><video id="heroVid" muted playsinline preload="none" poster="assets/hero-poster.jpg" aria-hidden="true"><source src="assets/hero-scrub.mp4" type="video/mp4"></video></div>
+  <div class="photo"><img src="assets/hero-a.jpg" srcset="assets/hero-a-m.jpg 900w, assets/hero-a.jpg 1800w" sizes="100vw" data-i18n-alt="altHero" alt="" fetchpriority="high"></div>
   <div class="poster-grid" aria-hidden="true"></div>
   <h1 class="display hero-name">Indri<span class="brk"></span>ago</h1>
   <div class="strip">
     <div class="cell"><small data-k="role"></small><b>Barcelona</b></div>
     <a class="cell" href="#dates" id="heroNext"><small data-i18n="nextDate"></small><b></b></a>
     <div class="cell"><small data-i18n="sound"></small><b data-k="sound"></b></div>
+    <a class="cell book" href="#booking"><small data-i18n="book"></small><b>Booking →</b></a>
     <button class="cell listen" id="heroListen" type="button"><small data-i18n="listen"></small><b><span class="ic pl" aria-hidden="true">▶</span><span class="ic pa" aria-hidden="true">❚❚</span> Radio Show</b></button>
   </div>
 </section>
@@ -581,7 +592,7 @@ var UI = {
     tbd: "Placeholder", pending: "Pending", backTop: "Back to top ↑", rights: "All rights reserved.",
     menuOpen: "Open menu", close: "Close", prev: "Previous photo", next: "Next photo", gallery: "Photo gallery", photo: "Enlarged photo", player: "Player",
     langLabel: "Cambiar a español", other: "es", play: "Play radio show", pause: "Pause radio show", volume: "Volume",
-    altHero: "Black and white portrait of Indriago wearing glasses", altSeated: "Indriago seated with his arms open, black and white portrait", altHood: "Indriago standing in a black hooded jacket, black and white", altChair: "Indriago seated on a chair, looking at the camera, black and white", altGlasses: "Indriago adjusting his glasses, hood up, black and white", altLight: "Indriago under a studio light, black and white", altChair2: "Indriago seated, looking down, black and white",
+    altHero: "Indriago in a black hooded jacket and glasses, black and white", altSeated: "Indriago seated with his arms open, black and white portrait", altHood: "Indriago standing in a black hooded jacket, black and white", altChair: "Indriago seated on a chair, looking at the camera, black and white", altGlasses: "Indriago adjusting his glasses, hood up, black and white", altLight: "Indriago under a studio light, black and white", altChair2: "Indriago seated, looking down, black and white",
     months: ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"],
     title: "Indriago — DJ / Producer", desc: "Official website of Indriago, DJ and producer. Music, tour dates, gallery and booking."
   },
@@ -593,7 +604,7 @@ var UI = {
     tbd: "Provisional", pending: "Pendiente", backTop: "Volver arriba ↑", rights: "Todos los derechos reservados.",
     menuOpen: "Abrir menú", close: "Cerrar", prev: "Foto anterior", next: "Foto siguiente", gallery: "Galería de fotos", photo: "Foto ampliada", player: "Reproductor",
     langLabel: "Switch to English", other: "en", play: "Reproducir radio show", pause: "Pausar radio show", volume: "Volumen",
-    altHero: "Retrato de Indriago con gafas en blanco y negro", altSeated: "Indriago sentado con los brazos abiertos, retrato en blanco y negro", altHood: "Indriago de pie con chaqueta negra y capucha, en blanco y negro", altChair: "Indriago sentado en una silla mirando a cámara, en blanco y negro", altGlasses: "Indriago ajustándose las gafas con la capucha puesta, en blanco y negro", altLight: "Indriago bajo un foco de estudio, en blanco y negro", altChair2: "Indriago sentado mirando hacia abajo, en blanco y negro",
+    altHero: "Indriago con chaqueta negra con capucha y gafas, en blanco y negro", altSeated: "Indriago sentado con los brazos abiertos, retrato en blanco y negro", altHood: "Indriago de pie con chaqueta negra y capucha, en blanco y negro", altChair: "Indriago sentado en una silla mirando a cámara, en blanco y negro", altGlasses: "Indriago ajustándose las gafas con la capucha puesta, en blanco y negro", altLight: "Indriago bajo un foco de estudio, en blanco y negro", altChair2: "Indriago sentado mirando hacia abajo, en blanco y negro",
     months: ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"],
     title: "Indriago — DJ / Productor", desc: "Web oficial de Indriago, DJ y productor. Música, fechas, galería y booking."
   }
