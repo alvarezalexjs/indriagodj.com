@@ -7,6 +7,6 @@ Web estática de una sola página (HTML + CSS + JS, sin build) publicada con Git
 - Reproductor: pega la URL de embed de SoundCloud/Mixcloud/YouTube en `playerEmbed`.
 - Fuentes (Google Fonts): Inter Tight (títulos), Inter (texto) y JetBrains Mono (etiquetas).
 - `assets/logo-sm.png`: logo de grafiti (blanco, fondo transparente), usado solo en el menú y el pie de página.
-- `assets/`: fotos en blanco y negro (`hero.jpg`, `sentado.jpg` en la bio y `g1`–`g5` en la galería) y `og.jpg` (imagen al compartir el enlace).
+- `assets/`: fotos en blanco y negro (`hero.jpg`, `bio.jpg` en la bio y `g1`–`g5` en la galería) y `og.jpg` (imagen al compartir el enlace).
 - Animación de scroll "cinemática": GSAP 3.12.5 + ScrollTrigger y Lenis 1.1.13, alojados en `assets/js/` (licencias: GSAP Standard "no charge", Lenis MIT). Se desactiva sola si el visitante tiene activado "reducir movimiento".
 - `CNAME`: dominio propio.
