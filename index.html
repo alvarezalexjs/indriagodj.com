@@ -143,11 +143,10 @@
   .car-btn:hover:not(:disabled){background:var(--paper);color:var(--ink);border-color:var(--paper)}
   .car-btn:focus-visible,.gallery .slide:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
   .car-btn:disabled{opacity:.3;cursor:default}
-  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.94);display:none;place-items:center;padding:24px}
-  .lightbox.open{display:grid}
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.94);display:grid;place-items:center;padding:24px;visibility:hidden}
+  .lightbox.open{visibility:visible}
   .lightbox img{max-height:88vh;width:auto}
-  .lightbox button{position:absolute;top:16px;right:16px;background:none;border:1px solid var(--line);color:var(--paper);width:44px;height:44px;font-size:22px;cursor:pointer}
-
+  
   /* booking */
   .booking{text-align:center}
   .booking h2{font-size:clamp(50px,9.4vw,128px)}
@@ -222,7 +221,7 @@
     .hero .photo::after{background:linear-gradient(0deg,var(--ink) 0%,rgba(30,30,30,.8) 38%,rgba(38,38,38,0) 62%,rgba(0,0,0,.3) 100%)}
     .hero main{align-self:end;padding-top:46vh}
       }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+  @media (prefers-reduced-motion:reduce){body::after{display:none}*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
   /* logo */
   .nav .logo img{height:38px;width:auto;transition:height .3s}
   .nav.scrolled .logo img{height:32px}
@@ -237,6 +236,48 @@
   .lang .on{color:inherit;font-weight:700}
   .lang .off{opacity:.45}
   .lang:hover .off{opacity:.6}
+  /* ===== pulido ===== */
+  ::selection{background:var(--paper);color:var(--ink)}
+  html{-webkit-tap-highlight-color:transparent}
+  .display{letter-spacing:-.02em}
+  .block h2{margin-top:0}
+  /* grano de película muy sutil */
+  body::after{content:"";position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(4) infinite}
+  @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}
+  /* menú: línea bajo la sección activa */
+  @media (min-width:901px){
+    .nav ul a{position:relative;padding:6px 0}
+    .nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+    .nav ul a:hover::after,.nav ul a.on::after{transform:scaleX(1);transform-origin:left}
+  }
+  .nav ul a:focus-visible,.btn:focus-visible,.mail:focus-visible,.platforms a:focus-visible,footer a:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+  .btn .arr{display:inline-block;transition:transform .25s}
+  .btn:hover .arr{transform:translateX(4px)}
+  /* fechas: más aire y jerarquía */
+  .gig{grid-template-columns:150px 1.3fr 1fr auto}
+  .gig .venue{font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+  /* reproductor de vídeo: fondo oscuro mientras carga */
+  .player{background:var(--ink) radial-gradient(60% 60% at 50% 50%,#1d1d1d,var(--ink))}
+  /* el mini reproductor no tapa el pie */
+  footer{padding-bottom:96px}
+  /* foto ampliada: navegación coherente con el carrusel */
+  .lightbox{opacity:0;transition:opacity .35s ease,visibility 0s .35s}
+  .lightbox.open{opacity:1;transition:opacity .35s ease}
+  .lightbox img{max-width:min(92vw,1100px);max-height:84vh;object-fit:contain}
+  .lightbox .lb-btn{position:absolute;width:48px;height:48px;border-radius:50%;border:1px solid rgba(237,237,235,.4);background:rgba(11,11,11,.4);color:var(--paper);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+  .lightbox .lb-btn:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .lightbox .lb-btn:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+  .lightbox .lb-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
+  .lightbox .lb-close{top:18px;right:var(--gut)}
+  .lightbox .lb-prev{left:var(--gut);top:50%;margin-top:-24px}
+  .lightbox .lb-next{right:var(--gut);top:50%;margin-top:-24px}
+  .lightbox .lb-count{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-family:var(--fm);font-size:12px;letter-spacing:.1em;color:var(--mid);font-variant-numeric:tabular-nums;pointer-events:none}
+  @media (max-width:900px){ .gig{grid-template-columns:90px 1fr} }
+  @media (max-width:760px){
+    .hero main{padding-bottom:92px}
+    .lightbox .lb-prev,.lightbox .lb-next{top:auto;bottom:12px;margin:0}
+    .lightbox .lb-count{bottom:28px}
+  }
   /* ===== animación de scroll "cinemática" (GSAP + Lenis) ===== */
   html.fx,html.fx body{overflow-x:clip}
   html.lenis,html.lenis body{height:auto}
@@ -274,7 +315,7 @@
         <h1 class="display">Indriago</h1>
     <div class="role" data-k="role"></div>
     <div class="cta">
-      <a class="btn solid" href="#booking" data-i18n="navBooking"></a>
+      <a class="btn solid" href="#booking"><span data-i18n="navBooking"></span><span class="arr" aria-hidden="true">→</span></a>
     </div>
   </main>
 </section>
@@ -282,7 +323,6 @@
 <!-- 01 BIO -->
 <section class="block" id="bio">
   <div class="wrap">
-    <div class="eyebrow reveal"><span data-i18n="navBio"></span></div>
     <h2 class="display reveal" data-i18n-html="bioTitle"></h2>
     <div class="bio">
       <figure class="reveal"><img src="assets/sentado.jpg" data-i18n-alt="altSeated" alt="" loading="lazy"><figcaption>Indriago · <span data-k="role"></span></figcaption></figure>
@@ -296,7 +336,6 @@
 <!-- 02 MUSIC -->
 <section class="block music" id="music">
   <div class="wrap">
-    <div class="eyebrow reveal"><span data-i18n="navMusic"></span></div>
     <h2 class="display reveal" data-i18n-html="musicTitle"></h2>
     <div class="music-grid">
       <div class="player reveal" id="player"></div>
@@ -308,7 +347,6 @@
 <!-- 03 DATES -->
 <section class="block dates" id="dates">
   <div class="wrap">
-    <div class="eyebrow reveal"><span data-i18n="navDates"></span></div>
     <h2 class="display reveal">Dates</h2>
     <h3 class="reveal" data-i18n="upcoming"></h3>
     <div id="upcoming"></div>
@@ -322,7 +360,6 @@
 <!-- 04 GALLERY -->
 <section class="block" id="gallery">
   <div class="wrap">
-    <div class="eyebrow reveal"><span data-i18n="navGallery"></span></div>
     <h2 class="display reveal" data-i18n="navGallery"></h2>
     <div class="carousel reveal" id="carousel" role="region" aria-roledescription="carousel">
       <div class="gallery" id="track">
@@ -347,7 +384,6 @@
 <!-- 05 BOOKING -->
 <section class="block booking music" id="booking">
   <div class="wrap">
-    <div class="eyebrow reveal" style="justify-content:center">Booking</div>
     <h2 class="display reveal">Booking</h2>
     <p class="lead reveal" data-k="bookingLead"></p>
     <a class="mail reveal" id="mail"></a>
@@ -370,7 +406,13 @@
   <input type="range" id="rVol" min="0" max="100" step="1" value="50">
 </div>
 
-<div class="lightbox" id="lb" role="dialog" aria-modal="true"><img alt=""><button>×</button></div>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true">
+  <img alt="">
+  <button class="lb-btn lb-close" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-btn lb-prev" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="lb-btn lb-next" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  <span class="lb-count" aria-live="polite"></span>
+</div>
 
 <script>
 /* =====================================================================
@@ -536,7 +578,7 @@ var UI = {
     $("#rVol").setAttribute("aria-label", ui.volume);
     $("#rPlay").setAttribute("aria-label", $("#radio").classList.contains("on") ? ui.pause : ui.play);
     $("#prev").setAttribute("aria-label", ui.prev); $("#next").setAttribute("aria-label", ui.next); $("#carousel").setAttribute("aria-label", ui.gallery);
-    $("#lb").setAttribute("aria-label", ui.photo); $("#lb button").setAttribute("aria-label", ui.close);
+    $("#lb").setAttribute("aria-label", ui.photo); $("#lb .lb-close").setAttribute("aria-label", ui.close); $("#lb .lb-prev").setAttribute("aria-label", ui.prev); $("#lb .lb-next").setAttribute("aria-label", ui.next);
   }
 
   function setLang(l){ lang = (l==="es") ? "es" : "en"; try{ localStorage.setItem("lang", lang) }catch(e){} render() }
@@ -641,9 +683,29 @@ var UI = {
     }
   })();
 
-  $$(".gallery button").forEach(function(b){ b.addEventListener("click", function(){ lbx.querySelector("img").src=b.dataset.full; lbx.classList.add("open") }) });
-  lbx.addEventListener("click", function(e){ if(e.target!==lbx.querySelector("img")) lbx.classList.remove("open") });
-  addEventListener("keydown", function(e){ if(e.key==="Escape"){ lbx.classList.remove("open"); setMenu(false) } });
+  // foto ampliada: anterior / siguiente, teclado, deslizar y cerrar
+  var lbImg = lbx.querySelector("img"), lbAt = 0, lbFrom = null;
+  function lbShow(i){
+    lbAt = (i + N) % N; var sl = slides[lbAt];
+    lbImg.src = sl.dataset.full; lbImg.alt = sl.querySelector("img").alt;
+    lbx.querySelector(".lb-count").textContent = String(lbAt+1).padStart(2,"0") + " / " + String(N).padStart(2,"0");
+  }
+  function lbOpen(i){ lbFrom = document.activeElement; lbShow(i); lbx.classList.add("open"); lbx.querySelector(".lb-close").focus({preventScroll:true}) }
+  function lbClose(){ if(!lbx.classList.contains("open")) return; lbx.classList.remove("open"); if (lbFrom) lbFrom.focus({preventScroll:true}) }
+  slides.forEach(function(b, i){ b.addEventListener("click", function(){ lbOpen(i) }) });
+  lbx.querySelector(".lb-prev").addEventListener("click", function(){ lbShow(lbAt-1) });
+  lbx.querySelector(".lb-next").addEventListener("click", function(){ lbShow(lbAt+1) });
+  lbx.addEventListener("click", function(e){ if(e.target===lbx || e.target.closest(".lb-close")) lbClose() });
+  var tx = null;
+  lbx.addEventListener("touchstart", function(e){ tx = e.touches[0].clientX }, {passive:true});
+  lbx.addEventListener("touchend", function(e){ if(tx===null) return; var dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) lbShow(lbAt + (dx < 0 ? 1 : -1)); tx = null });
+  addEventListener("keydown", function(e){
+    if (lbx.classList.contains("open")) {
+      if (e.key==="ArrowRight") lbShow(lbAt+1);
+      if (e.key==="ArrowLeft") lbShow(lbAt-1);
+    }
+    if(e.key==="Escape"){ lbClose(); setMenu(false) }
+  });
 })();
 </script>
 
@@ -695,7 +757,7 @@ var UI = {
   gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: .6, pin: true,
       onUpdate: function(st){ want = Math.min(1, st.progress / .8) } } })
     .fromTo(".hero .photo", { scale: 1, filter: "brightness(1)" }, { scale: 1.15, filter: "brightness(.6)", ease: "none" }, 0)
-    .to(".hero h1", { scale: 1.7, transformOrigin: "0% 60%", ease: "none" }, 0)
+    .to(".hero h1", { scale: innerWidth < 760 ? 1.2 : 1.7, transformOrigin: "0% 60%", ease: "none" }, 0)
     .to(".hero .role, .hero .cta", { opacity: 0, y: -30, ease: "none" }, 0);
 
   // títulos que crecen al entrar
@@ -713,7 +775,7 @@ var UI = {
   });
   // las fechas entran desde los lados
   U(".gig").forEach(function(g, i){
-    gsap.from(g, { x: i % 2 ? 80 : -80, opacity: 0, ease: "none",
+    gsap.from(g, { x: (i % 2 ? 1 : -1) * (innerWidth < 760 ? 24 : 80), opacity: 0, ease: "none",
       scrollTrigger: { trigger: g, start: "top 95%", end: "top 70%", scrub: true } });
   });
 
