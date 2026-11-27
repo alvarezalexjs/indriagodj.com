@@ -1,7 +1,12 @@
-# Indriago — página temporal
+# Indriago — web oficial
 
-Página "Coming soon" estática (HTML + CSS, sin build) publicada con GitHub Pages.
+Web estática de una sola página (HTML + CSS + JS, sin build) publicada con GitHub Pages en indriagodj.com.
 
-- `index.html`: la página. Los puntos a editar están marcados con `EDITA AQUÍ` (colores, enlaces, frases del ticker).
-- `assets/hero.jpg`: foto principal. `assets/og.jpg`: imagen al compartir el enlace.
+- Idiomas: abre en inglés; el botón del mundo (arriba a la derecha) cambia a español y recuerda la elección. `indriagodj.com/#es` abre directamente en español.
+- `index.html`: la web. **Todo el contenido** (bio, enlaces, fechas, booking, redes) está en el objeto `SITE` al final del archivo, marcado con `EDITA AQUÍ`. Lo que tiene `pendiente: true` muestra una etiqueta "Provisional" hasta que se ponga el dato real (cámbialo a `false`).
+- Reproductor: pega la URL de embed de SoundCloud/Mixcloud/YouTube en `playerEmbed`.
+- Fuentes (Google Fonts): Inter Tight (títulos), Inter (texto) y JetBrains Mono (etiquetas).
+- `assets/logo-sm.png`: logo de grafiti (blanco, fondo transparente), usado solo en el menú y el pie de página.
+- `assets/`: fotos en blanco y negro (`hero.jpg`, `bio.jpg` en la bio y `g1`–`g5` en la galería) y `og.jpg` (imagen al compartir el enlace).
+- Animación de scroll "cinemática": GSAP 3.12.5 + ScrollTrigger y Lenis 1.1.13, alojados en `assets/js/` (licencias: GSAP Standard "no charge", Lenis MIT). Se desactiva sola si el visitante tiene activado "reducir movimiento".
 - `CNAME`: dominio propio.

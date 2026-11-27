@@ -1,118 +1,921 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Indriago — Próximamente</title>
-<meta name="description" content="La nueva web oficial de Indriago está en construcción.">
-<meta property="og:title" content="Indriago — Próximamente">
-<meta property="og:description" content="La nueva web oficial de Indriago está en construcción.">
+<title>Indriago — DJ / Producer</title>
+<meta name="description" content="Official website of Indriago, DJ and producer. Music, tour dates, gallery and booking.">
+<link rel="canonical" href="https://indriagodj.com/">
+<meta property="og:title" content="Indriago — DJ / Producer">
+<meta property="og:description" content="Official website of Indriago. Music, tour dates and booking.">
 <meta property="og:image" content="https://indriagodj.com/assets/og.jpg">
+<meta property="og:url" content="https://indriagodj.com/">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#262626">
+<meta name="theme-color" content="#111111">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  /* ====== EDITA AQUÍ ====== fuentes (Google Fonts): Inter Tight (títulos) + Inter (texto) + JetBrains Mono (etiquetas) */
   /* ====== EDITA AQUÍ ====== colores */
   :root{
-    --grey:#5f5f5f; --grey-deep:#262626; --mid:#a3a3a3; --ink:#0e0e0e; --paper:#ededeb; color-scheme:dark;
+    --ink:#0b0b0b; --deep:#141414; --panel:#1b1b1b; --grey:#5f5f5f; --grey-deep:#262626;
+    --fd:"Inter Tight","Helvetica Neue",Arial,sans-serif; --fm:"JetBrains Mono",ui-monospace,monospace;
+    --mid:#a3a3a3; --line:rgba(255,255,255,.1); --paper:#ededeb; --gut:clamp(16px,4vw,56px);
+    color-scheme:dark;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{background:var(--grey);color:var(--paper);font-family:Inter,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{background:var(--ink);color:var(--paper);font-family:Inter,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.55}
   a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .display{font-family:var(--fd);font-weight:700;text-transform:uppercase;letter-spacing:-.01em;line-height:.9}
+  .eyebrow{font-family:var(--fm);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);font-weight:600;display:flex;gap:14px;align-items:center}
+  .eyebrow b{color:var(--paper);font-weight:600}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 var(--gut)}
+  section{position:relative}
+  .btn{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(237,237,235,.55);padding:12px 18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;transition:background .2s,color .2s,border-color .2s}
+  .btn:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .btn.solid{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .btn.solid:hover{background:transparent;color:var(--paper)}
+  .tbd{display:inline-block;font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;border:1px dashed rgba(255,255,255,.35);color:var(--mid);padding:3px 7px;vertical-align:middle}
 
-  .stage{position:relative;min-height:100vh;min-height:100svh;display:grid;grid-template-rows:auto 1fr auto auto;isolation:isolate;overflow:hidden}
-  .photo{position:absolute;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(120% 90% at 75% 40%,#6a6a6a 0%,var(--grey) 45%,var(--grey-deep) 100%)}
-  .photo img{position:absolute;right:0;top:0;height:100%;width:auto;max-width:none;object-fit:cover;animation:zoom 14s ease-out both;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}
-  .photo::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(90deg,var(--grey-deep) 0%,rgba(38,38,38,.55) 40%,rgba(38,38,38,0) 62%),
-               linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 35%)}
+  /* ---------- nav ---------- */
+  .nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px var(--gut);transition:background .3s,padding .3s,border-color .3s;border-bottom:1px solid transparent}
+  .nav.scrolled{background:rgba(11,11,11,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding-top:12px;padding-bottom:12px;border-color:var(--line)}
+  .nav .logo{font-family:var(--fd);font-weight:700;font-size:19px;letter-spacing:.02em;text-transform:uppercase}
+  .nav ul{list-style:none;display:flex;gap:28px}
+  .nav ul a{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;opacity:.8;transition:opacity .2s}
+  .nav ul a:hover,.nav ul a.on{opacity:1}
+  .nav ul a span{font-family:var(--fm);color:var(--mid);margin-right:6px;font-weight:400}
+  .nav ul a b{font-weight:inherit}
+  .burger{display:none;background:none;border:0;color:inherit;width:40px;height:40px;cursor:pointer;position:relative}
+  .burger i{position:absolute;left:9px;right:9px;height:2px;background:currentColor;transition:transform .25s,opacity .25s}
+  .burger i:nth-child(1){top:13px}.burger i:nth-child(2){top:19px}.burger i:nth-child(3){top:25px}
+  .menu-open .burger i:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .menu-open .burger i:nth-child(2){opacity:0}
+  .menu-open .burger i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+  /* ---------- hero ---------- */
+  .hero{min-height:100vh;min-height:100svh;display:grid;grid-template-rows:1fr auto;isolation:isolate;overflow:hidden}
+  .hero .photo{position:absolute;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(120% 90% at 75% 40%,#6a6a6a 0%,var(--grey) 45%,var(--grey-deep) 100%)}
+  .hero .photo img{position:absolute;right:0;top:0;height:100%;width:auto;max-width:none;animation:zoom 14s ease-out both;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}
+  .hero .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--grey-deep) 0%,rgba(38,38,38,.55) 40%,rgba(38,38,38,0) 62%),linear-gradient(0deg,rgba(11,11,11,.9) 0%,rgba(0,0,0,0) 30%),linear-gradient(180deg,rgba(11,11,11,.7) 0%,rgba(0,0,0,0) 22%)}
+  .hero .photo video{position:absolute;right:0;top:0;height:100%;width:auto;aspect-ratio:9/16;object-fit:cover;object-position:50% 0;opacity:0;transition:opacity 1.2s ease;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34%);mask-image:linear-gradient(90deg,transparent 0,#000 34%)}
+  .hero .photo.playing video{opacity:1}
+  .hero .photo.playing img{opacity:0;transition:opacity 1.2s ease}
   @keyframes zoom{from{transform:scale(1.06)}to{transform:scale(1)}}
-
-  header{display:flex;justify-content:space-between;align-items:center;padding:22px clamp(16px,4vw,48px);font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:600}
-  header .tag{opacity:.75}
-  header .logo img{display:block;height:clamp(46px,5.2vw,72px);width:auto;filter:drop-shadow(0 0 14px rgba(255,255,255,.18))}
-
-  main{align-self:center;padding:0 clamp(16px,4vw,48px);max-width:820px}
-  .kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.8;margin-bottom:14px}
-  h1{font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.86;font-size:clamp(72px,15vw,200px);letter-spacing:.01em;animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
-  /* luz difuminada detrás del nombre */
-  h1{position:relative;z-index:0;text-shadow:0 0 14px rgba(255,255,255,.16),0 0 48px rgba(255,255,255,.08)}
-  h1::before{content:"";position:absolute;z-index:-1;left:-12%;right:-18%;top:-45%;bottom:-45%;
-    background:radial-gradient(closest-side,rgba(255,255,255,.22),rgba(225,225,225,.08) 55%,rgba(200,200,200,0) 100%);
-    filter:blur(36px);pointer-events:none;animation:breathe 6s ease-in-out infinite}
+  .hero main{align-self:center;padding:110px var(--gut) 40px;max-width:900px}
+  .hero h1{font-size:clamp(54px,10.4vw,150px);position:relative;z-index:0;text-shadow:0 0 14px rgba(255,255,255,.16),0 0 48px rgba(255,255,255,.08);animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+  .hero h1::before{content:"";position:absolute;z-index:-1;left:-12%;right:-18%;top:-45%;bottom:-45%;background:radial-gradient(closest-side,rgba(255,255,255,.22),rgba(225,225,225,.08) 55%,rgba(200,200,200,0) 100%);filter:blur(36px);pointer-events:none;animation:breathe 6s ease-in-out infinite}
   @keyframes breathe{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.03)}}
-  h2{font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(28px,4.4vw,56px);line-height:1;margin-top:10px;color:var(--mid);-webkit-text-stroke:0;animation:rise 1s .15s cubic-bezier(.2,.7,.2,1) both}
-  main p{margin-top:18px;max-width:420px;font-size:15px;line-height:1.55;opacity:.9;animation:rise 1s .3s cubic-bezier(.2,.7,.2,1) both}
+  .hero .role{font-family:var(--fd);text-transform:uppercase;font-size:clamp(18px,2.6vw,32px);color:var(--mid);margin-top:14px;animation:rise 1s .15s cubic-bezier(.2,.7,.2,1) both}
+  .hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;animation:rise 1s .3s cubic-bezier(.2,.7,.2,1) both}
   @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
-  .booking{display:inline-block;margin-top:26px;border:1px solid rgba(245,241,234,.55);padding:11px 18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;transition:background .2s,color .2s;animation:rise 1s .45s cubic-bezier(.2,.7,.2,1) both}
-  .booking:hover{background:var(--paper);color:var(--ink)}
-  /* redes: solo iconos, sutiles */
-  .links{display:flex;align-items:center;gap:26px;margin-top:28px;animation:rise 1s .55s cubic-bezier(.2,.7,.2,1) both}
-  .links a{display:grid;place-items:center;width:28px;height:28px;color:var(--paper);opacity:.62;transition:opacity .25s,transform .25s}
-  .links a:hover{opacity:1;transform:translateY(-2px)}
-  .links svg{width:19px;height:19px;fill:currentColor}
-  .booking:focus-visible,.links a:focus-visible{outline:1px solid var(--paper);outline-offset:4px}
-
-  .ticker{background:var(--ink);color:var(--paper);overflow:hidden;white-space:nowrap;border-top:1px solid rgba(255,255,255,.08);margin-top:40px}
-  .ticker .track{display:inline-flex;animation:marquee 28s linear infinite}
-  .ticker span{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:clamp(16px,2vw,22px);letter-spacing:.06em;padding:12px 0}
+  .ticker{background:var(--ink);overflow:hidden;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .ticker .track{display:inline-flex;animation:marquee 34s linear infinite}
+  .ticker span{font-family:var(--fd);text-transform:uppercase;font-size:clamp(14px,1.5vw,17px);letter-spacing:.04em;padding:13px 0}
   .ticker span::after{content:"✦";margin:0 22px;color:var(--mid);font-size:.8em;vertical-align:middle}
+  .ticker.big span{font-size:clamp(36px,6vw,82px);padding:18px 0;color:transparent;-webkit-text-stroke:1px rgba(237,237,235,.45)}
+  .ticker.big span:nth-child(odd){color:var(--paper);-webkit-text-stroke:0}
+  .ticker.big .track{animation-duration:50s}
   @keyframes marquee{to{transform:translateX(-50%)}}
 
-  footer{background:var(--ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px clamp(16px,4vw,48px);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.95;border-top:1px solid rgba(255,255,255,.08)}
-  footer span{opacity:.6}
+  /* ---------- secciones ---------- */
+  .block{padding:clamp(80px,12vw,150px) 0}
+  .block h2{font-size:clamp(40px,6.4vw,86px);margin:18px 0 0}
+  .block h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(237,237,235,.6)}
 
-  @media (max-width:760px){
-    .photo img{right:50%;transform:translateX(50%);animation:none;-webkit-mask-image:none;mask-image:none}
-    .photo::after{background:linear-gradient(0deg,var(--grey-deep) 0%,rgba(38,38,38,.8) 40%,rgba(38,38,38,0) 62%,rgba(0,0,0,.25) 100%)}
-    main{align-self:end;padding-top:46vh}
+  /* bio */
+  .bio{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,6vw,90px);align-items:start;margin-top:56px}
+  .bio figure{position:relative;aspect-ratio:2/3;overflow:hidden;background:var(--panel)}
+  .bio figure img{width:100%;height:100%;object-fit:cover;filter:contrast(1.05)}
+  .bio figure figcaption{position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.75}
+  .bio .text p{font-size:clamp(16px,1.35vw,18px);color:#cfcfcd;margin-bottom:18px;max-width:58ch}
+  .bio .text p:first-of-type{font-size:clamp(18px,1.6vw,21px);color:var(--paper);line-height:1.5}
+  /* bio larga: se recorta a la altura de la foto y se abre con "Bio full" */
+  .bio-clip{position:relative;overflow:hidden;transition:max-height .7s cubic-bezier(.2,.7,.2,1)}
+  .bio-clip::after{content:"";position:absolute;left:0;right:0;bottom:0;height:110px;background:linear-gradient(180deg,rgba(11,11,11,0),var(--ink));pointer-events:none;transition:opacity .4s}
+  .bio-clip.open::after,.bio-clip.fits::after{opacity:0}
+  .bio-more{margin-top:20px;display:inline-flex;align-items:center;gap:10px;background:none;border:0;border-bottom:1px solid rgba(237,237,235,.35);padding:0 0 6px;color:var(--mid);font-family:var(--fm);font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:color .2s,border-color .2s}
+  .bio-more:hover{color:var(--paper);border-color:var(--paper)}
+  .bio-more:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+  .bio-more i{font-style:normal;display:inline-block;transition:transform .3s}
+  .bio-more[aria-expanded="true"] i{transform:rotate(45deg)}
+  .bio-more[hidden]{display:none}
+
+  /* música */
+  .music{background:var(--deep);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .music-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(28px,5vw,70px);margin-top:56px;align-items:start}
+  .player{border:1px solid var(--line);background:var(--ink);min-height:360px;display:grid}
+  .player.video{min-height:0;aspect-ratio:16/9}
+  .player.video iframe{min-height:0;filter:grayscale(1);transition:filter .5s}
+  .player.video:hover iframe,.player.video:focus-within iframe{filter:none}
+  .player iframe{width:100%;height:100%;min-height:360px;border:0;filter:grayscale(1)}
+  .player .empty{display:grid;place-content:center;text-align:center;gap:14px;padding:40px;color:var(--mid)}
+  .player .empty .display{font-size:30px;color:var(--paper)}
+  .platforms{list-style:none;border-top:1px solid var(--line)}
+  .platforms a{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);font-family:var(--fd);text-transform:uppercase;font-size:clamp(18px,2vw,26px);transition:padding .25s,color .25s}
+  .platforms a::after{content:"↗";font-family:Inter,sans-serif;font-size:20px;color:var(--mid)}
+  .platforms a:hover{padding-left:14px;color:#fff}
+
+  /* fechas */
+  .dates h3{font-family:var(--fm);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);font-weight:600;margin:56px 0 10px}
+  .gig{display:grid;grid-template-columns:150px 1.2fr 1fr 130px;gap:20px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);transition:background .2s,padding .25s}
+  .gig:first-of-type{border-top:1px solid var(--line)}
+  .gig:hover{background:rgba(255,255,255,.03);padding-left:12px;padding-right:12px}
+  .gig .d{font-family:var(--fd);font-weight:700;font-size:23px;line-height:1}
+  .gig .d small{display:block;font-family:var(--fm);font-weight:400;font-size:11px;letter-spacing:.1em;color:var(--mid);margin-top:6px}
+  .gig .where{font-family:var(--fd);font-weight:700;text-transform:uppercase;font-size:clamp(17px,1.8vw,23px);line-height:1.05}
+  .gig .venue{font-family:var(--fm);color:var(--mid);font-size:13px;letter-spacing:.02em}
+  .gig.past{opacity:.55}
+  .gig .btn{padding:10px 14px;font-size:11px;justify-self:end}
+
+  /* galería */
+  /* galería en carrusel */
+  .carousel{margin-top:56px}
+  .gallery{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .gallery::-webkit-scrollbar{display:none}
+  .gallery .slide{flex:0 0 auto;width:clamp(240px,34vw,460px);aspect-ratio:2/3;scroll-snap-align:start;position:relative;overflow:hidden;border:0;padding:0;background:var(--panel);cursor:zoom-in}
+  .gallery img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .4s;filter:grayscale(1) brightness(.92)}
+  .gallery .slide:hover img{transform:scale(1.04);filter:grayscale(1) brightness(1.05)}
+  .car-ui{display:flex;align-items:center;gap:20px;margin-top:22px}
+  .count{font-family:var(--fm);font-size:12px;letter-spacing:.1em;color:var(--mid);min-width:64px;font-variant-numeric:tabular-nums}
+  .car-bar{flex:1;height:1px;background:var(--line);position:relative;overflow:hidden}
+  .car-bar i{position:absolute;left:0;top:0;bottom:0;background:var(--paper);width:20%;transition:transform .35s ease,width .35s ease}
+  .car-btns{display:flex;gap:8px}
+  .car-btn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(237,237,235,.4);background:none;color:var(--paper);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s,border-color .2s,opacity .2s}
+  .car-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
+  .car-btn:hover:not(:disabled){background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .car-btn:focus-visible,.gallery .slide:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+  .car-btn:disabled{opacity:.3;cursor:default}
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.94);display:grid;place-items:center;padding:24px;visibility:hidden}
+  .lightbox.open{visibility:visible}
+  .lightbox img{max-height:88vh;width:auto}
+  
+  /* booking */
+  .booking{text-align:center}
+  .booking h2{font-size:clamp(50px,9.4vw,128px)}
+  .booking .lead{max-width:560px;margin:22px auto 0;color:#cfcfcd}
+  .mail{display:inline-block;margin-top:34px;font-family:var(--fd);font-weight:700;font-size:clamp(20px,3.2vw,42px);text-transform:uppercase;border-bottom:2px solid var(--paper);padding-bottom:6px;transition:color .2s,border-color .2s;word-break:break-all}
+  .booking .presskit{margin-top:34px}
+  .mail:hover{color:var(--mid);border-color:var(--mid)}
+  .contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:70px auto 0;max-width:980px;border-top:1px solid var(--line);text-align:left}
+  .contacts div{padding:24px 20px 0}
+  .contacts div+div{border-left:1px solid var(--line)}
+  .contacts small{display:block;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+  .contacts a{font-weight:600}
+  .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:56px}
+
+  /* redes: solo iconos, sutiles */
+  .soc{display:flex;gap:22px;align-items:center}
+  .soc a{width:28px;height:28px;display:grid;place-items:center;color:var(--paper);opacity:.55;transition:opacity .25s,transform .25s}
+  .soc a:hover{opacity:1;transform:translateY(-2px)}
+  .soc a:focus-visible{outline:1px solid var(--paper);outline-offset:4px}
+  .soc svg{width:17px;height:17px;fill:currentColor}
+  .socials{gap:34px}
+  .socials svg{width:22px;height:22px}
+  .nav ul .menu-soc{display:none}
+  footer{align-items:center}
+  /* mini reproductor "Radio Show" (fijo, abajo a la izquierda) */
+  .radio{position:fixed;left:var(--gut);bottom:18px;z-index:60;display:flex;align-items:center;gap:12px;padding:7px 14px 7px 7px;border:1px solid var(--line);border-radius:999px;background:rgba(11,11,11,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);transition:color .3s,border-color .3s}
+  .radio.on{color:var(--paper);border-color:rgba(237,237,235,.3)}
+  .radio button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(237,237,235,.4);background:none;color:var(--paper);display:grid;place-items:center;cursor:pointer;flex:none;transition:background .2s,color .2s}
+  .radio button:hover{background:var(--paper);color:var(--ink)}
+  .radio button:focus-visible,.radio input:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+  .radio svg{width:12px;height:12px;fill:currentColor}
+  .radio .pa{display:none}.radio.on .pl{display:none}.radio.on .pa{display:block}
+  .radio .eq{display:inline-flex;gap:2px;align-items:flex-end;height:10px;margin-right:-4px;width:0;opacity:0;overflow:hidden;transition:opacity .3s,width .3s}
+  .radio .eq i{width:2px;background:currentColor;height:3px;flex:none}
+  .radio.on .eq{opacity:1;width:10px}.radio.on .eq i{animation:eq .9s ease-in-out infinite}
+  .radio.on .eq i:nth-child(2){animation-delay:.2s}.radio.on .eq i:nth-child(3){animation-delay:.4s}
+  @keyframes eq{0%,100%{height:3px}50%{height:10px}}
+  .radio input{-webkit-appearance:none;appearance:none;width:64px;height:2px;background:linear-gradient(90deg,var(--paper) var(--v,50%),rgba(237,237,235,.25) var(--v,50%));border-radius:2px;cursor:pointer}
+  .radio input::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:var(--paper);border:0}
+  .radio input::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:var(--paper);border:0}
+  .radio iframe{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;border:0;left:0;top:0}
+  @media (max-width:520px){.radio{bottom:12px;gap:10px}.radio input{width:48px}}
+  footer{border-top:1px solid var(--line);padding:28px var(--gut);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+  footer .logo{font-family:var(--fd);font-weight:700;font-size:15px;letter-spacing:.02em;color:var(--paper)}
+
+  /* aparición al hacer scroll */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- móvil ---------- */
+  @media (max-width:900px){
+    .nav ul{position:fixed;inset:0;background:rgba(11,11,11,.97);flex-direction:column;justify-content:center;align-items:center;gap:26px;opacity:0;pointer-events:none;transition:opacity .3s}
+    .nav ul a{font-family:var(--fd);font-size:30px;letter-spacing:0;font-weight:700;opacity:1}
+    .nav ul a span{font-family:var(--fm);font-size:13px;vertical-align:top}
+    .menu-open .nav ul{opacity:1;pointer-events:auto}
+    .nav ul .menu-soc{display:block;margin-top:14px}
+    .nav ul .menu-soc .soc{gap:30px}
+    .nav ul .menu-soc .soc a{font-size:0;opacity:.6}
+    .nav ul .menu-soc .soc svg{width:21px;height:21px}
+    .burger{display:block;z-index:2}
+    .bio,.music-grid{grid-template-columns:1fr}
+    .bio figure{max-height:70vh}
+    .gig{grid-template-columns:90px 1fr;gap:6px 16px}
+    .gig .d{grid-row:span 2;font-size:21px}
+    .gig .btn{grid-column:2;justify-self:start;margin-top:8px}
+    .gallery .slide{width:78vw}
+    .contacts{grid-template-columns:1fr}
+    .contacts div+div{border-left:0;border-top:1px solid var(--line);margin-top:22px}
   }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  @media (max-width:760px){
+    .hero .photo img{right:50%;transform:translateX(50%);animation:none;-webkit-mask-image:none;mask-image:none}
+    .hero .photo video{width:100%;aspect-ratio:auto;object-position:50% 0;-webkit-mask-image:none;mask-image:none}
+    .hero .photo::after{background:linear-gradient(0deg,var(--ink) 0%,rgba(30,30,30,.8) 38%,rgba(38,38,38,0) 62%,rgba(0,0,0,.3) 100%)}
+    .hero main{align-self:end;padding-top:46vh}
+      }
+  @media (prefers-reduced-motion:reduce){body::after{display:none}*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+  /* logo */
+  .nav .logo img{height:38px;width:auto;transition:height .3s}
+  .nav.scrolled .logo img{height:32px}
+  footer .logo img{height:30px;width:auto}
+  /* botón de idioma (esfera del mundo) */
+  .nav .right{display:flex;align-items:center;gap:18px}
+  .lang{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid rgba(237,237,235,.35);color:inherit;border-radius:999px;padding:6px 12px 6px 7px;cursor:pointer;font-family:var(--fm);font-size:12px;letter-spacing:.08em;transition:background .2s,color .2s,border-color .2s;z-index:2}
+  .lang:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .lang:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+  .lang svg{width:22px;height:22px;flex:none;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .lang:hover svg{transform:rotate(180deg)}
+  .lang .on{color:inherit;font-weight:700}
+  .lang .off{opacity:.45}
+  .lang:hover .off{opacity:.6}
+  /* ===== pulido ===== */
+  ::selection{background:var(--paper);color:var(--ink)}
+  html{-webkit-tap-highlight-color:transparent}
+  .display{letter-spacing:-.02em}
+  .block h2{margin-top:0}
+  /* grano de película muy sutil */
+  body::after{content:"";position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(4) infinite}
+  @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}
+  /* menú: línea bajo la sección activa */
+  @media (min-width:901px){
+    .nav ul a{position:relative;padding:6px 0}
+    .nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+    .nav ul a:hover::after,.nav ul a.on::after{transform:scaleX(1);transform-origin:left}
+  }
+  .nav ul a:focus-visible,.btn:focus-visible,.mail:focus-visible,.platforms a:focus-visible,footer a:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+  .btn .arr{display:inline-block;transition:transform .25s}
+  .btn:hover .arr{transform:translateX(4px)}
+  /* fechas: más aire y jerarquía */
+  .gig{grid-template-columns:150px 1.3fr 1fr auto}
+  .gig .venue{font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+  /* reproductor de vídeo: fondo oscuro mientras carga */
+  .player{background:var(--ink) radial-gradient(60% 60% at 50% 50%,#1d1d1d,var(--ink))}
+  /* el mini reproductor no tapa el pie */
+  footer{padding-bottom:96px}
+  /* foto ampliada: navegación coherente con el carrusel */
+  .lightbox{opacity:0;transition:opacity .35s ease,visibility 0s .35s}
+  .lightbox.open{opacity:1;transition:opacity .35s ease}
+  .lightbox img{max-width:min(92vw,1100px);max-height:84vh;object-fit:contain}
+  .lightbox .lb-btn{position:absolute;width:48px;height:48px;border-radius:50%;border:1px solid rgba(237,237,235,.4);background:rgba(11,11,11,.4);color:var(--paper);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+  .lightbox .lb-btn:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .lightbox .lb-btn:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+  .lightbox .lb-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
+  .lightbox .lb-close{top:18px;right:var(--gut)}
+  .lightbox .lb-prev{left:var(--gut);top:50%;margin-top:-24px}
+  .lightbox .lb-next{right:var(--gut);top:50%;margin-top:-24px}
+  .lightbox .lb-count{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-family:var(--fm);font-size:12px;letter-spacing:.1em;color:var(--mid);font-variant-numeric:tabular-nums;pointer-events:none}
+  @media (max-width:900px){ .gig{grid-template-columns:90px 1fr} }
+  @media (max-width:760px){
+    .hero main{padding-bottom:92px}
+    .lightbox .lb-prev,.lightbox .lb-next{top:auto;bottom:12px;margin:0}
+    .lightbox .lb-count{bottom:28px}
+  }
+  /* ===== Dirección A: cartel de club ===== */
+  .hero{display:block;min-height:100vh;min-height:100svh}
+  .poster-grid{position:absolute;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.09) 0 1px,transparent 1px 25%)}
+  .hero .hero-name{position:absolute;z-index:2;left:1.2vw;right:1vw;bottom:calc(var(--strip-h) + 1.2vw);font-weight:800;font-size:22.4vw;line-height:.74;letter-spacing:-.055em;white-space:nowrap;margin:0}
+  .hero .hero-name::before{top:-20%;bottom:-20%}
+  .hero{--strip-h:92px}
+  .hero-name .brk{display:none}
+  @media (max-width:760px){.hero-name .brk{display:block}}
+  .strip{position:absolute;z-index:3;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(237,237,235,.38);background:linear-gradient(0deg,rgba(11,11,11,.55),rgba(11,11,11,0))}
+  .strip .cell{display:flex;flex-direction:column;justify-content:center;gap:6px;min-height:var(--strip-h);padding:14px var(--gut) 14px clamp(14px,2vw,28px);border:0;border-right:1px solid rgba(237,237,235,.2);background:none;color:var(--paper);text-align:left;font:inherit;min-width:0}
+  .strip .cell:first-child{padding-left:var(--gut)}
+  .strip .cell:last-child{border-right:0}
+  .strip small{font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#bdbdbb}
+  .strip b{font-family:var(--fd);font-weight:700;font-size:clamp(14px,1.4vw,21px);letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  a.cell,button.cell{cursor:pointer;transition:background .25s}
+  a.cell:hover,button.cell:hover{background:rgba(237,237,235,.08)}
+  a.cell:focus-visible,button.cell:focus-visible{outline:2px solid var(--paper);outline-offset:-4px}
+  .listen .ic{display:inline-block;width:1.1em;font-size:.8em;vertical-align:.08em}
+  .listen .pa,.listen.on .pl{display:none}.listen.on .pa{display:inline-block}
+  /* portada a pantalla completa (formato del mockup) */
+  .hero .photo{background:#3a3a3a}
+  .hero .photo img{inset:0;right:auto;width:100%;height:100%;max-width:100%;object-fit:cover;object-position:50% 14%;transform:none;-webkit-mask-image:none;mask-image:none}
+  /* dron cenital: baja con el scroll y termina en la foto */
+  .hero .photo video{inset:0;right:auto;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 50%;-webkit-mask-image:none;mask-image:none}
+  .hero .photo.playing img{opacity:1}
+  .hero .photo::after{background:linear-gradient(0deg,rgba(8,8,8,.92) 0%,rgba(8,8,8,.35) 32%,rgba(0,0,0,0) 55%),linear-gradient(180deg,rgba(8,8,8,.55) 0%,rgba(0,0,0,0) 22%)}
+  .hero .hero-name{font-size:17.4vw;line-height:.78;letter-spacing:-.05em;left:1.4vw;right:auto}
+  .strip .book{display:none}
+  /* la radio flotante solo aparece fuera de la portada */
+  .radio{transition:opacity .35s,transform .35s,color .3s,border-color .3s}
+  body:not(.past-hero) .radio{opacity:0;transform:translateY(12px);pointer-events:none}
+  /* títulos de sección: titular de cartel + dato en mono + regla gruesa */
+  .sec-head{--rule:1;position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:12px 24px;flex-wrap:wrap;padding-bottom:16px}
+  .sec-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--paper);transform:scaleX(var(--rule));transform-origin:left}
+  .block .sec-head h2{font-size:clamp(64px,12.5vw,184px);line-height:.78;letter-spacing:-.05em;font-weight:800;margin:0}
+  .sec-head .meta{font-family:var(--fm);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#bdbdbb;padding-bottom:6px;text-align:right}
+  .bio,.music-grid,.carousel{margin-top:48px}
+  /* fechas: agenda impresa */
+  .dates #upcoming{margin-top:8px}
+  .gig{grid-template-columns:minmax(150px,.85fr) 1.2fr 1.2fr auto;gap:24px;padding:28px 0;border-bottom:1px solid rgba(237,237,235,.22)}
+  .gig:first-of-type{border-top:0}
+  .gig:hover{background:none;padding-left:0;padding-right:0}
+  .gig .d{font-family:var(--fd);font-weight:800;font-size:clamp(44px,6.2vw,92px);letter-spacing:-.045em;line-height:.8}
+  .gig .d small{font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-top:10px;color:#bdbdbb}
+  .gig .where{font-weight:700;font-size:clamp(20px,2.5vw,36px);letter-spacing:-.02em;line-height:1}
+  .gig .venue{font-size:12px;letter-spacing:.12em;color:#bdbdbb}
+  .gig .btn{padding:14px 20px;font-size:12px}
+  .gig.ghost{opacity:.42;transition:opacity .25s}
+  .gig.ghost:hover{opacity:.8}
+  /* booking alineado a la izquierda, como el resto */
+  .booking{text-align:left}
+  .booking .lead{margin:28px 0 0;max-width:560px}
+  .contacts{margin:56px 0 0;max-width:none}
+  .contacts div:first-child{padding-left:0}
+  .booking .presskit{margin-top:40px}
+  .socials{justify-content:flex-start}
+  /* retícula de cartel también en el resto de la página, muy suave */
+  body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 25%)}
+  @media (max-width:900px){
+    .gig{grid-template-columns:auto 1fr;gap:6px 18px;padding:24px 0}
+    .gig .d{grid-row:span 3;font-size:clamp(40px,13vw,64px)}
+    .gig .btn{grid-column:2;justify-self:start;margin-top:10px}
+    .sec-head .meta{text-align:left;width:100%;padding-bottom:0}
+  }
+  @media (max-width:760px){
+    .hero{--strip-h:74px}
+    .poster-grid{background:repeating-linear-gradient(90deg,rgba(255,255,255,.09) 0 1px,transparent 1px 50%)}
+    body::before{background:repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 50%)}
+    .hero .hero-name{font-size:30vw;line-height:.8;white-space:normal;bottom:calc(var(--strip-h) * 2 + 3vw);left:2.4vw}
+    .hero .photo img{object-position:56% 8%}
+    .hero .photo video{object-position:50% 50%}
+    .strip .cell:first-child{display:none}
+    .strip .book{display:flex}
+    #heroNext{order:1}.strip .listen{order:2}.strip .cell:nth-child(3){order:3}.strip .book{order:4}
+    .strip{grid-template-columns:1fr 1fr}
+    .strip .cell{padding:12px 16px;border-bottom:1px solid rgba(237,237,235,.2)}
+    .strip .cell:nth-child(2n){border-right:0}
+    .strip .cell:nth-child(odd){padding-left:16px}
+    .strip b{font-size:15px;white-space:normal;line-height:1.15}
+    .block .sec-head h2{font-size:clamp(56px,20vw,96px)}
+  }
+  /* ===== animación de scroll "cinemática" (GSAP + Lenis) ===== */
+  html.fx,html.fx body{overflow-x:clip}
+  html.lenis,html.lenis body{height:auto}
+  .lenis.lenis-smooth{scroll-behavior:auto!important}
+  .fx .hero .hero-name{animation:none}
+  .fx .reveal{opacity:1;transform:none;transition:none}
 </style>
 </head>
 <body>
-<div class="stage">
-  <div class="photo"><img src="assets/hero.jpg" alt="Retrato de Indriago en blanco y negro" fetchpriority="high"></div>
 
-  <header>
-    <a href="/" class="logo" aria-label="Indriago"><img src="assets/logo-sm.png" alt="Indriago" width="360" height="178"></a>
-    <span class="tag">Página temporal</span>
-  </header>
-
-  <main>
-    <div class="kicker">DJ · Productor</div>
-    <h1>Indriago</h1>
-    <h2>Coming Soon</h2>
-    <p>La nueva web oficial está en construcción. Mientras tanto, síguenos en redes o escríbenos para booking.</p>
-    <a class="booking" href="mailto:booking@indriagodj.com">Booking</a>
-    <!-- ====== EDITA AQUÍ ====== enlaces de redes -->
-    <nav class="links" aria-label="Redes sociales">
-      <a href="https://www.instagram.com/indriagodj" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg></a>
-      <a href="https://soundcloud.com/argenis_indriago" target="_blank" rel="noopener" aria-label="SoundCloud" title="SoundCloud"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 14.6c0-.2.1-.3.3-.3s.3.1.3.3l.3 2.3-.3 2.3c0 .2-.1.3-.3.3s-.3-.1-.3-.3L.8 16.9zm1.8-1.4c0-.2.1-.3.3-.3s.3.1.3.3l.4 3.7-.4 3.6c0 .2-.1.3-.3.3s-.3-.1-.3-.3l-.3-3.6zm1.9-.7c0-.2.2-.4.4-.4s.4.2.4.4l.3 4.4-.3 3.7c0 .2-.2.4-.4.4s-.4-.2-.4-.4l-.3-3.7zm1.9-.3c0-.3.2-.5.5-.5s.4.2.5.5l.3 4.7-.3 3.8c0 .3-.2.5-.5.5s-.4-.2-.5-.5l-.3-3.8zm2-1c0-.3.2-.5.5-.5s.5.2.5.5l.3 5.7-.3 3.8c0 .3-.2.5-.5.5s-.5-.2-.5-.5l-.2-3.8zm2-1.4c0-.3.3-.6.6-.6s.6.3.6.6l.2 7.1-.2 3.8c0 .3-.3.6-.6.6s-.6-.3-.6-.6l-.2-3.8zm2.2-1.2c.1-.4.4-.6.7-.6 3.3 0 6 2.5 6.3 5.7.4-.2.9-.3 1.4-.3 2.1 0 3.8 1.7 3.8 3.8s-1.7 3.8-3.8 3.8h-7.7c-.4 0-.7-.3-.7-.7z"/></svg></a>
-      <a href="https://www.youtube.com/@indriagodj" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg></a>
-      <a href="https://www.facebook.com/indriagodj" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0024 12z"/></svg></a>
+<header class="nav" id="nav">
+  <a class="logo" href="#top" aria-label="Indriago"><img src="assets/logo-sm.png" alt="Indriago" width="180" height="89"></a>
+  <div class="right">
+    <nav>
+      <ul id="menu">
+        <li><a href="#bio"><b data-i18n="navBio"></b></a></li>
+        <li><a href="#music"><b data-i18n="navMusic"></b></a></li>
+        <li><a href="#dates"><b data-i18n="navDates"></b></a></li>
+        <li><a href="#gallery"><b data-i18n="navGallery"></b></a></li>
+        <li><a href="#booking"><b data-i18n="navBooking"></b></a></li>
+        <li><a href="presskit/"><b data-i18n="navPress"></b></a></li>
+        <li class="menu-soc"><div class="soc" data-soc></div></li>
+      </ul>
     </nav>
-  </main>
+    <button class="lang" id="lang" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4.2" ry="10"/><path d="M2 12h20M4 6.5h16M4 17.5h16"/></svg>
+      <span><span data-l="en">EN</span> / <span data-l="es">ES</span></span>
+    </button>
+    <button class="burger" id="burger" aria-expanded="false"><i></i><i></i><i></i></button>
+  </div>
+</header>
 
-  <div class="ticker" aria-hidden="true"><div class="track" id="track"></div></div>
+<section class="hero" id="top">
+  <div class="photo"><img src="assets/hero-a.jpg" srcset="assets/hero-a-m.jpg 900w, assets/hero-a.jpg 1800w" sizes="100vw" data-i18n-alt="altHero" alt="" fetchpriority="high">
+    <video id="heroVid" muted playsinline preload="none" aria-hidden="true" tabindex="-1" poster="assets/hero-drone-start.jpg"><source src="assets/hero-drone.mp4" type="video/mp4"></video></div>
+  <div class="poster-grid" aria-hidden="true"></div>
+  <h1 class="display hero-name">Indri<span class="brk"></span>ago</h1>
+  <div class="strip">
+    <div class="cell"><small data-k="role"></small><b>Barcelona</b></div>
+    <a class="cell" href="#dates" id="heroNext"><small data-i18n="nextDate"></small><b></b></a>
+    <div class="cell"><small data-i18n="sound"></small><b data-k="sound"></b></div>
+    <a class="cell book" href="#booking"><small data-i18n="book"></small><b>Booking →</b></a>
+    <button class="cell listen" id="heroListen" type="button"><small data-i18n="listen"></small><b><span class="ic pl" aria-hidden="true">▶</span><span class="ic pa" aria-hidden="true">❚❚</span> Radio Show</b></button>
+  </div>
+</section>
 
-  <footer>
-    <div>© <span id="y" style="opacity:1">2026</span> Indriago</div>
-    <span>Nueva web muy pronto</span>
-  </footer>
+<!-- 01 BIO -->
+<section class="block" id="bio">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 class="display" data-i18n="navBio"></h2><span class="meta" data-i18n="metaBio"></span></div>
+    <div class="bio">
+      <figure class="reveal"><img src="assets/bio.jpg" data-i18n-alt="altSeated" alt="" loading="lazy"><figcaption>Indriago · <span data-k="role"></span></figcaption></figure>
+      <div class="text reveal">
+        <div class="bio-clip" id="bioClip"><div id="bioText"></div></div>
+        <button class="bio-more" id="bioMore" type="button" aria-controls="bioClip" aria-expanded="false" hidden><span></span><i aria-hidden="true">+</i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 MUSIC -->
+<section class="block music" id="music">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 class="display" data-i18n="navMusic"></h2><span class="meta" data-i18n="metaMusic"></span></div>
+    <div class="music-grid">
+      <div class="player reveal" id="player"></div>
+      <ul class="platforms reveal" id="platforms"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- 03 DATES -->
+<section class="block dates" id="dates">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 class="display" data-i18n="navDates"></h2><span class="meta" id="datesMeta"></span></div>
+    <div id="upcoming"></div>
+    <h3 class="reveal" data-i18n="past" id="pastTitle"></h3>
+    <div id="past"></div>
+  </div>
+</section>
+
+<div class="ticker big" aria-hidden="true"><div class="track" data-ticker="bigTicker"></div></div>
+
+<!-- 04 GALLERY -->
+<section class="block" id="gallery">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 class="display" data-i18n="navGallery"></h2><span class="meta" data-i18n="metaGallery"></span></div>
+    <div class="carousel reveal" id="carousel" role="region" aria-roledescription="carousel">
+      <div class="gallery" id="track">
+        <button class="slide" data-full="assets/g1-capucha.jpg"><img src="assets/g1-capucha.jpg" data-i18n-alt="altHood" alt="" loading="lazy"></button>
+        <button class="slide" data-full="assets/g2-silla.jpg"><img src="assets/g2-silla.jpg" data-i18n-alt="altChair" alt="" loading="lazy"></button>
+        <button class="slide" data-full="assets/g3-gafas.jpg"><img src="assets/g3-gafas.jpg" data-i18n-alt="altGlasses" alt="" loading="lazy"></button>
+        <button class="slide" data-full="assets/g4-foco.jpg"><img src="assets/g4-foco.jpg" data-i18n-alt="altLight" alt="" loading="lazy"></button>
+        <button class="slide" data-full="assets/g5-silla.jpg"><img src="assets/g5-silla.jpg" data-i18n-alt="altChair2" alt="" loading="lazy"></button>
+      </div>
+      <div class="car-ui">
+        <span class="count" id="count" aria-live="polite">01 / 05</span>
+        <div class="car-bar" aria-hidden="true"><i id="carBar"></i></div>
+        <div class="car-btns">
+          <button class="car-btn" id="prev" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="car-btn" id="next" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 BOOKING -->
+<section class="block booking music" id="booking">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 class="display">Booking</h2><span class="meta" data-i18n="metaBooking"></span></div>
+    <p class="lead reveal" data-k="bookingLead"></p>
+    <a class="mail reveal" id="mail"></a>
+    <div class="contacts reveal" id="contacts"></div>
+    <a class="btn presskit reveal" href="presskit/"><span data-i18n="navPress"></span><span class="arr" aria-hidden="true">→</span></a>
+    <div class="socials soc reveal" id="socials"></div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo"><img src="assets/logo-sm.png" alt="Indriago" width="180" height="89"></span>
+  <span>© <span id="y">2026</span> Indriago. <span data-i18n="rights"></span> · <span data-k="role"></span></span>
+  <a href="#top" data-i18n="backTop"></a>
+</footer>
+
+<!-- mini reproductor: el set de SoundCloud suena aquí (sin portada ni datos) -->
+<div class="radio" id="radio">
+  <button id="rPlay" type="button"><svg class="pl" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2v9.6L10.5 6z"/></svg><svg class="pa" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z"/></svg></button>
+  <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span>INDRIAGO - Radio Show</span>
+  <input type="range" id="rVol" min="0" max="100" step="1" value="50">
 </div>
+
+<div class="lightbox" id="lb" role="dialog" aria-modal="true">
+  <img alt="">
+  <button class="lb-btn lb-close" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-btn lb-prev" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="lb-btn lb-next" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  <span class="lb-count" aria-live="polite"></span>
+</div>
+
 <script>
-  // ====== EDITA AQUÍ ====== frases del ticker
-  var phrases=["Nueva web muy pronto","indriagodj.com","En construcción","Coming soon"];
-  var t=document.getElementById("track"),html="";
-  for(var i=0;i<8;i++)phrases.forEach(function(p){html+="<span>"+p+"</span>"});
-  t.innerHTML=html;
-  document.getElementById("y").textContent=new Date().getFullYear();
+/* =====================================================================
+   ====== EDITA AQUÍ ====== Todo el contenido de la web está aquí.
+   Cada texto tiene versión en inglés (en) y español (es).
+   La web abre en inglés; el botón del mundo cambia a español.
+   Lo marcado con  pendiente:true  muestra una etiqueta "Provisional"
+   hasta que pongas el dato real.
+   ===================================================================== */
+var SITE = {
+  role:       { en: "DJ / Producer",    es: "DJ / Productor" },
+  // Sonido (franja de la portada)
+  sound:      { en: "Tech house · Afro house", es: "Tech house · Afro house" },
+  bigTicker: { en: ["Indriago", "Music", "Indriago", "Live sets"], es: ["Indriago", "Music", "Indriago", "Live sets"] },
+
+  bio: {
+    en: [
+      "Born on Margarita Island (Venezuela) in 2002 and based in Barcelona, INDRIAGO is an electronic music DJ and producer. He grew up surrounded by the Caribbean, among the salsa, merengue and drums that played on every corner, and perhaps that is why rhythm has always been at the heart of his music. At 13, a DJ friend taught him the basics of the craft. What began as curiosity soon became an obsession: hours practising transitions, digging for new music and studying sets by the biggest names in the genre.",
+      "His first steps were at private parties, where he learned the most important lesson of the booth: how to read the dancefloor. With his charisma, his energy and the support of his community, he went from parties among friends to the island's best clubs, making a name for himself on the Margarita scene while still very young.",
+      "Over the years his sound has taken shape: tech house and afro house with groove, punchy percussion and a constant nod to his Latin roots. His sets move from hypnotic to explosive, and are always built to keep the dancefloor moving.",
+      "Moving to Barcelona, one of the world capitals of electronic music, was a turning point. The city has given him new references, new connections and the drive to step into the studio. Today he combines the booth with production, working on his own tracks and edits.",
+      "He has taken his sound to Venezuela, Colombia, Spain, the Netherlands and Italy, playing to very different crowds, always with the same idea: connecting with people through rhythm.",
+      "From Barcelona, INDRIAGO keeps growing as one of the new voices of the international electronic scene, with his sights set on the big stages and on leaving his mark with a sound of his own."
+    ],
+    es: [
+      "Nacido en la Isla de Margarita (Venezuela) en 2002 y afincado en Barcelona, INDRIAGO es DJ y productor de música electrónica. Creció rodeado del Caribe, entre la salsa, el merengue y los tambores que sonaban en cada esquina, y quizá por eso el ritmo siempre ha sido el centro de su música. A los 13 años, un amigo DJ le enseñó las bases del oficio. Lo que empezó como curiosidad se convirtió pronto en obsesión: horas practicando transiciones, buscando música nueva y estudiando sets de los grandes nombres del género.",
+      "Sus primeros pasos fueron en fiestas privadas, donde aprendió lo más importante de la cabina: leer a la pista. Con su carisma, su energía y el apoyo de su comunidad, pasó de las fiestas entre amigos a los mejores clubes de la isla, y se hizo un nombre propio en la escena de Margarita cuando todavía era muy joven.",
+      "Con los años, su sonido ha ido tomando forma: tech house y afro house con groove, percusiones marcadas y un guiño constante a sus raíces latinas. Sus sets van de lo hipnótico a lo explosivo, y siempre están pensados para que la pista no pare de moverse.",
+      "Su llegada a Barcelona, una de las capitales mundiales de la música electrónica, marcó un antes y un después. La ciudad le ha dado nuevas referencias, nuevos contactos y la motivación para dar el salto al estudio. Hoy combina la cabina con la producción, y trabaja en sus propios temas y edits.",
+      "Ha llevado su sonido a Venezuela, Colombia, España, Países Bajos e Italia. Ha actuado ante públicos muy distintos, siempre con la misma idea: conectar con la gente a través del ritmo.",
+      "Desde Barcelona, INDRIAGO sigue creciendo como una de las nuevas voces de la escena electrónica internacional, con la mirada puesta en los grandes escenarios y en dejar huella con un sonido propio."
+    ]
+  },
+  bioPendiente: false,
+
+  // Reproductor: pega la URL "embed" de SoundCloud, Mixcloud, Spotify o YouTube.
+  // Ej. SoundCloud: https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/USUARIO&color=%23111111&visual=true
+  playerEmbed: "https://www.youtube-nocookie.com/embed/NteZxunLYSQ?rel=0&modestbranding=1&playsinline=1&enablejsapi=1",
+  // Mini reproductor "Radio Show" (abajo a la izquierda): tema de SoundCloud y volumen inicial (0-100)
+  radioTrack: "https://soundcloud.com/argenis_indriago/indriago-after-locker-bcn-2026",
+  radioVolume: 50,
+  platforms: [
+    ["SoundCloud", "https://soundcloud.com/argenis_indriago"],
+    ["YouTube", "https://www.youtube.com/@indriagodj"]
+  ],
+  platformsPendiente: false,
+
+  // Fechas: [fecha "AAAA-MM-DD", ciudad, país, club/evento, enlace entradas]
+  // (ciudad, país y club se escriben una sola vez; si quieres traducirlos usa { en: "...", es: "..." })
+  upcoming: [
+    ["2026-12-04", "Barcelona", { en: "Spain", es: "España" }, "Fratello 2º Aniversario · NIX Barcelona", "https://ra.co/events/2587558"]
+  ],
+  // Fechas pasadas: mientras esté vacío, el bloque "Recent" no se muestra.
+  // Ej.: ["2026-12-04", "Barcelona", { en: "Spain", es: "España" }, "Fratello 2º Aniversario · NIX Barcelona", ""]
+  past: [],
+  datesPendiente: false,
+
+  bookingLead: {
+    en: "For club nights, festivals and private events, get in touch and we will get back to you as soon as possible.",
+    es: "Para contrataciones, festivales, clubes y eventos privados, escríbenos y te respondemos lo antes posible."
+  },
+  email: "booking@indriagodj.com",                                    // PROVISIONAL
+  contacts: [                                                          // PROVISIONAL
+    ["Booking", "booking@indriagodj.com", "mailto:booking@indriagodj.com"],
+    ["Management", { en: "TBC", es: "Por confirmar" }, ""],
+    [{ en: "Press", es: "Prensa" }, "press@indriagodj.com", "mailto:press@indriagodj.com"]
+  ],
+  // Redes: aparecen en Booking, en el pie de página y en el menú del móvil
+  socials: [
+    ["Instagram", "https://www.instagram.com/indriagodj"],
+    ["SoundCloud", "https://soundcloud.com/argenis_indriago"],
+    ["YouTube", "https://www.youtube.com/@indriagodj"],
+    ["Facebook", "https://www.facebook.com/indriagodj"]
+  ],
+  contactPendiente: false
+};
+
+/* Textos fijos de la interfaz (menú, botones, títulos) */
+var UI = {
+  en: {
+    navBio: "Bio", bioFull: "Bio full", bioLess: "Show less", navMusic: "Music", navDates: "Dates", navGallery: "Gallery", navBooking: "Booking", navPress: "Press Kit",
+    nextDate: "Next date", sound: "Sound", listen: "Listen", bookingOpen: "Booking open", tba: "Next date TBA", book: "Book", metaBio: "Margarita Island → Barcelona", metaMusic: "Sets · Radio show", metaGallery: "Studio session · 2026", metaBooking: "Clubs · Festivals · Private events", days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+    upcoming: "Upcoming", past: "Recent", tickets: "Tickets", noDates: "New dates coming soon.",
+    lastSet: "Latest set", playerSoon: "The SoundCloud / Mixcloud / YouTube player goes here.",
+    tbd: "Placeholder", pending: "Pending", backTop: "Back to top ↑", rights: "All rights reserved.",
+    menuOpen: "Open menu", close: "Close", prev: "Previous photo", next: "Next photo", gallery: "Photo gallery", photo: "Enlarged photo", player: "Player",
+    langLabel: "Cambiar a español", other: "es", play: "Play radio show", pause: "Pause radio show", volume: "Volume",
+    altHero: "Indriago in a black hooded jacket and glasses, black and white", altSeated: "Indriago seated with his arms open, black and white portrait", altHood: "Indriago standing in a black hooded jacket, black and white", altChair: "Indriago seated on a chair, looking at the camera, black and white", altGlasses: "Indriago adjusting his glasses, hood up, black and white", altLight: "Indriago under a studio light, black and white", altChair2: "Indriago seated, looking down, black and white",
+    months: ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"],
+    title: "Indriago — DJ / Producer", desc: "Official website of Indriago, DJ and producer. Music, tour dates, gallery and booking."
+  },
+  es: {
+    navBio: "Bio", bioFull: "Bio completa", bioLess: "Ver menos", navMusic: "Música", navDates: "Fechas", navGallery: "Galería", navBooking: "Booking", navPress: "Press Kit",
+    nextDate: "Próxima fecha", sound: "Sonido", listen: "Escuchar", bookingOpen: "Booking abierto", tba: "Próxima fecha por anunciar", book: "Contratar", metaBio: "Isla de Margarita → Barcelona", metaMusic: "Sets · Radio show", metaGallery: "Sesión de estudio · 2026", metaBooking: "Clubes · Festivales · Eventos privados", days: ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"],
+    upcoming: "Próximas", past: "Recientes", tickets: "Entradas", noDates: "Nuevas fechas muy pronto.",
+    lastSet: "Último set", playerSoon: "Aquí irá el reproductor de SoundCloud / Mixcloud / YouTube.",
+    tbd: "Provisional", pending: "Pendiente", backTop: "Volver arriba ↑", rights: "Todos los derechos reservados.",
+    menuOpen: "Abrir menú", close: "Cerrar", prev: "Foto anterior", next: "Foto siguiente", gallery: "Galería de fotos", photo: "Foto ampliada", player: "Reproductor",
+    langLabel: "Switch to English", other: "en", play: "Reproducir radio show", pause: "Pausar radio show", volume: "Volumen",
+    altHero: "Indriago con chaqueta negra con capucha y gafas, en blanco y negro", altSeated: "Indriago sentado con los brazos abiertos, retrato en blanco y negro", altHood: "Indriago de pie con chaqueta negra y capucha, en blanco y negro", altChair: "Indriago sentado en una silla mirando a cámara, en blanco y negro", altGlasses: "Indriago ajustándose las gafas con la capucha puesta, en blanco y negro", altLight: "Indriago bajo un foco de estudio, en blanco y negro", altChair2: "Indriago sentado mirando hacia abajo, en blanco y negro",
+    months: ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"],
+    title: "Indriago — DJ / Productor", desc: "Web oficial de Indriago, DJ y productor. Música, fechas, galería y booking."
+  }
+};
+/* ===================================================================== */
+
+(function(){
+  var $ = function(s){return document.querySelector(s)};
+  var $$ = function(s){return document.querySelectorAll(s)};
+  var esc = function(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+  var ext = function(u){return /^https?:/.test(u) ? ' target="_blank" rel="noopener"' : ''};
+  var lang = "en";
+  var T = function(v){ return (v && typeof v === "object" && !Array.isArray(v)) ? (v[lang] != null ? v[lang] : v.en) : v };
+
+  // iconos de redes (SVG en línea)
+  var ICON = {
+    Instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg>',
+    SoundCloud: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 14.6c0-.2.1-.3.3-.3s.3.1.3.3l.3 2.3-.3 2.3c0 .2-.1.3-.3.3s-.3-.1-.3-.3L.8 16.9zm1.8-1.4c0-.2.1-.3.3-.3s.3.1.3.3l.4 3.7-.4 3.6c0 .2-.1.3-.3.3s-.3-.1-.3-.3l-.3-3.6zm1.9-.7c0-.2.2-.4.4-.4s.4.2.4.4l.3 4.4-.3 3.7c0 .2-.2.4-.4.4s-.4-.2-.4-.4l-.3-3.7zm1.9-.3c0-.3.2-.5.5-.5s.4.2.5.5l.3 4.7-.3 3.8c0 .3-.2.5-.5.5s-.4-.2-.5-.5l-.3-3.8zm2-1c0-.3.2-.5.5-.5s.5.2.5.5l.3 5.7-.3 3.8c0 .3-.2.5-.5.5s-.5-.2-.5-.5l-.2-3.8zm2-1.4c0-.3.3-.6.6-.6s.6.3.6.6l.2 7.1-.2 3.8c0 .3-.3.6-.6.6s-.6-.3-.6-.6l-.2-3.8zm2.2-1.2c.1-.4.4-.6.7-.6 3.3 0 6 2.5 6.3 5.7.4-.2.9-.3 1.4-.3 2.1 0 3.8 1.7 3.8 3.8s-1.7 3.8-3.8 3.8h-7.7c-.4 0-.7-.3-.7-.7z"/></svg>',
+    YouTube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg>',
+    Facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0024 12z"/></svg>'
+  };
+
+  function render(){
+    var ui = UI[lang], TBD = ' <span class="tbd">'+ui.tbd+'</span>';
+    document.documentElement.lang = lang;
+    document.title = ui.title;
+    var md = document.querySelector('meta[name="description"]'); if (md) md.content = ui.desc;
+    $$("[data-i18n]").forEach(function(el){ el.textContent = ui[el.dataset.i18n] });
+    $$("[data-i18n-html]").forEach(function(el){ el.innerHTML = ui[el.dataset.i18nHtml] });
+    $$("[data-i18n-alt]").forEach(function(el){ el.alt = ui[el.dataset.i18nAlt] });
+    $$("[data-k]").forEach(function(el){ el.textContent = T(SITE[el.dataset.k]) || "" });
+    $$("[data-ticker]").forEach(function(el){
+      var h="", list=T(SITE[el.dataset.ticker]); for(var i=0;i<6;i++) list.forEach(function(p){h+="<span>"+esc(p)+"</span>"}); el.innerHTML=h;
+    });
+
+    $("#bioText").innerHTML = T(SITE.bio).map(function(p,i){return "<p>"+esc(p)+(i===0&&SITE.bioPendiente?TBD:"")+"</p>"}).join("");
+    if (window.fitBio) fitBio();
+
+    $("#player").classList.toggle("video", /youtube/.test(SITE.playerEmbed));
+    var pl = $("#player"), plf = pl.querySelector("iframe");
+    if (plf) plf.title = ui.player; else pl.innerHTML = SITE.playerEmbed
+      ? '<iframe id="ytFrame" src="'+esc(SITE.playerEmbed + (/youtube/.test(SITE.playerEmbed) ? "&origin=" + encodeURIComponent(location.origin) : ""))+'" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="'+ui.player+'"></iframe>'
+      : '<div class="empty"><span class="display">'+ui.lastSet+'</span><span>'+ui.playerSoon+'</span><span class="tbd" style="justify-self:center">'+ui.pending+'</span></div>';
+    $("#platforms").innerHTML = SITE.platforms.map(function(p){return '<li><a href="'+esc(p[1])+'"'+ext(p[1])+'>'+esc(p[0])+'</a></li>'}).join("")
+      + (SITE.platformsPendiente ? '<li style="padding-top:12px">'+TBD+'</li>' : '');
+
+    function gig(g, past){
+      var d=g[0].split("-"), wd=ui.days[new Date(+d[0], +d[1]-1, +d[2]).getDay()];
+      return '<div class="gig reveal in'+(past?' past':'')+'"><div class="d">'+d[2]+'.'+d[1]+'<small>'+wd+' · '+d[0]+'</small></div>'
+        +'<div class="where">'+esc(T(g[1]))+', '+esc(T(g[2]))+'</div><div class="venue">'+esc(T(g[3]))+'</div>'
+        +(g[4] ? '<a class="btn solid" href="'+esc(g[4])+'"'+ext(g[4])+'>'+ui.tickets+'</a>' : '<span></span>')+'</div>';
+    }
+    // fila "próxima fecha por anunciar": invita a contratar mientras la agenda es corta
+    var tba = '<div class="gig ghost reveal in"><div class="d">—<small>'+ui.bookingOpen+'</small></div><div class="where">'+ui.tba+'</div><div class="venue">'+esc(SITE.email)+'</div><a class="btn" href="#booking">'+ui.book+'</a></div>';
+    $("#upcoming").innerHTML = SITE.upcoming.map(function(g){return gig(g)}).join("") + tba;
+    $("#datesMeta").textContent = ui.upcoming + " · " + new Date().getFullYear();
+    // franja de la portada: próxima fecha
+    var nx = SITE.upcoming[0], hn = $("#heroNext b");
+    if (nx) { var nd = nx[0].split("-"), venue = T(nx[3]).split("·").pop().trim(); hn.textContent = nd[2]+"."+nd[1]+" · "+venue }
+    else hn.textContent = ui.bookingOpen;
+    $("#pastTitle").hidden = $("#past").hidden = !SITE.past.length;
+    $("#past").innerHTML = SITE.past.map(function(g){return gig(g,true)}).join("") + (SITE.datesPendiente ? '<p style="margin-top:16px">'+TBD+'</p>' : '');
+
+    var mail=$("#mail"); mail.textContent=SITE.email; mail.href="mailto:"+SITE.email;
+    $("#contacts").innerHTML = SITE.contacts.map(function(c){
+      return "<div><small>"+esc(T(c[0]))+"</small>"+(c[2]?'<a href="'+esc(c[2])+'">'+esc(T(c[1]))+"</a>":"<span>"+esc(T(c[1]))+"</span>")+"</div>";
+    }).join("") + (SITE.contactPendiente ? '<div style="grid-column:1/-1;text-align:center;padding-top:18px;border:0">'+TBD+'</div>' : '');
+    $$("[data-soc]").forEach(function(el){
+      el.innerHTML = SITE.socials.map(function(s){return '<a href="'+esc(s[1])+'"'+ext(s[1])+' aria-label="'+esc(s[0])+'" title="'+esc(s[0])+'">'+(ICON[s[0]]||esc(s[0]))+'</a>'}).join("");
+    });
+    $("#socials").innerHTML = SITE.socials.map(function(s){return '<a href="'+esc(s[1])+'"'+ext(s[1])+' aria-label="'+esc(s[0])+'" title="'+esc(s[0])+'">'+(ICON[s[0]]||esc(s[0]))+'</a>'}).join("")
+      ;
+
+    // botón de idioma
+    var lb = $("#lang");
+    lb.setAttribute("aria-label", ui.langLabel); lb.title = ui.langLabel;
+    lb.querySelectorAll("[data-l]").forEach(function(s){ s.className = s.dataset.l===lang ? "on" : "off" });
+    $("#burger").setAttribute("aria-label", ui.menuOpen);
+    $("#rVol").setAttribute("aria-label", ui.volume);
+    $("#rPlay").setAttribute("aria-label", $("#radio").classList.contains("on") ? ui.pause : ui.play);
+    $("#prev").setAttribute("aria-label", ui.prev); $("#next").setAttribute("aria-label", ui.next); $("#carousel").setAttribute("aria-label", ui.gallery);
+    $("#lb").setAttribute("aria-label", ui.photo); $("#lb .lb-close").setAttribute("aria-label", ui.close); $("#lb .lb-prev").setAttribute("aria-label", ui.prev); $("#lb .lb-next").setAttribute("aria-label", ui.next);
+  }
+
+  // bio: si el texto es más alto que la foto, se recorta y aparece "Bio full"
+  var bioOpen = false;
+  window.fitBio = function(){
+    var clip = $("#bioClip"), btn = $("#bioMore"), fig = $(".bio figure"), txt = $("#bioText");
+    var wide = matchMedia("(min-width:901px)").matches;
+    var limit = wide ? fig.offsetHeight - 46 : Math.max(320, innerHeight * .55);
+    var full = txt.scrollHeight, fits = full <= limit + 40;
+    clip.classList.toggle("fits", fits);
+    clip.classList.toggle("open", bioOpen && !fits);
+    clip.style.maxHeight = fits ? "none" : (bioOpen ? full + "px" : limit + "px");
+    btn.hidden = fits;
+    btn.setAttribute("aria-expanded", bioOpen);
+    btn.querySelector("span").textContent = bioOpen ? UI[lang].bioLess : UI[lang].bioFull;
+  };
+  $("#bioMore").addEventListener("click", function(){
+    bioOpen = !bioOpen; fitBio();
+    if (!bioOpen) { var t = $("#bio").getBoundingClientRect().top + scrollY; if (scrollY > t + 200) scrollTo({ top: t, behavior: "smooth" }) }
+    setTimeout(function(){ if (window.ScrollTrigger) ScrollTrigger.refresh() }, 750);
+  });
+  addEventListener("resize", function(){ fitBio() });
+  addEventListener("load", function(){ fitBio() });
+  var bioImg = $(".bio figure img"); if (bioImg && !bioImg.complete) bioImg.addEventListener("load", function(){ fitBio() });
+
+  function setLang(l){ lang = (l==="es") ? "es" : "en"; try{ localStorage.setItem("lang", lang) }catch(e){} render() }
+  var saved = null; try{ saved = localStorage.getItem("lang") }catch(e){}
+  if (/^#?es$/.test(location.hash)) saved = "es";
+  lang = saved==="es" ? "es" : "en";
+  render();
+  $("#lang").addEventListener("click", function(){ setLang(lang==="en" ? "es" : "en") });
+  $("#y").textContent = new Date().getFullYear();
+
+  // nav: fondo al hacer scroll + menú móvil + sección activa
+  var nav=$("#nav"), burger=$("#burger");
+  function onScroll(){ nav.classList.toggle("scrolled", scrollY>40); document.body.classList.toggle("past-hero", scrollY > innerHeight * (document.documentElement.classList.contains("fx") ? 1.15 : .7)) }
+  addEventListener("scroll", onScroll, {passive:true}); onScroll();
+  function setMenu(open){ document.body.classList.toggle("menu-open",open); burger.setAttribute("aria-expanded",open); document.body.style.overflow=open?"hidden":"" }
+  burger.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")) });
+  $$("#menu a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false) }) });
+
+  if ("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});
+    $$(".reveal:not(.in)").forEach(function(el){io.observe(el)});
+    var links={}; $$("#menu a").forEach(function(a){links[a.getAttribute("href").slice(1)]=a});
+    var so=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ for(var k in links) links[k].classList.toggle("on", k===e.target.id) } })},{rootMargin:"-45% 0px -50% 0px"});
+    $$("section[id]").forEach(function(s){so.observe(s)});
+  } else $$(".reveal").forEach(function(el){el.classList.add("in")});
+
+  // galería: ampliar foto
+  var lbx=$("#lb");
+  // carrusel: botones, contador y barra de progreso
+  var track=$("#track"), slides=$$("#track .slide"), N=slides.length;
+  function step(){ return slides.length>1 ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth }
+  function current(){ return Math.round(track.scrollLeft / step()) }
+  function go(i){ track.scrollTo({ left: Math.max(0, Math.min(i, N-1)) * step() }) }
+  function updateCar(){
+    var max = track.scrollWidth - track.clientWidth, i = current();
+    var atEnd = track.scrollLeft >= max - 4;
+    var shown = atEnd ? N : i+1;
+    $("#count").textContent = String(shown).padStart(2,"0") + " / " + String(N).padStart(2,"0");
+    var vis = Math.min(1, track.clientWidth / track.scrollWidth);
+    $("#carBar").style.width = (vis*100)+"%";
+    $("#carBar").style.transform = "translateX(" + (max>0 ? (track.scrollLeft/max)*(1/vis-1)*100 : 0) + "%)";
+    $("#prev").disabled = track.scrollLeft <= 4;
+    $("#next").disabled = atEnd;
+  }
+  $("#prev").addEventListener("click", function(){ go(current()-1) });
+  $("#next").addEventListener("click", function(){ go(current()+1) });
+  track.addEventListener("scroll", updateCar, {passive:true});
+  addEventListener("resize", updateCar);
+  $("#carousel").addEventListener("keydown", function(e){
+    if(e.key==="ArrowRight"){ e.preventDefault(); go(current()+1) }
+    if(e.key==="ArrowLeft"){ e.preventDefault(); go(current()-1) }
+  });
+  updateCar();
+
+  // portada: el dron baja hacia Indriago con el scroll (lo mueve la animación de scroll más abajo)
+  // y al final se funde con la foto real.
+  // No se carga con "reducir movimiento" ni con ahorro de datos: entonces queda la foto fija.
+  (function(){
+    var v = $("#heroVid"); if (!v) return;
+    var c = navigator.connection;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || (c && c.saveData)) { v.parentNode.removeChild(v); return }
+    v.addEventListener("loadeddata", function(){ v.parentNode.classList.add("playing"); setTimeout(function(){ v.style.transition = "none" }, 1300) }, { once: true });
+    v.preload = "auto"; v.load();
+  })();
+
+  // ---- mini reproductor Radio Show + YouTube: nunca suenan los dos a la vez ----
+  (function(){
+    var box = $("#radio"), btn = $("#rPlay"), vol = $("#rVol");
+    var widget = null, ready = false, wantPlay = false, yt = null;
+    vol.value = SITE.radioVolume; vol.style.setProperty("--v", vol.value + "%");
+    function ui(on){ box.classList.toggle("on", on); btn.setAttribute("aria-label", on ? UI[lang].pause : UI[lang].play); $("#heroListen").classList.toggle("on", on) }
+    function load(src, cb){ var s = document.createElement("script"); s.src = src; s.async = true; if (cb) s.onload = cb; document.head.appendChild(s) }
+    var started = false;
+    function startSC(){
+      if (started) return; started = true;
+      var f = document.createElement("iframe");
+      f.allow = "autoplay"; f.title = "SoundCloud"; f.tabIndex = -1; f.setAttribute("aria-hidden", "true");
+      f.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(SITE.radioTrack) + "&auto_play=false&show_artwork=false&visual=false&buying=false&sharing=false&download=false&show_comments=false&show_user=false";
+      box.appendChild(f);
+      load("https://w.soundcloud.com/player/api.js", function(){
+        widget = SC.Widget(f); var E = SC.Widget.Events;
+        widget.bind(E.READY, function(){ ready = true; widget.setVolume(+vol.value); if (wantPlay) widget.play() });
+        widget.bind(E.PLAY, function(){ ui(true); if (yt && yt.pauseVideo) yt.pauseVideo() });
+        widget.bind(E.PAUSE, function(){ ui(false) });
+        widget.bind(E.FINISH, function(){ ui(false) });
+      });
+    }
+    $("#heroListen").addEventListener("click", function(){ btn.click() });
+    btn.addEventListener("click", function(){
+      if (!ready) { wantPlay = !wantPlay; ui(wantPlay); startSC(); return }
+      widget.isPaused(function(p){ p ? widget.play() : widget.pause() });
+    });
+    vol.addEventListener("input", function(){ vol.style.setProperty("--v", vol.value + "%"); if (ready) widget.setVolume(+vol.value) });
+    // el reproductor de SoundCloud se prepara cuando la página ya cargó (no frena la portada)
+    if (document.readyState === "complete") setTimeout(startSC, 1500);
+    else addEventListener("load", function(){ setTimeout(startSC, 1500) });
+    // YouTube: si alguien reproduce el video, la radio se pausa (y se vuelve a escuchar con Play)
+    var ytf = document.getElementById("ytFrame");
+    if (ytf) {
+      window.onYouTubeIframeAPIReady = function(){
+        yt = new YT.Player(ytf, { events: { onStateChange: function(e){ if (e.data === 1) { wantPlay = false; if (ready) widget.pause(); ui(false) } } } });
+      };
+      load("https://www.youtube.com/iframe_api");
+    }
+  })();
+
+  // foto ampliada: anterior / siguiente, teclado, deslizar y cerrar
+  var lbImg = lbx.querySelector("img"), lbAt = 0, lbFrom = null;
+  function lbShow(i){
+    lbAt = (i + N) % N; var sl = slides[lbAt];
+    lbImg.src = sl.dataset.full; lbImg.alt = sl.querySelector("img").alt;
+    lbx.querySelector(".lb-count").textContent = String(lbAt+1).padStart(2,"0") + " / " + String(N).padStart(2,"0");
+  }
+  function lbOpen(i){ lbFrom = document.activeElement; lbShow(i); lbx.classList.add("open"); lbx.querySelector(".lb-close").focus({preventScroll:true}) }
+  function lbClose(){ if(!lbx.classList.contains("open")) return; lbx.classList.remove("open"); if (lbFrom) lbFrom.focus({preventScroll:true}) }
+  slides.forEach(function(b, i){ b.addEventListener("click", function(){ lbOpen(i) }) });
+  lbx.querySelector(".lb-prev").addEventListener("click", function(){ lbShow(lbAt-1) });
+  lbx.querySelector(".lb-next").addEventListener("click", function(){ lbShow(lbAt+1) });
+  lbx.addEventListener("click", function(e){ if(e.target===lbx || e.target.closest(".lb-close")) lbClose() });
+  var tx = null;
+  lbx.addEventListener("touchstart", function(e){ tx = e.touches[0].clientX }, {passive:true});
+  lbx.addEventListener("touchend", function(e){ if(tx===null) return; var dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) lbShow(lbAt + (dx < 0 ? 1 : -1)); tx = null });
+  addEventListener("keydown", function(e){
+    if (lbx.classList.contains("open")) {
+      if (e.key==="ArrowRight") lbShow(lbAt+1);
+      if (e.key==="ArrowLeft") lbShow(lbAt-1);
+    }
+    if(e.key==="Escape"){ lbClose(); setMenu(false) }
+  });
+})();
+</script>
+
+<!-- ====== Animación de scroll cinemática (GSAP + ScrollTrigger + Lenis, alojados en assets/js) ====== -->
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/js/lenis.min.js"></script>
+<script>
+(function(){
+  if (!window.gsap || !window.ScrollTrigger) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;   // respeta a quien pide menos movimiento
+  document.documentElement.classList.add("fx");
+  gsap.registerPlugin(ScrollTrigger);
+  var U = gsap.utils.toArray;
+
+  // scroll suave
+  var lenis = window.Lenis ? new Lenis({ lerp: .09 }) : null;
+  if (lenis) {
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t * 1000) });
+    gsap.ticker.lagSmoothing(0);
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener("click", function(e){
+        var id = a.getAttribute("href");
+        if (id.length > 1 && document.querySelector(id)) { e.preventDefault(); lenis.scrollTo(id, { offset: -60 }) }
+        else if (id === "#top") { e.preventDefault(); lenis.scrollTo(0) }
+      });
+    });
+    // parar el scroll suave mientras el menú móvil o la foto ampliada están abiertos
+    new MutationObserver(function(){
+      var lock = document.body.classList.contains("menu-open") || document.getElementById("lb").classList.contains("open");
+      lock ? lenis.stop() : lenis.start();
+    }).observe(document.body, { attributes: true, subtree: true, attributeFilter: ["class"] });
+  }
+
+  // entrada de la portada
+  gsap.from(".hero-name", { yPercent: 12, opacity: 0, duration: 1.2, ease: "power3.out", delay: .1 });
+  gsap.from(".hero .strip .cell", { y: 16, opacity: 0, duration: .8, stagger: .08, ease: "power3.out", delay: .45 });
+
+  // portada fija: la foto se acerca y oscurece y el nombre crece
+  // y el video avanza fotograma a fotograma: el dron baja desde lo alto hasta él y se funde con la foto
+  var hv = document.getElementById("heroVid"), want = 0, shown = 0, busy = false;
+  function seek(){
+    if (!hv || !hv.duration) return;
+    shown += (want - shown) * .25;                       // suavizado
+    if (Math.abs(want - shown) < .002) shown = want;
+    if (!busy) { busy = true; hv.currentTime = shown * (hv.duration - .05) }
+    if (hv.parentNode.classList.contains("playing")) hv.style.opacity = shown < .86 ? 1 : Math.max(0, 1 - (shown - .86) / .14);
+  }
+  if (hv) { hv.addEventListener("seeked", function(){ busy = false }); gsap.ticker.add(seek) }
+  gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: .6, pin: true,
+      onUpdate: function(st){ want = Math.min(1, st.progress / .8) } } })
+    .fromTo(".hero .photo", { scale: 1, filter: "brightness(1)" }, { scale: 1.08, filter: "brightness(.78)", ease: "none" }, 0)
+    .to(".hero-name", { yPercent: -22, ease: "none" }, 0)
+    .to(".hero .strip", { opacity: 0, ease: "none" }, .5);
+
+  // títulos: la línea de debajo se dibuja al entrar (sin dejar el título a medias)
+  U(".sec-head").forEach(function(h){
+    gsap.fromTo(h, { "--rule": 0 }, { "--rule": 1, ease: "power2.out", duration: 1.1, scrollTrigger: { trigger: h, start: "top 88%" } });
+  });
+  // la cinta grande se inclina
+  gsap.fromTo(".ticker.big", { rotation: -4 }, { rotation: 4, ease: "none",
+    scrollTrigger: { trigger: ".ticker.big", start: "top bottom", end: "bottom top", scrub: true } });
+  // las fotos se acercan un poco al entrar (siempre visibles)
+  U(".carousel, .bio figure").forEach(function(box){
+    gsap.fromTo(box, { scale: .94 }, { scale: 1, ease: "none",
+      scrollTrigger: { trigger: box, start: "top 100%", end: "top 50%", scrub: true } });
+  });
+
+  addEventListener("load", function(){ ScrollTrigger.refresh() });
+  document.fonts && document.fonts.ready.then(function(){ ScrollTrigger.refresh() });
+})();
 </script>
 </body>
 </html>
