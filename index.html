@@ -367,7 +367,7 @@
     .sec-head .meta{text-align:left;width:100%;padding-bottom:0}
   }
   @media (max-width:760px){
-    .hero{--strip-h:74px}
+    .hero{--strip-h:86px}
     .poster-grid{background:repeating-linear-gradient(90deg,rgba(255,255,255,.09) 0 1px,transparent 1px 50%)}
     body::before{background:repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 50%)}
     .hero .hero-name{font-size:30vw;line-height:.8;white-space:normal;bottom:calc(var(--strip-h) * 2 + 3vw);left:2.4vw}
@@ -382,6 +382,19 @@
     .strip .cell:nth-child(odd){padding-left:16px}
     .strip b{font-size:15px;white-space:normal;line-height:1.15}
     .block .sec-head h2{font-size:clamp(56px,20vw,96px)}
+    /* revisión móvil */
+    .strip .cell{justify-content:flex-start;padding-top:14px}
+    .strip b{text-wrap:balance}
+    .gig{grid-template-columns:clamp(104px,31vw,150px) minmax(0,1fr);gap:6px 16px}
+    .gig .d{font-size:clamp(38px,12vw,60px)}
+    .gig .d small{font-size:10px;letter-spacing:.14em;line-height:1.5}
+    .gig.ghost .d{font-size:clamp(30px,9vw,44px)}
+    .gig .venue{line-height:1.5}
+    .contacts div,.contacts div:first-child{padding:22px 0 0}
+    .contacts div+div{margin-top:22px}
+    footer{flex-direction:column;align-items:flex-start;gap:14px}
+    footer .sep{display:none}
+    footer .role{display:block;margin-top:4px}
   }
   /* ===== animación de scroll "cinemática" (GSAP + Lenis) ===== */
   html.fx,html.fx body{overflow-x:clip}
@@ -514,7 +527,7 @@
 
 <footer>
   <span class="logo"><img src="assets/logo-sm.png" alt="Indriago" width="180" height="89"></span>
-  <span>© <span id="y">2026</span> Indriago. <span data-i18n="rights"></span> · <span data-k="role"></span></span>
+  <span>© <span id="y">2026</span> Indriago. <span data-i18n="rights"></span><span class="role"><span class="sep"> · </span><span data-k="role"></span></span></span>
   <a href="#top" data-i18n="backTop"></a>
 </footer>
 
@@ -740,11 +753,18 @@ var UI = {
   addEventListener("load", function(){ fitBio() });
   var bioImg = $(".bio figure img"); if (bioImg && !bioImg.complete) bioImg.addEventListener("load", function(){ fitBio() });
 
-  function setLang(l){ lang = (l==="es") ? "es" : "en"; try{ localStorage.setItem("lang", lang) }catch(e){} render() }
+  // el separador " · " no debe empezar línea en móvil: se pega a la palabra anterior
+  function glueDots(){
+    $$(".strip b, .gig .venue, .sec-head .meta, footer").forEach(function(el){
+      var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n;
+      while ((n = w.nextNode())) if (n.nodeValue.indexOf(" · ") > -1) n.nodeValue = n.nodeValue.replace(/ · /g, "\u00a0· ");
+    });
+  }
+  function setLang(l){ lang = (l==="es") ? "es" : "en"; try{ localStorage.setItem("lang", lang) }catch(e){} render(); glueDots() }
   var saved = null; try{ saved = localStorage.getItem("lang") }catch(e){}
   if (/^#?es$/.test(location.hash)) saved = "es";
   lang = saved==="es" ? "es" : "en";
-  render();
+  render(); glueDots();
   $("#lang").addEventListener("click", function(){ setLang(lang==="en" ? "es" : "en") });
   $("#y").textContent = new Date().getFullYear();
 
@@ -806,7 +826,7 @@ var UI = {
   (function(){
     var v = $("#droneVid"); if (!v) return;
     var c = navigator.connection;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches || (c && c.saveData)) { v.parentNode.removeChild(v); return }
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || (c && c.saveData)) { v.parentNode.removeChild(v); $("#droneAlt").textContent = "0"; return }
     var io = new IntersectionObserver(function(es){
       if (es[0].isIntersecting) { v.preload = "auto"; v.load(); io.disconnect() }
     }, { rootMargin: "150% 0px" });
