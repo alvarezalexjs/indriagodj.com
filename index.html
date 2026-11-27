@@ -311,9 +311,9 @@
   /* portada a pantalla completa (formato del mockup) */
   .hero .photo{background:#3a3a3a}
   .hero .photo img{inset:0;right:auto;width:100%;height:100%;max-width:100%;object-fit:cover;object-position:50% 14%;transform:none;-webkit-mask-image:none;mask-image:none}
-  /* dron cenital: baja con el scroll y termina en la foto */
-  .hero .photo video{inset:0;right:auto;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 0;-webkit-mask-image:none;mask-image:none}
-  .hero .photo.playing img{opacity:1}
+  /* giro de cabeza (vídeo vertical): en escritorio, columna a la derecha fundida con el fondo; en móvil, a pantalla completa */
+  .hero .photo video{left:auto;right:7vw;top:0;bottom:auto;height:100%;width:auto;aspect-ratio:9/16;object-fit:cover;object-position:50% 0;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%,#000 76%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 24%,#000 76%,transparent 100%)}
+  .hero .photo.playing{background:radial-gradient(60% 90% at 72% 35%,#5c5c5c 0%,#333 55%,#1a1a1a 100%)}
   .hero .photo::after{background:linear-gradient(0deg,rgba(8,8,8,.92) 0%,rgba(8,8,8,.35) 32%,rgba(0,0,0,0) 55%),linear-gradient(180deg,rgba(8,8,8,.55) 0%,rgba(0,0,0,0) 22%)}
   .hero .hero-name{font-size:17.4vw;line-height:.78;letter-spacing:-.05em;left:1.4vw;right:auto}
   .strip .book{display:none}
@@ -321,6 +321,19 @@
   .radio{transition:opacity .35s,transform .35s,color .3s,border-color .3s}
   body:not(.past-hero) .radio{opacity:0;transform:translateY(12px);pointer-events:none}
   /* títulos de sección: titular de cartel + dato en mono + regla gruesa */
+  /* descenso del dron (entre galería y booking) */
+  .descent{position:relative;height:100vh;height:100svh;overflow:hidden;background:#0b0b0b;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .descent .stage{position:absolute;inset:0;background:#141414 url(assets/hero-drone-end.jpg) 50% 0/cover no-repeat}
+  .descent video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+  .descent .stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,rgba(8,8,8,.9) 0%,rgba(8,8,8,.25) 38%,rgba(0,0,0,0) 60%),linear-gradient(180deg,rgba(8,8,8,.6) 0%,rgba(0,0,0,0) 20%)}
+  .descent .hud{position:absolute;z-index:2;top:calc(var(--nav-h,64px) + 22px);font-family:var(--fm);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#cfcfcd;display:flex;gap:10px;align-items:baseline}
+  .descent .hud.tl{left:4vw;flex-direction:column;gap:6px}
+  .descent .hud.tr{right:4vw}
+  .descent .hud b{font-family:var(--fd);font-weight:800;font-size:clamp(28px,3.4vw,46px);letter-spacing:-.03em;color:var(--paper);min-width:2.2ch;text-align:right}
+  .descent .copy{position:absolute;z-index:2;left:4vw;right:4vw;bottom:calc(6vh + 64px);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-top:2px solid var(--paper);padding-top:18px}
+  .descent .line{margin:0;font-family:var(--fd);font-weight:800;text-transform:uppercase;font-size:clamp(34px,6.2vw,96px);line-height:.86;letter-spacing:-.045em;max-width:14ch}
+  .fx .descent .stage{background-image:none}
+  @media (max-width:760px){.descent .hud{top:calc(var(--nav-h,64px) + 14px)}.descent .copy{bottom:96px}}
   .sec-head{--rule:1;position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:12px 24px;flex-wrap:wrap;padding-bottom:16px}
   .sec-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--paper);transform:scaleX(var(--rule));transform-origin:left}
   .block .sec-head h2{font-size:clamp(64px,12.5vw,184px);line-height:.78;letter-spacing:-.05em;font-weight:800;margin:0}
@@ -359,7 +372,7 @@
     body::before{background:repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 50%)}
     .hero .hero-name{font-size:30vw;line-height:.8;white-space:normal;bottom:calc(var(--strip-h) * 2 + 3vw);left:2.4vw}
     .hero .photo img{object-position:56% 8%}
-    .hero .photo video{object-position:50% 0}
+    .hero .photo video{inset:0;right:auto;width:100%;height:100%;aspect-ratio:auto;object-position:50% 0;-webkit-mask-image:none;mask-image:none}
     .strip .cell:first-child{display:none}
     .strip .book{display:flex}
     #heroNext{order:1}.strip .listen{order:2}.strip .cell:nth-child(3){order:3}.strip .book{order:4}
@@ -404,7 +417,7 @@
 
 <section class="hero" id="top">
   <div class="photo"><img src="assets/hero-a.jpg" srcset="assets/hero-a-m.jpg 900w, assets/hero-a.jpg 1800w" sizes="100vw" data-i18n-alt="altHero" alt="" fetchpriority="high">
-    <video id="heroVid" muted playsinline preload="none" aria-hidden="true" tabindex="-1" poster="assets/hero-drone-start.jpg"><source src="assets/hero-drone.mp4" type="video/mp4"></video></div>
+    <video id="heroVid" muted playsinline preload="none" aria-hidden="true" tabindex="-1" poster="assets/hero-poster.jpg"><source src="assets/hero-scrub.mp4" type="video/mp4"></video></div>
   <div class="poster-grid" aria-hidden="true"></div>
   <h1 class="display hero-name">Indri<span class="brk"></span>ago</h1>
   <div class="strip">
@@ -474,6 +487,16 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- DESCENSO: el dron baja desde lo alto hasta Indriago y lleva al Booking -->
+<section class="descent" id="descent" aria-label="Indriago">
+  <div class="stage">
+    <video id="droneVid" muted playsinline preload="none" aria-hidden="true" tabindex="-1" poster="assets/hero-drone-start.jpg"><source src="assets/hero-drone.mp4" type="video/mp4"></video>
+    <div class="hud tl"><span>41.3874° N · 2.1686° E</span><span>Barcelona</span></div>
+    <div class="hud tr"><span>ALT</span><b id="droneAlt">120</b><span>m</span></div>
+    <div class="copy"><p class="line" data-i18n="descentLine"></p><a class="btn" href="#booking"><span data-i18n="book"></span><span class="arr" aria-hidden="true">→</span></a></div>
   </div>
 </section>
 
@@ -591,7 +614,7 @@ var SITE = {
 var UI = {
   en: {
     navBio: "Bio", bioFull: "Bio full", bioLess: "Show less", navMusic: "Music", navDates: "Dates", navGallery: "Gallery", navBooking: "Booking", navPress: "Press Kit",
-    nextDate: "Next date", sound: "Sound", listen: "Listen", bookingOpen: "Booking open", tba: "Next date TBA", book: "Book", metaBio: "Margarita Island → Barcelona", metaMusic: "Sets · Radio show", metaGallery: "Studio session · 2026", metaBooking: "Clubs · Festivals · Private events", days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+    nextDate: "Next date", sound: "Sound", listen: "Listen", bookingOpen: "Booking open", tba: "Next date TBA", book: "Book", metaBio: "Margarita Island → Barcelona", metaMusic: "Sets · Radio show", metaGallery: "Studio session · 2026", metaBooking: "Clubs · Festivals · Private events", descentLine: "Next stop: your dancefloor.", days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
     upcoming: "Upcoming", past: "Recent", tickets: "Tickets", noDates: "New dates coming soon.",
     lastSet: "Latest set", playerSoon: "The SoundCloud / Mixcloud / YouTube player goes here.",
     tbd: "Placeholder", pending: "Pending", backTop: "Back to top ↑", rights: "All rights reserved.",
@@ -603,7 +626,7 @@ var UI = {
   },
   es: {
     navBio: "Bio", bioFull: "Bio completa", bioLess: "Ver menos", navMusic: "Música", navDates: "Fechas", navGallery: "Galería", navBooking: "Booking", navPress: "Press Kit",
-    nextDate: "Próxima fecha", sound: "Sonido", listen: "Escuchar", bookingOpen: "Booking abierto", tba: "Próxima fecha por anunciar", book: "Contratar", metaBio: "Isla de Margarita → Barcelona", metaMusic: "Sets · Radio show", metaGallery: "Sesión de estudio · 2026", metaBooking: "Clubes · Festivales · Eventos privados", days: ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"],
+    nextDate: "Próxima fecha", sound: "Sonido", listen: "Escuchar", bookingOpen: "Booking abierto", tba: "Próxima fecha por anunciar", book: "Contratar", metaBio: "Isla de Margarita → Barcelona", metaMusic: "Sets · Radio show", metaGallery: "Sesión de estudio · 2026", metaBooking: "Clubes · Festivales · Eventos privados", descentLine: "Próxima parada: tu pista.", days: ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"],
     upcoming: "Próximas", past: "Recientes", tickets: "Entradas", noDates: "Nuevas fechas muy pronto.",
     lastSet: "Último set", playerSoon: "Aquí irá el reproductor de SoundCloud / Mixcloud / YouTube.",
     tbd: "Provisional", pending: "Pendiente", backTop: "Volver arriba ↑", rights: "Todos los derechos reservados.",
@@ -769,7 +792,7 @@ var UI = {
   });
   updateCar();
 
-  // portada: el dron baja hacia Indriago con el scroll (lo mueve la animación de scroll más abajo)
+  // portada: el giro de cabeza avanza con el scroll (lo mueve la animación de scroll más abajo).
   // No se carga con "reducir movimiento" ni con ahorro de datos: entonces queda la foto fija.
   (function(){
     var v = $("#heroVid"); if (!v) return;
@@ -777,6 +800,17 @@ var UI = {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches || (c && c.saveData)) { v.parentNode.removeChild(v); return }
     v.addEventListener("loadeddata", function(){ v.parentNode.classList.add("playing"); }, { once: true });
     v.preload = "auto"; v.load();
+  })();
+
+  // descenso del dron: se carga cuando la sección se acerca (sin "reducir movimiento" ni ahorro de datos)
+  (function(){
+    var v = $("#droneVid"); if (!v) return;
+    var c = navigator.connection;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || (c && c.saveData)) { v.parentNode.removeChild(v); return }
+    var io = new IntersectionObserver(function(es){
+      if (es[0].isIntersecting) { v.preload = "auto"; v.load(); io.disconnect() }
+    }, { rootMargin: "150% 0px" });
+    io.observe($("#descent"));
   })();
 
   // ---- mini reproductor Radio Show + YouTube: nunca suenan los dos a la vez ----
@@ -883,7 +917,7 @@ var UI = {
   gsap.from(".hero .strip .cell", { y: 16, opacity: 0, duration: .8, stagger: .08, ease: "power3.out", delay: .45 });
 
   // portada fija: la foto se acerca y oscurece y el nombre crece
-  // y el video avanza fotograma a fotograma: el dron baja desde lo alto hasta su cara
+  // y el video avanza fotograma a fotograma: la cara gira hacia la cámara al bajar
   var hv = document.getElementById("heroVid"), want = 0, shown = 0, busy = false;
   function seek(){
     if (!hv || !hv.duration) return;
@@ -894,9 +928,26 @@ var UI = {
   if (hv) { hv.addEventListener("seeked", function(){ busy = false }); gsap.ticker.add(seek) }
   gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: .6, pin: true,
       onUpdate: function(st){ want = Math.min(1, st.progress / .8) } } })
-    .fromTo(".hero .photo", { scale: 1, filter: "brightness(1)" }, { scale: 1.08, filter: "brightness(.78)", ease: "none" }, 0)
+    .fromTo(".hero .photo", { scale: 1, filter: "brightness(1)" }, { scale: 1.15, filter: "brightness(.6)", ease: "none" }, 0)
     .to(".hero-name", { yPercent: -22, ease: "none" }, 0)
     .to(".hero .strip", { opacity: 0, ease: "none" }, .5);
+
+  // descenso del dron: la sección se fija y el vídeo avanza con el scroll; la altitud baja de 120 m a 0
+  var dv = document.getElementById("droneVid"), alt = document.getElementById("droneAlt"), dWant = 0, dShown = 0, dBusy = false;
+  if (dv) {
+    dv.addEventListener("seeked", function(){ dBusy = false });
+    gsap.ticker.add(function(){
+      if (!dv.duration) return;
+      dShown += (dWant - dShown) * .25;
+      if (Math.abs(dWant - dShown) < .002) dShown = dWant;
+      if (!dBusy && Math.abs(dv.currentTime - dShown * (dv.duration - .05)) > .01) { dBusy = true; dv.currentTime = dShown * (dv.duration - .05) }
+    });
+  }
+  gsap.timeline({ scrollTrigger: { trigger: ".descent", start: "top top", end: "+=140%", scrub: .6, pin: true,
+      onUpdate: function(st){ dWant = Math.min(1, st.progress / .85); if (alt) alt.textContent = Math.round(120 * (1 - dWant)) } } })
+    .fromTo(".descent .copy", { opacity: 0, y: 30 }, { opacity: 1, y: 0, ease: "none", duration: .25 }, .65)
+    .fromTo(".descent .hud", { opacity: 1 }, { opacity: .55, ease: "none", duration: .3 }, .6)
+    .to({}, { duration: .1 });
 
   // títulos: la línea de debajo se dibuja al entrar (sin dejar el título a medias)
   U(".sec-head").forEach(function(h){
